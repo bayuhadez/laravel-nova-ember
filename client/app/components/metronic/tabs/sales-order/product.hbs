@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-12">
+        <Metronic::MPortlet as |portlet|>
+            <portlet.head>
+                {{#unless isEditingPso}}
+                    <div class="kt_portlet_head-actions ml-3">
+                        <Metronic::MButton
+                            @label={{t "product_sales_order.heading.create"}}
+                            @type="button"
+                            @class="btn-pill btn-sm"
+                            @action={{action "addProductSalesOrder"}}
+                        />
+                    </div>
+                {{/unless}}
+            </portlet.head>
+
+            <portlet.body>
+                {{#if isEditingPso}}
+                    <Metronic::Forms::MProductSalesOrder
+                        @pso={{this.pso}}
+                        @company={{this.salesOrder.company}}
+                        @save={{fn this.saveProductSalesOrder this.pso}}
+                        @salesOrder={{this.salesOrder}}
+                    />
+                {{/if}}
+
+                <MDatatable
+                    @modelName="product-sales-order"
+                    @columns={{this.columns}}
+                    @rows={{this.salesOrder.productSalesOrders}}
+                    @onEdit={{action "editProductSalesOrder"}}
+                    @onDelete={{action "removeProductSalesOrder"}}
+                    @includeParameters="product,sales-order,stock-division"
+                    @filterParameters={{this.productSalesOrdersFilterParameters}}
+                />
+
+                <p class="text-right">{{t "total"}}: {{this.salesOrder.calculateTotalProductSalesOrders}}</p>
+            </portlet.body>
+        </Metronic::MPortlet>
+    </div>
+</div>

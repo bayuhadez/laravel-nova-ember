@@ -1,0 +1,21 @@
+<div class="card mb-4 box-shadow">
+	<img class="card-img-top product-card-image" src="{{product.imageUrl}}">
+	<div class="card-body">
+		<h3>{{product.name}}</h3>
+		<p class="card-text">
+			{{markdown-to-html product.shortDescription}}
+		</p>
+		<div class="d-flex justify-content-between align-items-center">
+			<div class="btn-group">
+				{{#link-to
+					(r 'products.show')
+					product.id
+					class="btn btn-sm btn-outline-secondary"
+				}}
+					Detail
+				{{/link-to}}
+			</div>
+			<small class="text-muted">{{ product.statusLabel }}</small>
+		</div>
+	</div>
+</div>

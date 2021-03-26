@@ -1,0 +1,21 @@
+<Metronic::SubHeader @title={{t "product_stock_movement.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @includeParameters={{this.includeParameters}}
+                @refreshData={{this.refreshData}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

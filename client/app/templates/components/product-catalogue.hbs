@@ -1,0 +1,38 @@
+<div class="catalogue list-group">
+	<div class="accordion">
+
+		{{#each productCategories as |productCategory index|}}
+			<div class="card">
+				<div
+					class="card-header"
+					id="heading-category-{{productCategory.id}}"
+					data-toggle="collapse"
+					data-target="#category-{{productCategory.id}}"
+					aria-expanded="true"
+					aria-controls="collapseOne"
+				>
+					<h5 class="mb-0">
+						{{productCategory.name}}
+					</h5>
+				</div>
+
+				<div
+					id="category-{{productCategory.id}}"
+					class="collapse {{if (eq index 0) "show"}}"
+					aria-labelledby="category-{{productCategory.id}}"
+					data-parent=".accordion"
+				>
+					<div class="card-body">
+
+						{{product-category-carousel
+							productCategory=productCategory
+                            apiUrl=apiUrl
+						}}
+
+					</div>
+				</div>
+			</div>
+		{{/each}}
+
+	</div>
+</div>

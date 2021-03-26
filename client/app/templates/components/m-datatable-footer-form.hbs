@@ -1,0 +1,53 @@
+{{#table.foot rows=footerRows as |f|}}
+    {{#f.row as |r|}}
+        {{#r.cell as |cellValue columnValue rowValue cellMeta columnMeta rowMeta|}}
+            {{#if cellValue.component}}
+                {{#component cellValue.component.name
+                    cellValue=cellValue
+                    columnValue=columnValue
+                    rowValue=rowValue
+                    cellMeta=cellMeta
+                    columnValue=columnMetas
+                    rowMeta=rowMeta
+                    model=formModel
+                    showErrors=formModel.showErrors
+                }}
+                {{/component}}
+            {{else if cellValue.buttons}}
+                {{#each cellValue.buttons as |button|}}
+                    <div class="pt-3">
+                    {{#if (eq button.preset "add")}}
+                        {{metronic/m-button
+                            class="btn-icon btn-circle"
+                            icon="flaticon-plus"
+                            action=(action "addFooterRow" cellValue columnValue rowValue)
+                        }}
+                    {{/if}}
+                    </div>
+                {{/each}}
+            {{else}}
+                {{cellValue}}
+            {{/if}}
+        {{/r.cell}}
+    {{/f.row}}
+{{/table.foot}}
+
+{{!--
+{{#table.foot rows=additionalRows as |f|}}
+    {{#f.row as |r|}}
+        {{#r.cell as |cellValue columnValue rowValue cellMeta columnMeta rowMeta|}}
+            {{#if (eq columnValue.valuePath "_actionsColumn")}}
+                {{metronic/m-button
+                    class="btn-icon btn-circle btn-danger"
+                    icon="flaticon-delete"
+                    action=(action "deleteFooterRow" rowValue)
+                }}
+            {{else if cellValue}}
+                {{cellValue}}
+            {{else}}
+                {{get rowValue columnValue.valuePath}}
+            {{/if}}
+        {{/r.cell}}
+    {{/f.row}}
+{{/table.foot}}
+--}}

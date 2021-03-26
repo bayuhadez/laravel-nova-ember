@@ -1,0 +1,70 @@
+{{#metronic/pages/index-page
+    modelName=formRecordModel
+    pageTitle=(t "pre_order.identifier")
+    baseRoute="axx.purchases.pre-orders"
+    addRoute="axx.purchases.pre-orders.add"
+    datatableComponent=(component
+        "m-datatable"
+        modelName=formRecordModel
+        columns=columns
+        filterParameters=filterParameters
+        includeParameters=includeParameters
+        refreshData=refreshData
+        onDeletePreOrder=(action "deletePreOrder")
+    )
+}}
+    {{#metronic/m-portlet as |portlet|}}
+        {{#portlet.body}}
+
+            <div class="row">
+                <div class="col d-flex">
+                    <div class="flex-fill">
+                        {{#metronic/inputs/m-select
+                            label=(t "pre_order.attr.division_name")
+                            searchField="name"
+                            selected=(find-by "value" selectedFilterDivision divisionOptions)
+                            onchange=(action (mut selectedFilterDivision) value="value")
+                            renderInPlace=true
+                            options=divisionOptions as |option|
+                        }}
+                            {{option.label}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+                    {{#if selectedFilterDivision}}
+                        <div class="align-self-center">
+                            <button
+                                class="btn btn-icon"
+                                {{action (mut selectedFilterDivision) null}}>
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="col d-flex">
+                    <div class="flex-fill">
+                        {{#metronic/inputs/m-select
+                            label=(t "pre_order.attr.status")
+                            searchField="name"
+                            selected=(find-by "value" selectedFilterStatus statusOptions)
+                            onchange=(action (mut selectedFilterStatus) value="value")
+                            renderInPlace=true
+                            options=statusOptions as |option|
+                        }}
+                            {{option.label}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+                    {{#if selectedFilterStatus}}
+                        <div class="align-self-center">
+                            <button
+                                class="btn btn-icon"
+                                {{action (mut selectedFilterStatus) null}}>
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+
+        {{/portlet.body}}
+    {{/metronic/m-portlet}}
+{{/metronic/pages/index-page}}

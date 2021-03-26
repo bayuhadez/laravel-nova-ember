@@ -1,0 +1,34 @@
+<div class="form-group">
+    <label for="service-category">{{t 'service.rel.serviceCategory'}}</label>
+    {{#power-select
+        searchField="name"
+        placeholder=(t 'service.form.select')
+        selected=service.serviceCategory
+        options=category
+        onchange=(action "getCategoryId")
+        as |name|
+    }}
+        {{name.name}}
+    {{/power-select}}
+    <br>
+    {{#each category.errors.name as |error|}}
+        <div class="kt-font-danger">
+            {{error.message}}
+        </div>
+    {{/each}}
+    <button data-toggle="modal" {{ action "addCategory" }} type="button" data-target="#kt_modal_4" class="btn btn-primary btn-sm">{{t 'create'}}</button>
+
+
+    {{#metronic/modal-form title="Add New Category"}}
+            <div class="form-group">
+                <label for="recipient-name" class="form-control-label">{{t 'service.rel.serviceCategory'}}</label>
+                {{input type="text" value=newCategory.name class="form-control"}}
+                {{#each newCategory.errors.name as |error|}}
+                    <div class="kt-font-danger">
+                        {{error.message}}
+                    </div>
+                {{/each}}
+            </div>
+            <button type="button" {{action "createCategory"}} data-dismiss="modal" class="btn btn-primary">{{t 'create'}}</button>
+        {{/metronic/modal-form}}
+</div>

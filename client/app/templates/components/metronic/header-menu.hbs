@@ -1,0 +1,41 @@
+<div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
+
+    <ul class="kt-menu__nav ">
+
+        {{#each navs as |nav|}}
+            {{#if nav.subs}}
+                <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                    data-ktmenu-submenu-toggle="click"
+                    aria-haspopup="true">
+
+                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-text">{{nav.label}}</span>
+                        <i class="kt-menu__hor-arrow la la-angle-down"></i>
+                        <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                    </a>
+
+                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                        <ul class="kt-menu__subnav">
+                            {{#each nav.subs as |subNav|}}
+                                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true">
+                                    {{#link-to (r subNav.route) class="kt-menu__link "}}
+                                        <span class="kt-menu__link-text">{{subNav.label}}</span>
+                                    {{/link-to}}
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </li>
+            {{else}}
+                <li class="kt-menu__item " aria-haspopup="true">
+                    {{#link-to (r nav.route) class="kt-menu__link "}}
+                        <span class="kt-menu__link-text">{{nav.label}}</span>
+                    {{/link-to}}
+                </li>
+            {{/if}}
+
+        {{/each}}
+
+    </ul>
+
+</div>

@@ -1,0 +1,32 @@
+<Metronic::SubHeader @title={{t "sales_receipt.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.sales-receipts.add"
+                    @label={{t "sales_receipt.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName="sales-receipt"
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @includeParameters={{this.includeParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editSalesReceiptRecord}}
+                @onDelete={{this.deleteSalesReceiptRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

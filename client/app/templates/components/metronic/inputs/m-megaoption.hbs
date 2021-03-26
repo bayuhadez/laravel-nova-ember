@@ -1,0 +1,30 @@
+<div class="form-group form-group-marginless">
+    <label>{{label}}</label>
+    <div class="row">
+        {{#each options as |option|}}
+            <div class="col-lg-6">
+                <label class="kt-option">
+                    <span class="kt-option__control">
+                        <span class="kt-radio">
+                            <input type="radio" name="m_option_1" value={{option}} model={{model}} onchange={{action "setData" option}}>
+                            <span></span>
+                        </span>
+                    </span>
+                    <span class="kt-option__label">
+                        <span class="kt-option__head">
+                            <span class="kt-option__title">
+                                {{option.name}}
+                            </span>
+                            <span class="kt-optStandart Deleveryion__focus">
+                                {{option.fee}}
+                            </span>
+                        </span>
+                        <span class="kt-option__body">
+                            {{option.description}}
+                        </span>
+                    </span>
+                </label>
+            </div>
+        {{/each}}
+    </div>
+</div>

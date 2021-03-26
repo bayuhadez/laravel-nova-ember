@@ -1,0 +1,33 @@
+<Metronic::SubHeader @title={{t "sales_order.heading.index"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route={{r "sales-orders.add"}}
+                    @label={{t "sales_order.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName="sales-order"
+                @columns={{this.columns}}
+                @includeParameters={{this.includeParameters}}
+                @refreshData={{this.refreshDt}}
+                @onEdit={{this.editSalesOrder}}
+                @onDelete={{this.deleteSalesOrder}}
+                @onApprove={{this.approveSalesOrder}}
+                @onReject={{this.rejectSalesOrder}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

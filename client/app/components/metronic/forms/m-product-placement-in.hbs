@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="col-12">
+        <table class="table table-bordered">
+            <tr>
+                <td>Nama Barang</td>
+                <td>Qty</td>
+                <td>Sisa</td>
+                <td> </td>
+            </tr>
+            {{#each @productMovementReferences as |productMovementRef|}}
+                <tr>
+                    <td>{{productMovementRef.product.name}}</td>
+                    <td>{{productMovementRef.quantity}}</td>
+                    <td>{{productMovementRef.remains}}</td>
+                    <td>
+                        <Metronic::MButton
+                            @action={{action "selectProductStockMovement" productMovementRef}}
+                            @label={{"Alokasi"}}
+                            @type={{"button"}}
+                        />
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    {{#if this.selectedProductMovementReference}}
+
+        <div class="col-lg-12">
+            {{#metronic/m-portlet as |portlet|}}
+
+                {{#portlet.head}}
+                    <h3 class="kt-portlet__head-title">
+                        Daftar Alokasi Barang
+                    </h3>
+                    {{#unless this.isEditingInProductStockMovement}}
+                        <Metronic::MButton
+                            @action={{action "openInProductStockMovementForm"}}
+                            @label={{"Tambah Alokasi Barang"}}
+                            @type="button"
+                            @class="ml-3"
+                        />
+                    {{/unless}}
+                {{/portlet.head}}
+
+                {{#portlet.body}}
+                    {{#if this.isEditingInProductStockMovement}}
+                            <div class="col-12">
+                                {{#if this.productStockMovement.errors.base}}
+                                    {{metronic/m-form-errors-base-alerts
+                                        errors=productStockMovement.errors.base
+                                    }}
+                                {{/if}}
+                            </div>
+
+                            <!--begin::Form-->
+                            <form class="kt-form kt-form--label-right">
+                                <div class="row">
+                                    <div class="col-6">
+
+                                        <!-- stock division -->
+                                        <Metronic::Inputs::MSelect
+                                            @isRequired={{true}}
+                                            @label={{t "product_stock_movement.rel.stockDivision"}}
+                                            @onchange={{action (mut this.productStockMovement.stockDivision)}}
+                                            @options={{this.stockDivisions}}
+                                            @renderInPlace={{true}}
+                                            @searchField='name'
+                                            @selectType='default'
+                                            @selected={{this.productStockMovement.stockDivision}}
+                                            as |option|
+                                        >
+                                            {{option.name}}
+                                        </Metronic::Inputs::MSelect>
+
+                                        <!-- warehouse -->
+                                        <Metronic::Inputs::MSelect
+                                            @isRequired={{true}}
+                                            @label={{t "warehouse.identifier"}}
+                                            @options={{this.warehouseOptions}}
+                                            @onchange={{action "chooseWarehouse"}}
+                                            @renderInPlace={{true}}
+                                            @searchField='name'
+                                            @selectType='default'
+                                            @selected={{this.productStockMovement.warehouse}}
+                                            as |option|
+                                        >
+                                            {{option.name}}
+                                        </Metronic::Inputs::MSelect>
+
+                                        <!-- rack -->
+                                        <Metronic::Inputs::MSelect
+                                            @isRequired={{true}}
+                                            @label={{t "product_stock_movement.rel.rack"}}
+                                            @onchange={{action (mut this.productStockMovement.rack)}}
+                                            @options={{this.rackOptions}}
+                                            @renderInPlace={{true}}
+                                            @searchField='name'
+                                            @selectType='default'
+                                            @selected={{this.productStockMovement.rack}}
+                                            @disabled={{if this.productStockMovement.warehouse false true}}
+                                            as |option|
+                                        >
+                                            {{option.name}}
+                                        </Metronic::Inputs::MSelect>
+
+                                        {{#if this.productStockMovement.warehouse.racks}}
+                                        {{/if}}
+                                    </div>
+
+                                    <div class="col-6">
+
+                                        <!-- rack quantity -->
+                                        <Metronic::Inputs::MText
+                                            @label={{t "product_stock_movement.attr.rack_quantity"}}
+                                            @value={{this.productStockMovement.rack.quantity}}
+                                            @disabled={{true}}
+                                        />
+
+                                        <!-- quantity -->
+                                        <Metronic::Inputs::MText
+                                            @label={{t "product_stock_movement.attr.quantity"}}
+                                            @value={{this.productStockMovement.quantity}}
+                                        />
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        {{#if this.isUpdatingInProductStockMovement}}
+                                            <Metronic::MButton
+                                                @action={{action "editProductStockMovement"}}
+                                                @label={{t "button.update"}}
+                                                @type={{"button"}}
+                                            />
+                                        {{else}}
+                                            <Metronic::MButton
+                                                @action={{action "addProductStockMovement"}}
+                                                @label={{t "button.add"}}
+                                                @type={{"button"}}
+                                            />
+                                        {{/if}}
+                                        <Metronic::MButton
+                                            @action={{action "closeProductStockMovementForm"}}
+                                            @label={{t "button.cancel"}}
+                                            @type={{"button"}}
+                                        />
+                                    </div>
+
+                                </div>
+                            </form>
+                            <!--end::Form-->
+
+                        <div class="kt-separator kt-separator--space-md"></div>
+
+                    {{/if}}
+
+                    {{#if @purchaseReceiptIsNew}}
+                        <MDatatable
+                            @modelName='product-stock-movement'
+                            @columns={{this.columns}}
+                            @filterParameters={{@filterParameters}}
+                            @refreshData={{@refreshData}}
+                            @includeParameters={{this.includeParameters}}
+                            @fieldParameters={{this.fieldParameters}}
+                            @rows={{this.productStockMovements}}
+                            @additionalRows={{@newProductStockMovements}}
+                            @onEdit={{this.editInProductStockMovementForm}}
+                            @onDelete={{@deleteProductStockMovement}}
+                        />
+                    {{else}}
+                        <MDatatable
+                            @modelName='product-stock-movement'
+                            @columns={{this.columns}}
+                            @filterParameters={{@filterParameters}}
+                            @refreshData={{@refreshData}}
+                            @includeParameters={{this.includeParameters}}
+                            @fieldParameters={{this.fieldParameters}}
+                            @onEdit={{this.editInProductStockMovementForm}}
+                            @onDelete={{@deleteProductStockMovement}}
+                        />
+                    {{/if}}
+                {{/portlet.body}}
+            {{/metronic/m-portlet}}
+        </div>
+    {{/if}}
+</div>

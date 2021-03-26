@@ -1,0 +1,28 @@
+<div class="container">
+	<img
+		class="product-image col-12 mb-1"
+		src={{product.thumbnailUrl}}
+		alt={{product.name}}
+	>
+	<h5 class="mb-1">{{product.name}}</h5>
+	<small class="mb-1">{{product.hintText}}</small>
+	<div>{{product.price}}</div>
+
+	{{#if product.existsInShoppingCart}}
+		{{#link-to (r "shopping-cart")}}
+			<button
+				class="btn btn-primary"
+			>
+				{{t "go to cart"}}
+			</button>
+		{{/link-to}}
+	{{else}}
+		<button
+			class="btn btn-primary"
+			{{action "onAddToCartClicked"}}
+		>
+			{{t "add to cart"}}
+		</button>
+	{{/if}}
+
+</div>

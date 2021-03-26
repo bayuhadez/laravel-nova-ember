@@ -1,0 +1,34 @@
+{{metronic/sub-header title=pageTitle}}
+
+{{#metronic/m-container}}
+    {{#if (has-block)}}
+        {{yield}}
+    {{else}}
+        {{!-- list table --}}
+        {{#metronic/m-portlet as |portlet|}}
+
+            <form {{action 'submit' on="submit"}}>
+                {{#portlet.head}}
+                    <h3 class="kt-portlet__head-title">{{formTitle}}</h3>
+                {{/portlet.head}}
+
+                {{#portlet.body}}
+                    {{formComponent}}
+                {{/portlet.body}}
+
+                {{#portlet.foot}}
+                    <div class="kt-form__actions">
+                        <div class="row">
+                            <div class="col-12">
+                                {{metronic/m-button label=(t "save") type="submit"}}
+                            </div>
+                        </div>
+                    </div>
+                {{/portlet.foot}}
+            </form>
+
+        {{/metronic/m-portlet}}
+
+        {{outlet}}
+    {{/if}}
+{{/metronic/m-container}}

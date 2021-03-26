@@ -1,0 +1,33 @@
+<Metronic::Breadcrumbs 
+    @breadcrumbs={{this.breadcrumbs}}/>
+
+{{#metronic/m-portlet as |portlet|}}
+
+    <form {{action "saveWarehouseForm" on="submit"}}>
+        {{#portlet.head}}
+            <h3 class="kt-portlet__head-title">{{t "warehouse.heading.add"}}</h3>
+        {{/portlet.head}}
+
+        {{#portlet.body}}
+            {{metronic/forms/m-warehouse
+                warehouse=warehouse
+                companyOptions=companyOptions
+                warehouseCategoryOptions=warehouseCategoryOptions
+                newRacks=newRacks
+                warehouseShowErrors=warehouseShowErrors
+                rackShowErrors=rackShowErrors
+            }}
+        {{/portlet.body}}
+
+        {{#portlet.foot}}
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        {{metronic/m-button label=(t "save") type="submit"}}
+                    </div>
+                </div>
+            </div>
+        {{/portlet.foot}}
+    </form>
+
+{{/metronic/m-portlet}}

@@ -1,0 +1,43 @@
+@import "ember-modal-dialog/ember-modal-structure.css";
+@import "ember-modal-dialog/ember-modal-appearance.css";
+
+.custom-modal-overlay {
+    z-index: 100;
+}
+
+.custom-modal-container {
+    z-index: 101;
+    width: 1080px;
+    max-height: 95vh;
+    overflow-y: auto !important;
+}
+
+.dt-thumbnail{
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.models-table-wrapper td{
+    vertical-align: middle !important;
+}
+
+#quick-add-menu .modal-dialog {
+    top: 12rem;
+    left: -20%;
+}
+
+#quick-add-button {
+    transition: .5s !important;
+}
+
+.zoom-thumbnail {
+    cursor : zoom-in;
+}
+
+.in-datatable-dropdown {
+    position: relative;
+}
+
+.table thead th {
+    vertical-align: top !important;
+}

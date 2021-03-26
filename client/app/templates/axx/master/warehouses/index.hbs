@@ -1,0 +1,30 @@
+{{metronic/sub-header title=(t 'warehouse.heading.index')}}
+
+{{#metronic/m-container}}
+
+    {{#metronic/m-portlet as |portlet|}}
+
+        {{#portlet.head}}
+            <div class="kt_portlet__head-actions">
+                {{metronic/m-button
+                    route="axx.master.warehouses.add"
+                    label=(t "warehouse.heading.add")}}
+            </div>
+        {{/portlet.head}}
+
+        {{#portlet.body}}
+            {{m-datatable
+                modelName="warehouse"
+                refreshData=refreshDt
+                columns=columns
+                filterParameters=filterParameters
+                includeParameters=includeParameters
+                onEdit=(action "editWarehouse")
+                onDelete=(action "deleteWarehouse")
+            }}
+
+        {{/portlet.body}}
+
+    {{/metronic/m-portlet}}
+
+{{/metronic/m-container}}

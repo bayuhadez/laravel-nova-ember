@@ -1,0 +1,118 @@
+<div class="album py-5 bg-light">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="row">
+
+					<div class="col-sm">
+						<div class="card card-nav-tabs">
+							<h1 class="card-header card-header-info">
+								{{order.paymentId}}
+							</h1>
+							<div class="card-body">
+								<h4 class="card-title">Detail Order</h4>
+								<table class="table table-borderless">
+									<tbody>
+										<tr>
+											<th scope="row">Total Harga</th>
+											<td>{{order.formattedGrossAmount}}</td>
+										</tr>
+										<tr>
+											<th scope="row">{{titleize (t "status")}}</th>
+											<td>{{titleize order.statusText}}</td>
+										</tr>
+									</tbody>
+								</table>
+
+								{{#if order.transaction}}
+									<h4 class="card-title">Detail Pembayaran</h4>
+									<table class="table table-borderless">
+										<tbody>
+											<tr>
+												<th scope="row">Type</th>
+												<td>{{titleize order.transaction.paymentType}}</td>
+											</tr>
+											<tr>
+												<th scope="row">Status</th>
+												<td>{{titleize order.paymentStatusText}}</td>
+											</tr>
+
+											{{#if order.transaction.bank}}
+												<tr>
+													<th scope="row">Bank</th>
+													<td>{{uppercase order.transaction.bank}} </td>
+												</tr>
+											{{/if}}
+
+											{{#if order.transaction.vaNumber}}
+												<tr>
+													<th scope="row">Account No.</th>
+													<td>{{uppercase order.transaction.vaNumber}} </td>
+												</tr>
+											{{/if}}
+
+											{{#if order.transaction.instructionPdfUrl}}
+												<tr>
+													<th scope="row">Instruksi Pembayaran</th>
+													<td>
+														<a href="{{order.transaction.instructionPdfUrl}}"
+															target="_blank"
+															class="btn btn-info"
+														>
+															{{titleize (t "button.download")}}
+														</a>
+													</td>
+												</tr>
+											{{/if}}
+										</tbody>
+									</table>
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-8">
+				{{#if order.orderDetails}}
+					{{#each order.orderDetails as |orderDetail|}}
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<img
+											src={{orderDetail.product.imageUrl}}
+											class="w-100"
+											alt={{orderDetail.name}}
+										>
+									</div>
+									<div class="product-detail col-sm-5 text-truncate">
+										<b>{{orderDetail.name}}</b><br>
+										{{t "Speaker :"}} {{orderDetail.product.speakerName}}
+									</div>
+									<div class="product-price col-sm-3">
+										<div class="row">
+											<div class="col-sm">
+												<b>{{orderDetail.formattedPrice}}</b>
+											</div>
+											<div class="col-sm">
+												<div class="btn-group">
+													{{#link-to (r 'products.show') orderDetail.product.id class="btn btn-sm btn-outline-secondary"}}Detail{{/link-to}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{{/each}}
+				{{else}}
+					{{t "nothing in this list"}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</div>
+
+{{outlet}}

@@ -1,0 +1,14 @@
+<Metronic::Pages::PageWithTitle @title={{t "sales_order.heading.edit"}}>
+
+    <Metronic::PortletForms::MSalesOrder
+        @title={{t "sales_order.heading.edit"}}
+        @salesOrder={{this.salesOrder}}
+        @companyOptions={{this.companyOptions}}
+        @customerOptions={{this.customerOptions}}
+        @salesOptions={{this.salesOptions}}
+        @warehouseStaffOptions={{this.warehouseStaffOptions}}
+        @saveAsDraft={{this.save}}
+        @saveAsFinished={{this.saveAsFinished}}
+    />
+
+</Metronic::Pages::PageWithTitle>

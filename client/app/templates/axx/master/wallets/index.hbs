@@ -1,0 +1,54 @@
+<Metronic::SubHeader @title={{t "wallet.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        {{#unless this.isEditingWallet}}
+            <portlet.head>
+                <div class="kt_portlet__head-actions">
+                    <Metronic::MButton
+                        @action={{this.addWallet}}
+                        @label={{t "button.add"}}
+                        />
+                </div>
+            </portlet.head>
+        {{/unless}}
+
+        <portlet.body>
+            {{#if this.isEditingWallet}}
+                <Metronic::Forms::Wallet
+                    @wallet={{changeset this.walletFormModel this.WalletValidator}}
+                    @submitAction={{this.saveWalletForm}}
+                    @showErrors={{this.showErrors}}
+                />
+            {{/if}}
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @includeParameters={{this.includeParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editWalletRecord}}
+                @onDelete={{this.deleteWalletRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>
+
+{{#if isAssigningWallet}}
+    {{#modal-dialog
+        onClose=(action "closeAssignCompanyWalletModal")
+        clickOutsideToClose=true
+        translucentOverlay=true
+        overlayClass="custom-modal-overlay"
+        containerClass="custom-modal-container"}}
+            <Metronic::Forms::AssignCompanyWallet
+                @wallet={{this.assignWalletFormModel}}
+                @submitAction={{this.saveAssignCompanyWalletForm}}
+                />
+    {{/modal-dialog}}
+{{/if}}

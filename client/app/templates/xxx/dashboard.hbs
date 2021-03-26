@@ -1,0 +1,97 @@
+{{top-banner banners=banners}}
+
+<div class="container main-container">
+
+	<div class="row no-gutters mb-5 featured-products mt-5">
+		<div class="col-lg-4">
+			<div class="featured-text ml-2 mr-2 text-center p-4">
+				<p class="title">Kelas terbaru dan pilihan</p>
+				<p>Mulailah pilih seminarmu sekarang dan dapatkan materi terbaik dari permbicara profesional</p>
+			</div>
+		</div>
+
+		{{#each topFeaturedProducts as |product|}}
+			<div class="col-lg-2" {{action "goToProductDetail" product.id}}>
+				<div class="product-card h-100 ml-2 mr-2">
+					<img class="card-img-top product-slider-image" src={{ product.imageUrl }} alt="product image">
+					<div class="p-2">
+						<p class="title mt-0 mb-0">{{ product.name }}</p>
+						<p class="speaker">{{ product.speakerName }}</p>
+						<p class="price">{{ product.formattedPrice }}</p>
+					</div>
+				</div>
+			</div>
+		{{/each}}
+
+	</div>
+
+	<div class="row no-gutters featured-products">
+		{{#each otherFeaturedProducts as |product|}}
+			<div class="col-lg-2" {{action "goToProductDetail" product.id}}>
+				<div class="product-card h-100 ml-2 mr-2">
+					<img class="card-img-top product-slider-image" src={{ product.imageUrl }} alt="product image">
+					<div class="p-2">
+						<p class="title mt-0 mb-0">{{ product.name }}</p>
+						<p class="speaker">{{ product.speakerName }}</p>
+						<p class="price">{{ product.formattedPrice }}</p>
+					</div>
+				</div>
+			</div>
+		{{/each}}
+	</div>
+
+	<div class="row no-gutters mb-4 mt-1 featured-products">
+		{{#if hasMoreLink}}
+			<div class="col-auto mr-auto"></div>
+			<div class="col-auto mr-2 font-weight-bold">
+				{{#link-to (r "products")}}
+					<span class="text-dark">more ...</span>
+				{{/link-to}}
+			</div>
+		{{/if}}
+	</div>
+
+</div>
+
+<div class="callout pt-4 mb-5">
+	<div class="container main-container">
+		<div class="row no-gutters text-center">
+			<div class="col-sm-3 mascot pb-lg-5 mb-lg-5">
+				<img src="{{rootUrl}}assets/img/maskot-xxx-room-sm.png" alt="mascot">
+			</div>
+			{{#unless currentUser.user.isMentor}}
+				<div class="col-sm-6 pt-lg-5 mt-5 mb-3">
+					<div class="title mt-4">Ayo ikut seminar sekarang</div>
+					<div class="subtitle mb-3">Click tombol di bawah ini</div>
+					{{#link-to (r "products") class="btn"}}SEMINAR{{/link-to}}
+				</div>
+			{{/unless}}
+		</div>
+	</div>
+</div>
+{{#if sponsors}}
+	<div class="container">
+		<section>
+			<h2 class="text-center">Our Sponsor & Partner</h2>
+			<ul class="product-sponsors-container">
+				{{#each platinumSponsors as |sponsor|}}
+					<li>
+						<img src={{ sponsor.imageUrl }} width="262" height="128" alt="sponsor image">
+					</li>
+				{{/each}}
+			</ul>
+		</section>
+
+		<section>
+			<ul class="product-sponsors-container">
+				{{#each goldSponsors as |sponsor|}}
+					<li>
+						<img src={{ sponsor.imageUrl }} width="179" height="88" alt="sponsor image">
+					</li>
+				{{/each}}
+			</ul>
+		</section>
+	</div>
+{{/if}}
+
+{{outlet}}

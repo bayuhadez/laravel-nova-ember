@@ -1,0 +1,19 @@
+{{metronic/pages/crud-page
+    formRecord=formRecord
+    modelName='supplier-category'
+    pageTitle=(t 'supplier_category.identifier')
+    modalFormTitle=(t (if
+        formRecord.isNew
+        "supplier_category.heading.create"
+        "supplier_category.heading.edit")
+    )
+    formComponent=(component
+        'metronic/forms/m-supplier-category'
+        supplierCategory=formRecord
+    )
+    datatableComponent=(component
+        'm-datatable'
+        modelName="supplier-category"
+        columns=columns)
+    onSaveRecord=(action 'onSaveRecord')
+}}

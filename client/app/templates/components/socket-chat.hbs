@@ -1,0 +1,35 @@
+<div class="live-chat-header text-center">
+	<div class="title">{{title}}</div>
+	<div class="subtitle">{{t "by"}} : {{subtitle}}</div>
+</div>
+
+<div class="live-chat-messages flex-grow-1 p-2">
+	{{#each chatRoom.chats as |chat|}}
+	<p class="mb-0"><b>{{chat.senderName}} :</b> {{chat.message}}</p>
+	{{/each}}
+</div>
+
+<div class="live-chat-form p-2 w-100">
+	<form {{action 'sendMessage' on='submit'}} class='mb-0'>
+		<div class="input-group">
+			{{textarea
+				value=message
+				class="form-control"
+				maxlength=200
+				placeholder=(t "say something")
+			}}
+
+			<div class="input-group-append">
+				<span class="input-group-text">
+					<i class="material-icons"
+						{{action 'sendMessage'}}
+					>
+						send
+					</i>
+				</span>
+			</div>
+
+		</div>
+		<button class="d-none">Send</button>
+	</form>
+</div>

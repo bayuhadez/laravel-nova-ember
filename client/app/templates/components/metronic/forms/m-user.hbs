@@ -1,0 +1,130 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            {{#metronic/inputs/m-select
+                label=(t "user.rel.person")
+                searchField="fullname"
+                selected=user.person
+                onchange=(action (mut user.person))
+                renderInPlace=true
+                options=people
+                as |option|
+            }}
+
+                {{option.fullname}}
+
+            {{/metronic/inputs/m-select}}
+
+            {{metronic/inputs/m-text
+                value=user.email
+                label=(t 'user.attr.email')
+                errors=user.errors.email
+            }}
+
+            {{metronic/inputs/m-text
+                value=user.username
+                label=(t 'user.attr.username')
+                errors=user.errors.username
+            }}
+            {{metronic/inputs/m-text
+                value=user.password
+                type='password'
+                label=(t 'user.attr.password')
+                errors=user.errors.password
+            }}
+            {{metronic/inputs/m-text
+                value=user.passwordConfirmation
+                type='password'
+                label=(t 'user.attr.password_confirmation')
+                errors=user.errors.passwordConfirmation
+            }}
+
+            {{#each user.companyUsers as |companyUser|}}
+                <div class="row">
+                    <div class="col">
+                        {{#metronic/inputs/m-select
+                            label=(t "user.rel.companies")
+                            searchField="name"
+                            selected=companyUser.company
+                            onchange=(action "onSelectCompanyUser" companyUser)
+                            renderInPlace=true
+                            options=companyOptions
+                        as |option|
+                        }}
+                            {{option.name}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+
+                    <div class="col">
+                        {{metronic/inputs/m-text
+                            label=(t 'company.attr.division')
+                            value=companyUser.company.divisionName
+                            readonly=true
+                        }}
+                    </div>
+
+                    <div class="col">
+                        {{#metronic/inputs/m-select
+                            label=(t "user.rel.roles")
+                            searchField="name"
+                            selected=companyUser.roles
+                            onchange=(action (mut companyUser.roles))
+                            selectType="multiple"
+                            renderInPlace=true
+                            options=roles
+                        as |option|
+                        }}
+                            {{option.name}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+
+                    <div class="col d-flex">
+                        <div class="flex-fill">
+                            {{#metronic/inputs/m-select
+                                label=(t "user.rel.stockDivisions")
+                                searchField="stockDivision.name"
+                                selected=companyUser.stockDivisions
+                                onchange=(action (mut companyUser.stockDivisions))
+                                selectType="multiple"
+                                renderInPlace=true
+                                options=companyUser.company.stockDivisions
+                            as |option|
+                            }}
+                                {{option.name}}
+                            {{/metronic/inputs/m-select}}
+                        </div>
+
+                        {{#if companyUser.company}}
+                            <div class="align-self-center ml-2">
+                                <button
+                                    class="btn btn-icon btn-circle btn-danger"
+                                    {{action "deleteCompanyUser" companyUser}}>
+                                    <i class="flaticon-delete"></i>
+                                </button>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+            {{/each}}
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+</Metronic::MPortlet>

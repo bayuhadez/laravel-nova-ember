@@ -1,0 +1,19 @@
+{{#if (has-block)}}
+    {{yield}}
+{{else}}
+    <div class="form-group">
+        <label for="textarea-input">{{label}}</label>
+        {{textarea readonly=readonly disabled=disabled class=inputClass rows=rows value=value}}
+        {{#if showErrors}}
+            <div class="kt-font-danger">
+                {{errorMessages}}
+            </div>
+        {{/if}}
+
+        {{#each errors as |error|}}
+            <div class="kt-font-danger">
+                {{error.message}}
+            </div>
+        {{/each}}
+    </div>
+{{/if}}

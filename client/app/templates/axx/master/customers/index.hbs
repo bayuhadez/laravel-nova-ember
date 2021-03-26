@@ -1,0 +1,31 @@
+{{metronic/sub-header title=(t 'customer.heading.index')}}
+
+{{#metronic/m-container}}
+
+    {{#metronic/m-portlet as |portlet|}}
+
+        {{#portlet.head}}
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.customers.add"
+                    @label={{t "customer.heading.add"}}
+                    />
+            </div>
+        {{/portlet.head}}
+
+        {{#portlet.body}}
+            <MDatatable
+                @modelName="customer"
+                @refreshData={{this.refreshDt}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @includeParameters={{this.includeParameters}}
+                @onEdit={{fn this.editCustomer}}
+                @onDelete={{fn this.deleteCustomer}}
+                />
+
+        {{/portlet.body}}
+
+    {{/metronic/m-portlet}}
+
+{{/metronic/m-container}}

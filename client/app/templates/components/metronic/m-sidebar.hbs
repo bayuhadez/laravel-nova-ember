@@ -1,0 +1,114 @@
+<div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" onmouseover={{action "onHover" true}} onmouseout={{action "onHover" false}} id="kt_aside">
+
+    {{!-- begin:: Aside Menu --}}
+    <div class="kt-aside-menu-wrapper
+        kt-grid__item kt-grid__item--fluid"
+        id="kt_aside_menu_wrapper">
+        <div id="kt_aside_menu"
+            class="kt-aside-menu"
+            data-ktmenu-vertical="1"
+            data-ktmenu-scroll="1"
+            data-ktmenu-dropdown-timeout="500">
+            <ul class="kt-menu__nav ">
+                <li class="kt-menu__item" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                    {{metronic/quick-add-menu
+                        icon="flaticon2-plus"
+                        label="New"
+                    }}
+                </li>
+
+                {{#each navs as |nav|}}
+                    {{#if nav.subFirst}}
+                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                            <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                {{#if nav.icon}}
+                                    <i class="kt-menu__link-icon {{nav.icon}}"></i>
+                                {{/if}}
+                                {{#if nav.label}}
+                                    <span class="kt-menu__link-text">{{nav.label}}</span><span class="kt-menu__link-badge"></span>
+                                {{/if}}
+                                <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                <ul class="kt-menu__subnav">
+                                    {{#each nav.subFirst as |subNav|}}
+                                        {{#if subNav.subSecond }}
+                                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
+                                                    <span class="kt-menu__link-text">{{subNav.label}}<</span>
+                                                    <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                                                </a>
+                                                <div class="kt-menu__submenu ">
+                                                    <span class="kt-menu__arrow"></span>
+                                                    {{#each subNav.subSecond as |subNav2|}}
+                                                        <ul class="kt-menu__subnav">
+                                                            <li class="kt-menu__item " aria-haspopup="true">
+                                                                {{#if subNav2.params}}
+                                                                    {{#link-to params=subNav2.params class="kt-menu__link"}}
+                                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                                        <span class="kt-menu__link-text">{{subNav2.label}}</span>
+                                                                    {{/link-to}}
+                                                                {{else}}
+                                                                    {{#link-to (r subNav2.route) class="kt-menu__link"}}
+                                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                                        <span class="kt-menu__link-text">{{subNav2.label}}</span>
+                                                                    {{/link-to}}
+                                                                {{/if}}
+                                                            </li>
+                                                        </ul>
+                                                    {{/each}}
+                                                </div>
+                                            </li>
+                                        {{else}}
+                                            <li class="kt-menu__item " aria-haspopup="true">
+                                                {{#if subNav.params}}
+                                                    {{#link-to params=subNav.params class="kt-menu__link"}}
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
+                                                        <span class="kt-menu__link-text">{{subNav.label}}</span>
+                                                    {{/link-to}}
+                                                {{else}}
+                                                    {{#link-to (r subNav.route) class="kt-menu__link"}}
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
+                                                        <span class="kt-menu__link-text">{{subNav.label}}</span>
+                                                    {{/link-to}}
+                                                {{/if}}
+                                            </li>
+                                        {{/if}}
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </li>
+                    {{else}}
+                        <li class="kt-menu__item" aria-haspopup="true">
+                            {{#if nav.params}}
+                                {{#link-to params=nav.params class="kt-menu__link"}}
+                                    {{#if nav.icon}}
+                                        <i class="kt-menu__link-icon {{nav.icon}}"></i>
+                                    {{/if}}
+                                    {{#if nav.label}}
+                                        <span class="kt-menu__link-text">{{nav.label}}</span>
+                                    {{/if}}
+                                {{/link-to}}
+                            {{else}}
+                                {{#link-to (r nav.route) class="kt-menu__link"}}
+                                    {{#if nav.icon}}
+                                        <i class="kt-menu__link-icon {{nav.icon}}"></i>
+                                    {{/if}}
+                                    {{#if nav.label}}
+                                        <span class="kt-menu__link-text">{{nav.label}}</span>
+                                    {{/if}}
+                                {{/link-to}}
+                            {{/if}}
+                        </li>
+                    {{/if}}
+                {{/each}}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    {{!-- end:: Aside Menu --}}
+</div>

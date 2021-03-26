@@ -1,0 +1,116 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form>
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+            {{#if requestOrder.errors.base}}
+                {{metronic/m-form-errors-base-alerts errors=requestOrder.errors.base}}
+            {{/if}}
+        </portlet.head>
+
+        <portlet.body>
+            <div class="row">
+                <div class="col-lg-6">
+                    {{#metronic/inputs/m-select
+                        isRequired=true
+                        label=(t "request_order.rel.company")
+                        onchange=(action (mut requestOrder.company))
+                        options=companies
+                        renderInPlace=true
+                        searchField="name"
+                        selectType="default"
+                        selected=requestOrder.company
+                        as |option|
+                    }}
+                        {{option.name}}
+                    {{/metronic/inputs/m-select}}
+
+                    {{metronic/inputs/m-text
+                        label=(t "request_order.attr.division_name")
+                        value=requestOrder.company.divisionName
+                        disabled=true
+                    }}
+
+                    {{metronic/inputs/m-text
+                        label=(t "request_order.attr.updated_at")
+                        value=updatedAt
+                        disabled=true
+                    }}
+                </div>
+
+                <div class="col-lg-6">
+                    {{metronic/inputs/m-text
+                        label=(t "request_order.attr.user_name")
+                        value=user.fullname
+                        disabled=true
+                    }}
+
+                    {{metronic/inputs/m-text
+                        label=(t "request_order.attr.staff_position")
+                        value=user.person.staff.position
+                        disabled=true
+                    }}
+
+                    {{metronic/inputs/m-text
+                        label=(t "request_order.attr.number")
+                        value=requestOrder.number
+                        errors=requestOrder.errors.number
+                    }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                {{m-datatable
+                    modelName='request-order-product'
+                    columns=columns
+                    refreshData=refreshData
+                    filterParameters=filterParameters
+                    additionalRows=newRequestOrderProducts
+                    onEdit=(action "editRequestOrderProductRecord")
+                    onDelete=(action "deleteRequestOrderProductRecord")
+                    footerComponent=(component
+                        "m-datatable-footer-form"
+                        footerRows=footerRows
+                        formModel=newRequestOrderProduct
+                        formModelName='request-order-product'
+                        onAdd=(action "addRequestOrderProduct")
+                        parentModel=requestOrder
+                    )
+                }}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    {{metronic/inputs/m-text
+                        label=(t "request_order.attr.memo")
+                        value=requestOrder.memo
+                        errors=requestOrder.errors.memo
+                    }}
+                </div>
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "draft"}}
+                            {{action "submitAsDraft"}}
+                        />
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @disabled={{this.disabledSubmitAsROButton}}
+                            {{action "submitAsRO"}}
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    
+    </form>
+
+</Metronic::MPortlet>

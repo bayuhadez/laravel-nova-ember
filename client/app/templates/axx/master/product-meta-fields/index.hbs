@@ -1,0 +1,31 @@
+<Metronic::SubHeader @title={{t "product_meta_field.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.product-meta-fields.add"
+                    @label={{t "product_meta_field.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editProductMetaFieldRecord}}
+                @onDelete={{this.deleteProductMetaFieldRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

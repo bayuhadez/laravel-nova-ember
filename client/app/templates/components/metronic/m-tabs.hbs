@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs {{if (active) 'active'}}" role="tablist">
+    {{#each-in tabs as |id label|}}
+        {{@index}}
+        <li class="nav-item">
+            <a class="nav-link"
+                data-toggle="tab"
+                href="#"
+                data-target="#{{id}}">
+                {{label}}
+            </a>
+        </li>
+    {{/each-in}}
+</ul>
+
+<div class="tab-content">
+    {{yield}}
+</div>

@@ -1,0 +1,19 @@
+{{metronic/pages/crud-page
+    formRecord=formRecord
+    modelName=formRecordModel
+    pageTitle=(t "staff-category.identifier")
+    modalFormTitle=(t (if
+        formRecord.isNew
+        "staff-category.heading.create"
+        "staff-category.heading.edit"))
+    formComponent=(component
+        "metronic/forms/m-staff-category"
+        staffCategory=formRecord)
+    datatableComponent=(component
+        "m-datatable"
+        modelName=formRecordModel
+        columns=columns
+        filterParameters=filterParameters
+        refreshData=refreshData)
+    onSaveRecord=(action "onSaveRecord")
+}}

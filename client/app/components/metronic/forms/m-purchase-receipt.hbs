@@ -1,0 +1,292 @@
+<div class="row">
+    <div class="col-lg-12">
+
+        {{#if purchaseReceipt.errors.base}}
+            {{metronic/m-form-errors-base-alerts errors=purchaseReceipt.errors.base}}
+        {{/if}}
+
+        <!--begin::Form-->
+        <form class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-lg-4">
+
+                    <Metronic::Inputs::MSelect
+                        @isRequired={{true}}
+                        @label={{t "purchase_receipt.rel.company"}}
+                        @onchange={{action (mut @purchaseReceipt.company)}}
+                        @options={{@companies}}
+                        @renderInPlace={{true}}
+                        @searchField='name'
+                        @selectType='default'
+                        @selected={{@purchaseReceipt.company}}
+                        as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.division"}}
+                        @value={{@purchaseReceipt.company.divisionName}}
+                        @disabled={{true}}
+                    />
+
+                    <Metronic::Inputs::MText
+                        @label={{t "purchase_receipt.attr.number"}}
+                        @value={{@purchaseReceipt.number}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{v-get @purchaseReceipt "number" "messages"}}
+                    />
+
+                    <Metronic::Inputs::MDatepicker
+                        @label={{t "purchase_receipt.attr.receipted_at"}}
+                        @value={{@purchaseReceipt.receiptedAt}}
+                        @autocomplete="off"
+                        @readonly={{true}}
+                        @onSelection={{action (mut @purchaseReceipt.receiptedAt)}}
+                    />
+
+                    <Metronic::Inputs::MSelect
+                        @label={{t "purchase_receipt.rel.supplier"}}
+                        @onchange={{action (mut @transactionReceipt.supplier)}}
+                        @options={{@suppliers}}
+                        @renderInPlace={{true}}
+                        @searchField="company.name"
+                        @selectType="default"
+                        @selected={{@transactionReceipt.supplier}}
+                        @allowClear={{true}}
+                        as |option|
+                        >
+                        {{option.company.name}}
+                    </Metronic::Inputs::MSelect>
+
+                    <Metronic::Inputs::MDatepicker
+                        @label={{t "purchase_receipt.attr.delivery_order_at"}}
+                        @value={{@purchaseReceipt.deliveryOrderAt}}
+                        @autocomplete="off"
+                        @readonly={{true}}
+                        @onSelection={{action (mut @purchaseReceipt.deliveryOrderAt)}}
+                    />
+                </div>
+
+                <div class="col-lg-4">
+
+                    <Metronic::Inputs::MSelect
+                        @allowClear={{true}}
+                        @label={{t "purchase_receipt.rel.currency"}}
+                        @onchange={{action (mut @purchaseReceipt.currency)}}
+                        @options={{this.currencies}}
+                        @renderInPlace={{true}}
+                        @searchField="code"
+                        @selectType="default"
+                        @selected={{@purchaseReceipt.currency}}
+                        as |option|
+                        >
+                        {{option.code}}
+                    </Metronic::Inputs::MSelect>
+
+                    <Metronic::Inputs::MText
+                        @type="number"
+                        @label={{t "purchase_receipt.attr.currency_rate"}}
+                        @value={{@purchaseReceipt.currencyRate}}
+                    />
+
+                    <Metronic::Inputs::MText
+                        @label={{t "purchase_receipt.attr.son_number"}}
+                        @value={{@purchaseReceipt.sonNumber}}
+                    />
+
+                    <Metronic::Inputs::MSelect
+                        @isRequired={{true}}
+                        @label={{t "purchase_receipt.attr.is_ppn"}}
+                        @onchange={{action "choosePpnType"}}
+                        @options={{@purchaseReceipt.ppnTypes}}
+                        @renderInPlace={{true}}
+                        @searchEnabled={{false}}
+                        @searchField="name"
+                        @selectType="default"
+                        @selected={{@purchaseReceipt.selectedPpnType}}
+                        as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+
+                    <Metronic::Inputs::MText
+                        @label={{t "purchase_receipt.attr.delivery_order_number"}}
+                        @value={{@purchaseReceipt.deliveryOrderNumber}}
+                    />
+
+                    <Metronic::Inputs::MDatepicker
+                        @label={{t "purchase_receipt.attr.receipt_letter_at"}}
+                        @value={{@purchaseReceipt.receiptLetterAt}}
+                        @autocomplete="off"
+                        @readonly={{true}}
+                        @onSelection={{action (mut @purchaseReceipt.receiptLetterAt)}}
+                    />
+
+                </div>
+                <div class="col-lg-4">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "purchase_receipt.attr.rounding_value"}}
+                        @onchange={{action "chooseRoundingValue"}}
+                        @options={{@purchaseReceipt.roundingValues}}
+                        @renderInPlace={{true}}
+                        @searchField="name"
+                        @selectType="default"
+                        @selected={{@purchaseReceipt.selectedRoundingValue}}
+                        @searchEnabled={{false}}
+                        @allowClear={{true}}
+                        as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+
+                    <Metronic::Inputs::MSelect
+                        @label={{t "purchase_receipt.attr.rounding_type"}}
+                        @onchange={{action "chooseRoundingType"}}
+                        @options={{@purchaseReceipt.roundingTypes}}
+                        @renderInPlace={{true}}
+                        @searchField="name"
+                        @selectType="default"
+                        @selected={{@purchaseReceipt.selectedRoundingType}}
+                        @searchEnabled={{false}}
+                        @allowClear={{true}}
+                        as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+
+                    <Metronic::Inputs::MDatepicker
+                        @label={{t "purchase_receipt.attr.due_at"}}
+                        @value={{@purchaseReceipt.dueAt}}
+                        @autocomplete="off"
+                        @readonly={{true}}
+                        @errors={{@purchaseReceipt.errors.dueAt}}
+                        @onSelection={{action (mut @purchaseReceipt.dueAt)}}
+                    />
+
+                    <Metronic::Inputs::MText
+                        @disabled={{true}}
+                        @label={{t "purchase_receipt.rel.createdBy"}}
+                        @value={{@purchaseReceipt.createdBy.fullname}}
+                    />
+
+                    <Metronic::Inputs::MText
+                        @label={{t "purchase_receipt.attr.tax_invoice_number"}}
+                        @value={{@purchaseReceipt.taxInvoiceNumber}}
+                    />
+
+                </div>
+            </div>
+
+            <div class="kt-separator kt-separator--space-md"></div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                {{#metronic/m-portlet as |portlet|}}
+
+                    {{#portlet.head}}
+                        <h3 class="kt-portlet__head-title">{{t "pre_order.identifier"}}</h3>
+                        {{#unless @isPoEditing }}
+                            <Metronic::MButton
+                                @action={{@openPreOrderModal}}
+                                @disabled={{@isPreOrderModalDisabled}}
+                                @label={{t "pre_order.heading.create"}}
+                                @class="ml-3"
+                                @type="button"
+                            />
+                        {{/unless}}
+                    {{/portlet.head}}
+
+                    {{#portlet.body}}
+                        <MDatatable
+                            @modelName='pre-order'
+                            @columns={{this.preOrderColumns}}
+                            @filterParameters={{this.preOrderFilterParameters}}
+                            @additionalRows={{@preOrders}}
+                            @refreshData={{@preOrderRefreshData}}
+                            @onDelete={{@deletePreOrder}}
+                        />
+                    {{/portlet.body}}
+                {{/metronic/m-portlet}}
+                </div>
+            </div>
+
+            <div class="kt-separator kt-separator--space-md"></div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                {{#metronic/m-portlet as |portlet|}}
+
+                    {{#portlet.head}}
+                        <h3 class="kt-portlet__head-title">
+                            {{t "product_transaction_receipt.identifier"}}
+                        </h3>
+                        {{#unless this.isEditingProductTransactionReceipt}}
+                            <Metronic::MButton
+                                @action={{action "editProductTransactionReceiptRecord"}}
+                                @label={{t "product_transaction_receipt.heading.create"}}
+                                @type="button"
+                                @class="ml-3"
+                            />
+                        {{/unless}}
+                    {{/portlet.head}}
+
+                    {{#portlet.body}}
+                        {{#if this.isEditingProductTransactionReceipt}}
+                            <Metronic::Forms::MProductTransactionReceipt
+                                @purchaseReceipt={{@purchaseReceipt}}
+                                @productTransactionReceipt={{this.productTransactionReceipt}}
+                                @addProductTransactionReceipt={{action "addProductTransactionReceipt"}}
+                                @cancelProductTransactionReceipt={{action "cancelProductTransactionReceipt"}}
+                                @showErrors={{this.productTransactionReceiptShowErrors}}
+                            />
+                        {{/if}}
+
+                        <MDatatable
+                            @modelName='product-transaction-receipt'
+                            @columns={{this.columns}}
+                            @filterParameters={{this.filterParameters}}
+                            @refreshData={{@refreshData}}
+                            @includeParameters={{this.includeParameters}}
+                            @rows={{@productTransactionReceiptRows}}
+                            @additionalRows={{@newProductTransactionReceipts}}
+                            @onDelete={{action "deleteProductTransactionReceiptRecord"}}
+                            @onEdit={{action "editProductTransactionReceiptRecord"}}
+                        />
+                    {{/portlet.body}}
+                {{/metronic/m-portlet}}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MText
+                        @disabled={{true}}
+                        @label={{t "purchase_receipt.form.total"}}
+                        @value={{@subTotal}}
+                    />
+                    <Metronic::Inputs::MText
+                        @label={{t "purchase_receipt.attr.discounts"}}
+                        @value={{@purchaseReceipt.discounts}}
+                    />
+                    <Metronic::Inputs::MText
+                        @disabled={{true}}
+                        @label={{t "purchase_receipt.form.ppn"}}
+                        @value={{@ppn}}
+                    />
+                    <Metronic::Inputs::MText
+                        @disabled={{true}}
+                        @label={{t "purchase_receipt.form.grand_total"}}
+                        @value={{@grandTotal}}
+                    />
+                </div>
+                <div class="col-lg-6">
+                    &nbsp;
+                </div>
+            </div>
+
+        </form>
+        <!--end::Form-->
+
+    </div>
+</div>

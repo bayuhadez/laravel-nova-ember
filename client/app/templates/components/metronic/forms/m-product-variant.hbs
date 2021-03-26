@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="form-group col">
+        <label class="form-control-label">{{t 'product.rel.productSize'}}</label>
+       {{#power-select
+            searchField="name"
+            placeholder=(t 'product.rel.productSize')
+            selected=product.productSize
+            options=productSizes
+            onchange=(action "changeProductSize")
+            as |name|
+        }}
+            {{name.name}}
+        {{/power-select}} 
+    </div>
+
+    <div class="form-group col">
+        <label class="form-control-label">{{t 'product.rel.productRing'}}</label>
+        {{input type="text" value=product.ring class="form-control"}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col">
+        <label class="form-control-label">{{t 'product.rel.productPCD'}}</label>
+        {{input type="text" value=product.pcd class="form-control"}}
+    </div>
+
+    <div class="form-group col">
+        <label class="form-control-label">{{t 'product.rel.productPattern'}}</label>
+        {{input type="text" value=product.pattern class="form-control"}}
+    </div>
+</div>

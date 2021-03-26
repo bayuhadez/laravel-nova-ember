@@ -1,0 +1,83 @@
+{{#if (has-block)}}
+    {{yield}}
+{{else}}
+    {{#if useInputWrapper}}
+        <div class="form-group">
+            <label for="text-input">{{label}}{{if isRequired ' *' ''}}</label>
+            {{#if iconClasses}}
+                <div class="kt-input-icon">
+                    {{input
+                        type=type
+                        readonly=readonly
+                        disabled=disabled
+                        class=inputClass
+                        placeholder=placeholder
+                        value=value
+                        maxlength=maxlength
+                        autocomplete=autocomplete
+                    }}
+                    <span class="kt-input-icon__icon kt-input-icon__icon--right"><span><i class="{{iconClasses}}"></i></span></span>
+                </div>
+            {{else}}
+                {{input
+                    type=type
+                    readonly=readonly
+                    disabled=disabled
+                    class=inputClass
+                    placeholder=placeholder
+                    value=value
+                    maxlength=maxlength
+                    autocomplete=autocomplete
+                }}
+            {{/if}}
+            
+            {{#if showErrors}}
+                {{#if isErrorMessagesArray}}
+                    {{#each errorMessages as |error|}}
+                        <div class="kt-font-danger">
+                            {{error}}
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="kt-font-danger">
+                        {{errorMessages}}
+                    </div>
+                {{/if}}
+            {{/if}}
+
+            {{#each errors as |error|}}
+                <div class="kt-font-danger">
+                    {{error.message}}
+                </div>
+            {{/each}}
+
+        </div>
+
+    {{else}}
+
+        {{input
+            type=type
+            readonly=readonly
+            disabled=disabled
+            class=inputClass
+            placeholder=placeholder
+            value=value
+            maxlength=maxlength
+        }}
+        
+        {{#if showErrors}}
+            {{#if isErrorMessagesArray}}
+                {{#each errorMessages as |error|}}
+                    <div class="kt-font-danger">
+                        {{error}}
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="kt-font-danger">
+                    {{errorMessages}}
+                </div>
+            {{/if}}
+        {{/if}}
+
+    {{/if}}
+{{/if}}

@@ -1,0 +1,223 @@
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{this.disabled}}
+            @errors={{this.supplier.errors.code}}
+            @label={{t 'supplier.attr.code'}}
+            @value={{this.supplier.code}}
+        />
+    </div>
+    <div class="col-md-6">
+        <Metronic::Inputs::MSelect
+            @label={{t 'supplier.attr.name'}}
+            @searchField="name"
+            @disabled={{this.disabled}}
+            @selected={{this.supplier.company}}
+            @onchange={{action (mut this.supplier.company)}}
+            @addItem={{fn this.addCompany}}
+            @options={{this.companyOptions}}
+            @renderInPlace=true
+            as |option|
+        >
+            {{option.name}}
+        </Metronic::Inputs::MSelect>
+    </div>
+</div>
+
+{{!--
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{this.disabled}}
+            @errors={{this.supplier.errors.pic}}
+            @label={{t 'supplier.attr.pic'}}
+            @value={{this.supplier.pic}}
+        />
+    </div>
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{this.disabled}}
+            @errors={{this.supplier.errors.pic}}
+            @label={{t 'supplier.attr.pic'}}
+            @value={{this.supplier.pic}}
+        />
+    </div>
+</div>
+--}}
+
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MSelect
+            @label={{t 'supplier.attr.pic'}}
+            @searchField="fullname"
+            @disabled={{this.disabled}}
+            @selected={{this.supplier.pic}}
+            @onchange={{action (mut this.supplier.pic)}}
+            @addItem={{fn this.addPic}}
+            @errorMessages={{this.supplier.errors.pic}}
+            @renderInPlace=true
+            @options={{this.picOptions}}
+            as |option|
+        >
+            {{option.fullname}}
+        </Metronic::Inputs::MSelect>
+    </div>
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{this.disabled}}
+            @errors={{this.supplier.errors.accountingNumber}}
+            @label={{t 'supplier.attr.accounting_number'}}
+            @value={{this.supplier.accounting_number}}
+        />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MSelect
+            @label={{t "supplier.rel.supplierCategory"}}
+            @searchField="name"
+            @disabled={{this.disabled}}
+            @selected={{this.supplier.supplier_category}}
+            @onchange={{action (mut supplier.supplier_category)}}
+            @addItem={{fn this.addSupplierCategory}}
+            @renderInPlace=true
+            @options={{this.categories}}
+            as |option|
+        >
+            {{option.name}}
+        </Metronic::Inputs::MSelect>
+    </div>
+
+    <div class="col-md-6">
+        <Metronic::Inputs::MSelect
+            @label={{t 'supplier.rel.currency'}}
+            @searchField="code"
+            @disabled={{this.disabled}}
+            @selected={{this.supplier.currency}}
+            @onchange={{action (mut supplier.currency)}}
+            @renderInPlace=true
+            @options={{this.currencies}}
+            @errorMessages={{this.supplier.errors.currency}}
+            as |currency|
+        >
+            {{currency.code}}
+        </Metronic::Inputs::MSelect>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{this.disabled}}
+            @errors={{this.supplier.errors.top}}
+            @label={{t 'supplier.attr.top'}}
+            @value={{this.supplier.top}}
+        />
+    </div>
+
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{this.disabled}}
+            @errors={{this.supplier.errors.plafon}}
+            @label={{t 'supplier.attr.plafon'}}
+            @value={{this.supplier.plafon}}
+        />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{isCompanyAttrDisabled}}
+            @errors={{this.supplier.company.errors.faxNumber}}
+            @label={{t 'company.attr.fax_number'}}
+            @maxlength=20
+            @value={{this.supplier.company.faxNumber}}
+        />
+    </div>
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{isCompanyAttrDisabled}}
+            @errors={{this.supplier.company.errors.telephoneNumber}}
+            @label={{t 'company.attr.telephone_number'}}
+            @maxlength=20
+            @value={{this.supplier.company.telephoneNumber}}
+        />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MText
+            @disabled={{isCompanyAttrDisabled}}
+            @errors={{this.supplier.company.errors.mobileNumber}}
+            @label={{t 'company.attr.mobile_number'}}
+            @maxlength=20
+            @value={{this.supplier.company.mobileNumber}}
+        />
+    </div>
+    <div class="col-md-6">
+        <Metronic::Inputs::MTextarea
+            @disabled={{this.disabled}}
+            @label={{t 'supplier.attr.information'}}
+            @value={{this.supplier.information}}
+        />
+    </div>
+</div>
+
+{{#if this.showAddressSection}}
+    <!-- Section 2 Address Detail -->
+    <div class="kt-separator kt-separator--space-md"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <Metronic::MPortlet as |portlet| >
+
+                <portlet.head>
+                    <h3 class="kt-portlet__head-title">{{t "supplier.rel.addresses"}}</h3>
+                    {{#unless isEditingAddress}}
+                        <div class="kt_portlet_head-actions ml-3">
+                            <Metronic::MButton
+                                @action={{action this.editAddress}}
+                                @label={{t "address.heading.create"}}
+                                @class="btn-pill btn-sm"
+                            />
+                        </div>
+                    {{/unless}}
+                </portlet.head>
+
+                <portlet.body>
+                    {{#if isEditingAddress}}
+                        <Metronic::Forms::MAddress
+                            @intermediateAddress={{this.formIntermediateAddressModel}}
+                            @address={{this.formAddressModel}}
+                            @addAddress={{this.addAddress}}
+                            @setAddress={{this.setAddress}}
+                            @setRegency={{this.setRegency}}
+                            @setProvince={{this.setProvince}}
+                            @createAddress={{this.createAddress}}
+                            @saveAddress={{this.saveAddress}}
+                            @cancelAddress={{this.cancelAddress}}
+                            @showErrors={{this.addressShowErrors}}
+                        />
+                    {{/if}}
+
+                    {{#if (eq this.intermediateAddressModelName "company-address")}}
+                        <MDatatable
+                            @modelName="company-address"
+                            @columns={{this.addressColumn}}
+                            @refreshData={{this.refreshDt}}
+                            @includeParameters={{this.companyAddressIncludeParameters}}
+                            @filterParameters={{this.companyAddressFilterParameters}}
+                            @rows={{this.companyAddresses}}
+                            @onEdit={{fn this.editAddress}}
+                            @onDelete={{fn this.deleteAddress}}
+                        />
+                    {{/if}}
+                </portlet.body>
+
+            </Metronic::MPortlet>
+        </div>
+    </div>
+{{/if}}

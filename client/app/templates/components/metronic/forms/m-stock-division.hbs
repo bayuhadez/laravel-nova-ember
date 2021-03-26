@@ -1,0 +1,69 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t "stock_division.heading.show"}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="row">
+                <div class="col">
+                    {{metronic/inputs/m-text
+                        label=(t "stock_division.rel.company")
+                        value=formRecord.name
+                        readonly=true}}
+                </div>
+                <div class="col">
+                    {{metronic/inputs/m-text
+                        label=(t 'stock_division.attr.division')
+                        value=formRecord.divisionName
+                        readonly=true}}
+                </div>
+            </div>
+
+            <fieldset>
+                <legend>{{t 'stock_division.heading.index'}}</legend>
+                {{#each formRecord.stockDivisions as |stockDivision|}}
+                    <div class="form-group">
+                        <label for="text-input">
+                            {{t 'stock_division.attr.name'}}
+                        </label>
+                        <div class="input-group">
+                            {{input
+                                type="text"
+                                class="form-control"
+                                value=stockDivision.name
+                            }}
+
+                            {{#if stockDivision.name}}
+                                <div class="input-group-append">
+                                    <button
+                                        class="btn btn-danger"
+                                        {{action "deleteStockDivision" stockDivision}}>
+                                        <i class="flaticon-delete"></i>
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div> 
+                {{/each}}
+            </fieldset>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+</Metronic::MPortlet>
+

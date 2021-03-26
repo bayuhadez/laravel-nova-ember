@@ -1,0 +1,71 @@
+<div class="container-fluid p-4">
+    <div class="row">
+        <img src={{ product.productBanner.imageUrl }} class="img-fluid">
+    </div>
+    <br>
+	<div class="row">
+		<div class="col-md-9 text-light">
+			<div class="product-detail-header p-4" style="background-color:#505763">
+				<h1 class="display-4">{{product.name}}</h1>
+				<h3>{{t "Speaker :"}} {{product.speakerName}}</h3>
+			</div>
+
+			{{#if product.seminarProductMeta.playbackVideoUrl}}
+				{{#if canWatchPlayback}}
+					{{seminar-video-playback
+						videoPath=product.seminarProductMeta.playbackVideoUrl
+					}}
+				{{/if}}
+			{{/if}}
+
+			<p class="d-none d-lg-block text-dark pt-4">{{markdown-to-html product.description}}</p>
+		</div>
+
+
+		<div class="col-md-3 zindex-2">
+			<div class="card box-shadow text-center">
+
+				<div class="card-body">
+					<img src={{ product.imageUrl }} class="border border-light product-detail-image">
+					{{countdown-timer
+						to=product.seminarProductMeta.startTime
+						tagName="h3"
+					}}
+
+					{{#if canStream}}
+						{{product-streaming-control
+							product=product
+						}}
+					{{else}}
+						{{product-transaction-box
+							product=product
+							addProduct=(action 'addProduct')
+							buyProduct=(action 'buyProduct')
+						}}
+					{{/if}}
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<p class="d-lg-none text p-4">{{markdown-to-html product.description}}</p>
+
+	</div>
+
+    {{#if productSponsors}}
+    <section>
+        <h2 class="text-center">Our Sponsor & Partner</h2>
+        <ul class="product-sponsors-container">
+            {{#each productSponsors as |sponsor|}}
+            <li>
+                <img src={{ sponsor.imageUrl }} width="210" height="103">
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+    {{/if}}
+</div>
+
+{{outlet}}

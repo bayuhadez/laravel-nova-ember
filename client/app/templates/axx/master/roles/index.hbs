@@ -1,0 +1,23 @@
+{{metronic/pages/crud-page
+    formRecord=formRecord
+    modelName='role'
+    pageTitle=(t "role.heading.index")
+
+    modalFormTitle=(t (if
+        formRecord.isNew
+        "role.heading.create"
+        "role.heading.edit"))
+
+    formComponent=(component
+        "metronic/forms/m-role"
+        formRecord=formRecord
+        modules=modules)
+
+    datatableComponent=(component
+        "m-datatable"
+        modelName="role"
+        includeParameters="permissions"
+        columns=columns)
+
+    onSaveRecord=(action "onSaveRecord")
+}}

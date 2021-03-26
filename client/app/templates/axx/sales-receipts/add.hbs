@@ -1,0 +1,48 @@
+<Metronic::Breadcrumbs 
+    @breadcrumbs={{this.breadcrumbs}}/>
+
+<Metronic::MContainer>
+
+    <Metronic::Forms::MSalesReceipt
+        @salesReceipt={{this.salesReceipt}}
+        @transactionReceipt={{this.transactionReceipt}}
+        @companyOptions={{this.companies}}
+        @refreshData={{this.refreshData}}
+        @submitAction={{this.saveSalesReceiptForm}}
+    />
+
+</Metronic::MContainer>
+
+{{!-- {{#if isPsoEditing}}
+
+    {{metronic/modal-form
+        title=(t "product_sales_order.identifier")
+        onSubmit=(action 'savePSOs')
+        onHide=(action 'onPSOModalHidden')
+        formComponent=(component
+            "metronic/forms/m-sales-receipt-product-sales-order"
+            salesReceipt=salesReceipt
+            salesOrder=salesOrder
+            productSalesOrders=selectedProductSalesOrders
+        )
+        submitButtonLabel=(t "button.add")
+    }}
+
+{{/if}}
+
+{{#if isSosEditing}}
+
+    {{metronic/modal-form
+        title=(t "sales_order_service.identifier")
+        onSubmit=(action 'saveSOSs')
+        onHide=(action 'onSOSModalHidden')
+        formComponent=(component
+            "metronic/forms/m-sales-receipt-sales-order-service"
+            salesReceipt=salesReceipt
+            salesOrder=salesOrder
+            salesOrderServices=selectedSalesOrderServices
+        )
+        submitButtonLabel=(t "button.add")
+    }}
+
+{{/if}} --}}

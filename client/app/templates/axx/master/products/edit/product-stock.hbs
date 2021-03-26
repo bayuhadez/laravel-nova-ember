@@ -1,0 +1,11 @@
+{{#modal-dialog
+    clickOutsideToClose=true
+    translucentOverlay=true
+    overlayClass="custom-modal-overlay"
+    onClose=(action 'onClose')
+    containerClass="custom-modal-container"}}
+        <Metronic::Forms::MStockFifo
+            @productId={{this.productId}}
+            @stockDivisionId={{this.stockDivisionId}}
+            />
+{{/modal-dialog}}

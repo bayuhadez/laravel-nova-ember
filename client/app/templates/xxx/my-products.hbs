@@ -1,0 +1,47 @@
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			{{#link-to (r 'dashboard')}}Dashboard{{/link-to}}
+		</li>
+		<li class="breadcrumb-item">
+			{{#link-to (r 'products.index')}}{{t "my seminar"}}{{/link-to}}
+		</li>
+	</ol>
+</nav>
+
+<div class="album py-5 bg-light">
+	<div class="container">
+
+		<h3>{{t "upcoming seminars"}}</h3>
+		{{#if upcomingProducts}}
+			<div class="row">
+
+				{{#each upcomingProducts as |product|}}
+					{{product-card
+						product=product
+						classNames="col-md-4"
+					}}
+				{{/each}}
+
+			</div>
+		{{else}}
+			{{t "nothing in this list"}}
+		{{/if}}
+
+		<h3>{{t "past seminars"}}</h3>
+		{{#if pastProducts}}
+			<div class="row">
+
+				{{#each pastProducts as |product|}}
+					{{product-card
+						product=product
+					}}
+				{{/each}}
+
+			</div>
+		{{else}}
+			{{t "nothing in this list"}}
+		{{/if}}
+
+	</div>
+</div>

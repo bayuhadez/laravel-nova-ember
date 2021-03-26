@@ -1,0 +1,415 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="row">
+                <div class="col-md">
+                    {{metronic/inputs/m-text
+                        value=product.name
+                        label=(t "product.attr.name")
+                        err=product.errors.name
+                    }}
+                </div>
+
+                <div class="col-md">
+                    {{metronic/inputs/m-text
+                        value=product.code
+                        label=(t "product.attr.code")
+                        err=product.errors.code
+                    }}
+                </div>
+
+                <div class="col-md">
+                    {{metronic/inputs/m-text
+                        value=product.barcode
+                        label=(t "product.attr.barcode")
+                        err=product.errors.barcode
+                    }}
+                </div>
+
+                <div class="col-md">
+                    {{#metronic/inputs/m-select
+                        label=(t "product.rel.productCategories")
+                        searchField="name"
+                        selected=product.productCategories
+                        selectType="multiple"
+                        onchange=(action (mut product.productCategories))
+                        renderInPlace=true
+                        addItem=(action "addProductCategory")
+                        options=productCategories
+                    as |option|
+                    }}
+
+                        {{option.name}}
+
+                    {{/metronic/inputs/m-select}}
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md">
+                    {{metronic/inputs/m-text
+                        value=product.minimumStock
+                        label=(t "product.attr.minimum_stock")
+                    }}
+                </div>
+
+                <div class="col-md">
+                    {{metronic/inputs/m-text
+                        value=product.maximum_stock
+                        label=(t "product.attr.maximum_stock")
+                    }}
+                </div>
+
+                <div class="col-md">
+                    {{metronic/inputs/m-text
+                        value=product.stock
+                        label=(t 'product.attr.stock')
+                    }}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{metronic/inputs/m-fileupload
+                        label=(t "product.attr.image")
+                        onFileChanged=(action "onPhotoChanged")
+                        name="productImage"
+                        fileSizeLimit=true
+                    }}
+                </div>
+                <div class="col-md-6">
+                    <img src={{if product.imageFile product.imageFile product.thumbnailImage}} style="display:block; margin-left: auto; margin-right: auto;"/>
+                </div>
+            </div>
+            {{#each product.ungroupedOpmfs as |opmf|}}
+                {{#metronic/inputs/m-select
+                    label=opmf.label
+                    searchField="value"
+                    selected=opmf.selectedProductMetaValue
+                    onchange=(action (mut opmf.selectedProductMetaValue))
+                    renderInPlace=true
+                    addItem=(action "addProductMetaValue" opmf.productMetaField)
+                    options=opmf.productMetaField.productMetaValues
+                as |option|
+                }}
+
+                    {{option.value}}
+
+                {{/metronic/inputs/m-select}}
+            {{/each}}
+
+
+            <ul class="nav nav-tabs" role="tablist">
+                {{#each product.opmfGroups as |opmfGroup index|}}
+                    <li class="nav-item">
+                        <a class="nav-link {{if (eq index 0) 'active'}}"
+                            data-toggle="tab"
+                            href="#"
+                            data-target="#meta-group-{{opmfGroup.id}}"
+                            {{on "click" (fn (mut this.activeTab) "tab_opmf")}}>
+                            {{opmfGroup.name}}
+                        </a>
+                    </li>
+                {{/each}}
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                        data-toggle="tab"
+                        href="#"
+                        data-target="#product-unit"
+                        {{on "click" (fn (mut this.activeTab) "tab_unit")}}>
+                        {{t "product.heading.tab_unit"}}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                        data-toggle="tab"
+                        href="#"
+                        data-target="#price"
+                        {{on "click" (fn (mut this.activeTab) "tab_price")}}>
+                        {{t "product.heading.tab_price"}}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#"
+                        class="nav-link"
+                        data-toggle="tab"
+                        data-target="#company-product"
+                        {{on "click" (fn (mut this.activeTab) "tab_company")}}>
+                        {{t 'product.heading.tab_point'}}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#"
+                        class="nav-link"
+                        data-toggle="tab"
+                        data-target="#expedition-product"
+                        {{on "click" (fn (mut this.activeTab) "tab_expedition")}}>
+                        {{t 'product.heading.tab_expedition'}}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#"
+                        class="nav-link"
+                        data-toggle="tab"
+                        data-target="#stock"
+                        {{on "click" (fn (mut this.activeTab) "tab_stock")}}>
+                        {{t 'product.heading.tab_stock'}}
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                {{#if (eq activeTab "tab_opmf")}}
+                    {{#each product.opmfGroups as |opmfGroup index|}}
+                        <div
+                            class="tab-pane {{if (eq index 0) 'active'}}"
+                            id="meta-group-{{opmfGroup.id}}">
+                            {{#each opmfGroup.opmfs as |opmf|}}
+                                {{#metronic/inputs/m-select
+                                    label=opmf.label
+                                    searchField="value"
+                                    selected=opmf.selectedProductMetaValue
+                                    onchange=(action (mut opmf.selectedProductMetaValue))
+                                    renderInPlace=true
+                                    addItem=(action "addProductMetaValue" opmf.productMetaField)
+                                    options=opmf.productMetaField.productMetaValues
+                                as |option|
+                                }}
+
+                                    {{option.value}}
+
+                                {{/metronic/inputs/m-select}}
+                            {{/each}}
+                        </div>
+                    {{/each}}
+                {{/if}}
+
+                {{#if (eq activeTab "tab_unit")}}
+                    {{#metronic/tabs-pane id="product-unit"}}
+                        {{#each product.productUnits as |productUnit|}}
+                            <div class="row">
+                                <div class="col-4">
+                                    {{#metronic/inputs/m-select
+                                        label=(t (if productUnit.isPrimary 'unit.attr.primary' 'unit.attr.secondary'))
+                                        searchField="name"
+                                        selected=productUnit.unit
+                                        onchange=(action "onSelectProductUnit" productUnit)
+                                        renderInPlace=true
+                                        addItem=(action "addUnit")
+                                        options=unitOptions as |unit|
+                                    }}
+                                        {{unit.name}}
+                                    {{/metronic/inputs/m-select}}
+                                </div>
+
+                                {{!-- dont display conversion rate field for primary unit --}}
+                                {{#unless productUnit.isPrimary}}
+                                    <div class="col-4">
+                                        <label for="text-input">
+                                            {{t 'product_unit.attr.conversion_rate'}}
+                                        </label>
+                                        <Input
+                                            @type="text"
+                                            @value={{productUnit.conversionRate}}
+                                            @disabled={{if productUnit.unit false true}}
+                                            class="form-control"
+                                            {{on "change" (action "saveProductUnit" productUnit)}}
+                                        />
+                                    </div>
+                                    <div class="col-4 d-flex">
+                                        <div class="flex-fill">
+                                            {{#metronic/inputs/m-select
+                                                label=(t 'unit.attr.name')
+                                                searchField="name"
+                                                selected=productUnit.convertedUnit
+                                                onchange=(action "onSelectConvertedUnit" productUnit)
+                                                renderInPlace=true
+                                                disabled=(if productUnit.unit false true)
+                                                options=units as |unit|
+                                            }}
+                                                {{unit.name}}
+                                            {{/metronic/inputs/m-select}}
+                                        </div>
+                                        {{!-- display delete button only if there is a unit selected --}}
+                                        {{#if productUnit.unit.name}}
+                                            <div class="align-self-center ml-2">
+                                                <button
+                                                    class="btn btn-icon btn-circle btn-danger"
+                                                    {{action "deleteProductUnit" productUnit}}>
+                                                    <i class="flaticon-delete"></i>
+                                                </button>
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                {{/unless}}
+                            </div>
+                        {{/each}}
+                    {{/metronic/tabs-pane}}
+                {{/if}}
+
+                {{#if (eq activeTab "tab_price")}}
+                    {{#metronic/tabs-pane id="price"}}
+                        <div class="row">
+                            <div class="col">
+                                {{metronic/inputs/m-currency
+                                    label=(t 'product.attr.base_price')
+                                    value=product.basePrice
+                                    prefix="Rp."
+                                }}
+                            </div>
+                            <div class="col">
+                                {{metronic/inputs/m-currency
+                                    label=(t 'product.attr.price')
+                                    value=product.price
+                                    prefix="Rp."
+                                }}
+                            </div>
+                        </div>
+
+                        {{#each product.companyProducts as |companyProduct|}}
+                            <div class="row">
+                                <div class="col">
+                                    {{#metronic/inputs/m-select
+                                        label=(t 'product.rel.companies')
+                                        searchField="name"
+                                        selected=companyProduct.company
+                                        onchange=(action "onSelectCompanyProduct" companyProduct)
+                                        renderInPlace=true
+                                        options=companyOptions as |company|
+                                    }}
+                                        {{company.name}}
+                                    {{/metronic/inputs/m-select}}
+                                </div>
+                                <div class="col">
+                                    {{metronic/inputs/m-currency
+                                        label=(t 'company_product.attr.receipt_price')
+                                        value=companyProduct.receiptPrice
+                                        prefix="Rp."
+                                        disabled=true
+                                    }}
+                                </div>
+                                <div class="col d-flex">
+                                    <div class="flex-fill">
+                                        {{metronic/inputs/m-currency
+                                            label=(t 'company_product.attr.price')
+                                            value=companyProduct.price
+                                            prefix="Rp."
+                                        }}
+                                    </div>
+                                    {{#if companyProduct.company}}
+                                        <div class="align-self-center ml-2">
+                                            <button
+                                                class="btn btn-icon btn-circle btn-danger"
+                                                {{action "deleteCompanyProduct" companyProduct}}>
+                                                <i class="flaticon-delete"></i>
+                                            </button>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{/metronic/tabs-pane}}
+                {{/if}}
+
+                {{#if (eq activeTab "tab_company")}}
+                    {{#metronic/tabs-pane id="company-product"}}
+                        {{#each product.companyProducts as |companyProduct|}}
+                            <div class="row">
+                                <div class="col">
+                                    {{#metronic/inputs/m-select
+                                        label=(t 'product.rel.companies')
+                                        searchField="name"
+                                        selected=companyProduct.company
+                                        onchange=(action "onSelectCompanyProduct" companyProduct)
+                                        renderInPlace=true
+                                        options=companies as |company|
+                                    }}
+                                        {{company.name}}
+                                    {{/metronic/inputs/m-select}}
+                                </div>
+                                <div class="col">
+                                    {{metronic/inputs/m-text
+                                        label=(t 'company_product.attr.point')
+                                        value=companyProduct.point
+                                    }}
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{/metronic/tabs-pane}}
+                {{/if}}
+
+                {{#if (eq activeTab "tab_expedition")}}
+                    {{#metronic/tabs-pane id="expedition-product"}}
+                        {{#each product.expeditionProducts as |expeditionProduct|}}
+                            <div class="row">
+                                <div class="col">
+                                    {{#metronic/inputs/m-select
+                                        label=(t 'expedition_product.rel.expedition')
+                                        searchField="name"
+                                        selected=expeditionProduct.expedition
+                                        onchange=(action "onSelectExpeditionProduct" expeditionProduct)
+                                        addItem=(action "addExpedition")
+                                        renderInPlace=true
+                                        options=expeditions as |expedition|
+                                    }}
+                                        {{expedition.name}}
+                                    {{/metronic/inputs/m-select}}
+                                </div>
+                                <div class="col d-flex">
+                                    <div class="flex-fill">
+                                        {{metronic/inputs/m-text
+                                            label=(t 'expedition_product.attr.amount')
+                                            value=expeditionProduct.amount
+                                        }}
+                                    </div>
+                                    {{#if expeditionProduct.expedition}}
+                                        <div class="align-self-center ml-2">
+                                            <button
+                                                class="btn btn-icon btn-circle btn-danger"
+                                                {{action "deleteExpeditionProduct" expeditionProduct}}>
+                                                <i class="flaticon-delete"></i>
+                                            </button>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{/metronic/tabs-pane}}
+                {{/if}}
+
+                {{#if (eq activeTab "tab_stock")}}
+                    <Metronic::TabsPane id="stock">
+                        <ProductStockTable @product={{this.product}} />
+                    </Metronic::TabsPane>
+                {{/if}}
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+</Metronic::MPortlet>
+
+{{outlet}}

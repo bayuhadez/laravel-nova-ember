@@ -1,0 +1,66 @@
+<form {{on "submit" (fn @submitAction @wallet)}}>
+    <div class="row">
+        <div class="col-md-6">
+            <Metronic::Inputs::MText
+                @label={{t "wallet.attr.code"}}
+                @value={{@wallet.code}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{@wallet.error.code.validation}}
+            />
+        </div>
+        <div class="col-md-6">
+            <Metronic::Inputs::MText
+                @label={{t "wallet.attr.name"}}
+                @value={{@wallet.name}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{@wallet.error.name.validation}}
+            />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <Metronic::Inputs::MSelect
+                @label={{t "wallet.attr.payment_type"}}
+                @renderInPlace={{true}}
+                @searchField="name"
+                @disabled={{this.disabled}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{v-get @wallet 'paymentType' 'messages'}}
+                @onchange={{action (mut @wallet.paymentType) value="value"}}
+                @selected={{find-by "value" @wallet.paymentType @wallet.typeOptions}}
+                @options={{@wallet.typeOptions}}
+                as |option|
+                >
+                {{option.name}}
+            </Metronic::Inputs::MSelect>
+        </div>
+        <div class="col-md-6">
+            <Metronic::Inputs::MSelect
+                @label={{t "wallet.rel.payment_methods"}}
+                @renderInPlace={{true}}
+                @allowClear={{true}}
+                @selectType="multiple"
+                @searchField="name"
+                @showErrors={{@showErrors}}
+                @errorMessages={{v-get @wallet 'paymentMethods' 'messages'}}
+                @selected={{@wallet.paymentMethods}}
+                @onchange={{action (mut @wallet.paymentMethods)}}
+                @options={{this.paymentMethodOptions}}
+                as |option|
+                >
+                {{option.name}}
+            </Metronic::Inputs::MSelect>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <Metronic::MButton @type="submit">
+                {{#if @wallet.isNew}}
+                    {{t "button.add"}}
+                {{else}}
+                    {{t "button.update"}}
+                {{/if}}
+            </Metronic::MButton>
+        </div>
+    </div>
+</form>

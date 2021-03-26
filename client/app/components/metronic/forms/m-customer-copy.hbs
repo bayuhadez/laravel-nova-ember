@@ -1,0 +1,267 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" @submitAction}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t (if @customer.isNew "customer.heading.add" "customer.heading.edit")}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <!-- Section 1 Customer Detail -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "customer.attr.code"}}
+                        @value={{@customer.code}}
+                        @disabled={{this.disabled}}
+                    />
+                </div>
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "customer.attr.email"}}
+                        @value={{@customer.email}}
+                        @disabled={{this.disabled}}
+                    />
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "customer.rel.person"}}
+                        @searchField="fullname"
+                        @disabled={{this.disabled}}
+                        @selected={{@customer.person}}
+                        @onchange={{this.setPerson}}
+                        @addItem={{fn this.addPerson "person"}}
+                        @options={{this.personOptions}}
+                        as |option|
+                        >
+                        {{option.fullname}}
+                    </Metronic::Inputs::MSelect>
+                </div>
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "customer.rel.pic"}}
+                        @searchField="fullname"
+                        @disabled={{this.disabled}}
+                        @selected={{@customer.pic}}
+                        @onchange={{fn (mut @customer.pic)}}
+                        @addItem={{fn this.addPerson "pic"}}
+                        @options={{this.personOptions}}
+                        as |option|
+                        >
+                        {{option.fullname}}
+                    </Metronic::Inputs::MSelect>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "customer.rel.company"}}
+                        @searchField="name"
+                        @disabled={{this.disabled}}
+                        @selected={{@customer.company}}
+                        @onchange={{this.setCompany}}
+                        @addItem={{this.addCompany}}
+                        @options={{@companyOptions}} as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+                </div>
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "customer.attr.telephone_number"}}
+                        @value={{this.phoneModel.telephoneNumber}}
+                        @disabled={{this.disabledPhoneField}}
+                    />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "customer.attr.fax_number"}}
+                        @value={{this.phoneModel.faxNumber}}
+                        @disabled={{this.disabledPhoneField}}
+                    />
+                </div>
+                <div class="col-lg-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "customer.attr.mobile_number"}}
+                        @value={{this.phoneModel.mobileNumber}}
+                        @disabled={{this.disabledPhoneField}}
+                    />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="kt-checkbox-list">
+                            <label class="kt-checkbox">
+                                <Input @type="checkbox" @checked={{@customer.isSubCustomer}} @change={{action this.toggleIsSubCustomerCheckbox}}/>
+                                {{t "customer.attr.isSubCustomer"}}
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    {{#if @customer.isSubCustomer}}
+                        <Metronic::Inputs::MSelect
+                            @label={{t "customer.rel.parentCustomer"}}
+                            @searchField="name"
+                            @selected={{@customer.parentCustomer}}
+                            @onchange={{fn this.setParentCustomer}}
+                            @options={{@customerOptions}}
+                            as |option|
+                            >
+                            {{option.name}}
+                        </Metronic::Inputs::MSelect>
+                    {{/if}}
+                </div>
+            </div>
+
+            {{#if this.showAddressSection}}
+                <!-- Section 2 Address Detail -->
+                <div class="kt-separator kt-separator--space-md"></div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <Metronic::MPortlet as |portlet| >
+
+                            <portlet.head>
+                                <div class="kt-portlet__head-toolbar">
+                                    <ul class="nav nav-pills" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#tab_1" {{on "click" this.activateTabContent1}}>
+                                                <i class="la la-building"/> {{t "customer.rel.addresses"}}
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tab_2" {{on "click" this.activateTabContent2}}>
+                                                <i class="la la-comment-o"/> Customer Additional Data Cabang
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </portlet.head>
+
+                            <portlet.body>
+                                <div class="tab-content">
+                                    <!-- content 1 -->
+                                    <div class="tab-pane active" id="tab_1" role="tabpanel">
+
+                                        {{#if this.showTabContent1}}
+
+                                            {{#unless isEditingAddress}}
+                                                <Metronic::MButton
+                                                    @action={{action this.editAddress}}
+                                                    @label={{t "address.heading.create"}}
+                                                    @class="btn-pill btn-sm"
+                                                    />
+                                            {{/unless}}
+
+                                            <hr/>
+
+                                            {{#if isEditingAddress}}
+                                                <Metronic::Forms::MAddress
+                                                    @intermediateAddress={{this.formIntermediateAddressModel}}
+                                                    @address={{this.formAddressModel}}
+                                                    @addAddress={{this.addAddress}}
+                                                    @setAddress={{this.setAddress}}
+                                                    @createAddress={{this.createAddress}}
+                                                    @saveAddress={{this.saveAddress}}
+                                                    @cancelAddress={{this.cancelAddress}}
+                                                    @showErrors={{this.addressShowErrors}}
+                                                />
+                                            {{/if}}
+
+                                            {{#if (eq this.intermediateAddressModelName "company-address")}}
+                                                <MDatatable
+                                                    @modelName="company-address"
+                                                    @columns={{this.addressColumn}}
+                                                    @refreshData={{this.refreshDt}}
+                                                    @includeParameters={{this.companyAddressIncludeParameters}}
+                                                    @filterParameters={{this.companyAddressFilterParameters}}
+                                                    @rows={{this.companyAddresses}}
+                                                    @onEdit={{fn this.editAddress}}
+                                                    @onDelete={{fn this.deleteAddress}}
+                                                />
+                                            {{else if (eq this.intermediateAddressModelName "person-address")}}
+                                                <MDatatable
+                                                    @modelName="person-address"
+                                                    @columns={{this.addressColumn}}
+                                                    @refreshData={{this.refreshDt}}
+                                                    @includeParameters={{this.personAddressIncludeParameters}}
+                                                    @filterParameters={{this.personAddressFilterParameters}}
+                                                    @rows={{this.personAddresses}}
+                                                    @onEdit={{fn this.editAddress}}
+                                                    @onDelete={{fn this.deleteAddress}}
+                                                />
+                                            {{/if}}
+                                        {{/if}}
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_2" role="tabpanel">
+
+                                        {{#if this.showTabContent2}}
+
+                                            {{#unless this.isEditingCompanyCustomer}}
+                                                <Metronic::MButton
+                                                    @action={{action this.editCompanyCustomer}}
+                                                    @label={{t "company_customer.heading.create"}}
+                                                    @class="btn-pill btn-sm"
+                                                    />
+                                            {{/unless}}
+
+                                            <hr/>
+
+                                            {{#if isEditingCompanyCustomer}}
+                                                <Metronic::Forms::MCompanyCustomer
+                                                    @companyCustomer={{this.formCompanyCustomerModel}}
+                                                    @saveCompanyCustomer={{this.saveCompanyCustomer}}
+                                                    @cancelCompanyCustomer={{this.cancelCompanyCustomer}}
+                                                    @customerCompanyOptions={{this.testOptions}}
+                                                    />
+                                            {{/if}}
+
+                                            <MDatatable
+                                                @modelName="company-customer"
+                                                @columns={{this.companyCustomerColumn}}
+                                                @refreshData={{this.refreshDt2}}
+                                                @includeParameters={{this.companyCustomerIncludeParameters}}
+                                                @filterParameters={{this.companyCustomerFilterParameters}}
+                                                @rows={{this.companyCustomers}}
+                                                @onEdit={{fn this.editCompanyCustomer}}
+                                                @onDelete={{fn this.deleteCompanyCustomer}}
+                                                />
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </portlet.body>
+
+                        </Metronic::MPortlet>
+                    </div>
+                </div>
+            {{/if}}           
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+
+</Metronic::MPortlet>

@@ -1,0 +1,19 @@
+{{#metronic/inputs/m-select
+    label=label
+    searchField=searchField
+    selected=selected
+    showErrors=showErrors
+    errorMessages=errorMessages
+    onchange=(action "onChange")
+    renderInPlace=true
+    dropdownClass="in-datatable-dropdown"
+    search=(perform searchTask)
+    as |option|}}
+
+    {{#if (eq searchField "code")}}
+        {{option.code}}
+    {{else}}
+        {{option.name}}
+    {{/if}}
+
+{{/metronic/inputs/m-select}}

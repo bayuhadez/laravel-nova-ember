@@ -1,0 +1,24 @@
+{{models-table
+    data=data
+    columns=columns
+    columnComponents=(hash
+        editButton=(
+            component "metronic/m-button"
+            action=onEdit
+            icon="flaticon-edit"
+            class="btn-icon btn-circle"
+        )
+
+        deleteButton=(
+            component "metronic/m-button"
+            action=onDelete
+            icon="flaticon-delete"
+            class="btn-icon btn-circle btn-danger"
+        )
+    )
+    showColumnsDropdown=false
+    showGlobalFilter=false
+    useFilteringByColumns=false
+    showComponentFooter=false
+}}
+{{yield}}

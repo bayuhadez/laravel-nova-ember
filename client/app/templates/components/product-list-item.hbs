@@ -1,0 +1,12 @@
+<div class="col-10 offset-1">
+	{{#link-to (r "product-detail") product}}
+		<img
+			class="product-image col-12 mb-1"
+			src="{{ apiUrl }}/storage/{{product.image}}"
+			alt={{product.name}}
+		>
+		<h5 class="mb-1">{{product.name}}</h5>
+		<small class="mb-1">{{product.hintText}}</small>
+		<div>{{product.price}}</div>
+	{{/link-to}}
+</div>

@@ -1,0 +1,110 @@
+<div class="container pt-5">
+	<div class="row justify-content-center">
+		<div class="col-lg-5 col-md-7">
+			<div class="card bg-light card-login">
+				<div class="card-header card-header-info text-center">
+					<h4 class="card-title">{{t 'Upgrade To Mentor Form'}}</h4>
+				</div>
+				<p class="description text-center">{{t 'auth.register_form_help'}}</p>
+				<div class="card-body px-lg-5 pb-lg-5">
+
+					{{#if hasErrorMessage}}
+					<div class="alert alert-danger text-center" role="alert">
+						<div class="container">
+							{{#each errorMessages as |errorMessage|}}
+							{{{errorMessage}}}<br/>
+							{{/each}}
+						</div>
+					</div>
+					{{/if}}
+					<form {{action 'submitRequest' on='submit'}}>
+						<div class="form-group mb-3">
+							<div>
+								{{input
+									value=fullName
+									placeholder=(t "attr.full_name_on_license")
+									class="form-control"
+									type="text"
+									focus-out=(action (mut showFullNameError) true)
+								}}
+
+								{{#if showFullNameError}}
+									{{#if (v-get this 'fullName' 'isInvalid')}}
+									<small class="form-text text-danger">
+										{{v-get this 'fullName' 'message'}}
+									</small>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+
+						<div class="form-group mb-3">
+							<div>
+								{{input
+									value=number
+									placeholder=(t "attr.license_number")
+									class="form-control"
+									type="text"
+									focus-out=(action (mut showNumberError) true)
+								}}
+
+								{{#if showNumberError}}
+									{{#if (v-get this 'number' 'isInvalid')}}
+									<small class="form-text text-danger">
+										{{v-get this 'number' 'message'}}
+									</small>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+
+						{{#material-kit-datepicker
+							focusOut=(action (mut showExpiryDateError) true)
+							placeholder=(concat (t "attr.license_expiry_date") " (" (t "attr.date_format") ")")
+							value=expiryDate
+						}}
+							{{#if showExpiryDateError}}
+								{{#if (v-get this 'expiryDate' 'isInvalid')}}
+								<small class="form-text text-danger">
+									{{v-get this 'expiryDate' 'message'}}
+								</small>
+								{{/if}}
+							{{/if}}
+						{{/material-kit-datepicker}}
+
+						<div class="mb-3 fileinput fileinput-new text-center" data-provides="fileinput">
+							<div>
+								<span class="btn btn-raised btn-default btn-file" style="width: 100%">
+									<span class="fileinput-new">{{t "attr.photo_identity"}}</span>
+									<div class="mb-2">
+										{{input
+											type="file"
+											value=photo
+											change=(action "addFile")
+											focus-out=(action (mut showPhotoError) true)
+										}}
+									</div>
+								</span>
+
+								{{#if showPhotoError}}
+									{{#if (v-get this 'photo' 'isInvalid')}}
+									<small class="form-text text-danger">
+										{{v-get this 'photo' 'message'}}
+									</small>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+
+						<div class="text-center">
+							<button type="submit" class="btn btn-info btn-block my-4">{{t 'button.submit'}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{yield}}
+{{!-- references : --}}
+{{!-- https://github.com/creativetimofficial/ct-material-dashboard-pro/issues/197 --}}

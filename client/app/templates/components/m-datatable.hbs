@@ -1,0 +1,282 @@
+{{#ember-table class="table-responsive" as |table|}}
+    {{#table.head
+        columns=visibleColumns
+        sorts=sorts
+        onUpdateSorts=(action (mut sorts))
+    as |h|
+    }}
+        {{#h.row as |r|}}
+            {{#r.cell as |column|}}
+                {{column.name}}
+                {{#if column.filter}}
+                    {{#if (eq column.filter.type "text")}}
+                        {{metronic/inputs/m-text value=column.filter.value}}
+                    {{/if}}
+                    {{#if (eq column.filter.type "date")}}
+                        {{metronic/inputs/m-daterangepicker value=column.filter.value}}
+                    {{/if}}
+                {{/if}}
+            {{/r.cell}}
+
+        {{/h.row}}
+    {{/table.head}}
+
+    {{#table.body rows=rows enableTree=false as |body|}}
+        {{#body.row as |row|}}
+            {{#row.cell as |cell column|}}
+                {{#if column.buttons}}
+                    {{#each column.buttons as |button|}}
+                        {{#if (eq button.preset "edit")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle"
+                                icon="flaticon-edit"
+                                action=(action onEdit row.rowValue)
+                                type=(if button.type button.type "button")
+                            }}
+                        {{else if (eq button.preset "delete")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-danger"
+                                icon="flaticon-delete"
+                                action=(action onDelete row.rowValue)
+                                type=(if button.type button.type "button")
+                            }}
+                        {{else if (eq button.preset "show")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-warning"
+                                icon="flaticon2-magnifier-tool"
+                                action=(action onShow row.rowValue)
+                                type=(if button.type button.type "button")
+                            }}
+                        {{else if (eq button.preset "approve")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-success"
+                                icon="flaticon2-check-mark"
+                                action=(action onApprove row.rowValue)
+                            }}
+                        {{else if (eq button.preset "reject")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-danger"
+                                icon="flaticon2-cancel"
+                                action=(action onReject row.rowValue)
+                            }}
+                        {{else if (eq button.preset "orderchecker")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-warning"
+                                icon="flaticon-notepad"
+                                action=(action onOrderChecker row.rowValue)
+                            }}
+                        {{else if (eq button.preset "add")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle"
+                                icon="flaticon2-plus-1"
+                                action=(action onAdd row.rowValue)
+                                type=(if button.type button.type 'button')
+                            }}
+                        {{else if (eq button.preset "buttonAction")}}
+                            {{metronic/m-button
+                                class=button.class
+                                icon=button.icon
+                                action=(action button.onAction row.rowValue)
+                                type=(if button.type button.type 'button')
+                            }}
+                        {{/if}}
+                    {{/each}}
+                {{else if column.component}}
+                    {{#if (eq column.component "metronic/datatable-inputs/m-checkbox-select-row")}}
+                        <Metronic::DatatableInputs::MCheckboxSelectRow
+                            @record={{row.rowValue}}
+                            @checkedRows={{column.checkedRows}}
+                            @changeAction={{column.changeAction}}
+                            @targetAttr={{column.targetAttr}}
+                            @disabled={{column.disabled}}
+                        />
+                    {{else if (eq column.component "input-checkbox")}}
+                        <Input
+                            @type="checkbox"
+                            @checked={{get row.rowValue column.checked}}
+                            @change={{fn column.change row.rowValue}}
+                            />
+                    {{else if (eq column.component "input-text")}}
+                        <Input
+                            @type={{column.type}}
+                            @value={{get row.rowValue column.value}}
+                            class="form-control"
+                            {{on "change" (fn column.change row.rowValue)}}
+                            />
+                        {{!-- {{metronic/m-button
+                            class="btn-icon btn-circle"
+                            icon="flaticon2-check-mark"
+                            action=(action "saveInput" row.rowValue)
+                        }} --}}
+                    {{else}}
+                        {{component
+                            column.component
+                            record=row.rowValue
+                        }}
+                    {{/if}}
+                {{else if column.routeLink}}
+                    {{#if column.useRowModelAsParam}}
+                        {{#link-to (r column.routeLink) row.rowValue}}{{cell}}{{/link-to}}
+                    {{else}}
+                        {{#link-to (r column.routeLink) }}{{cell}}{{/link-to}}
+                    {{/if}}
+                {{else if column.useRouteLinkAction}}
+                    <a href="#" {{action routeLinkAction row.rowValue}}>{{cell}}</a>
+                {{else if column.clickable}}
+                    <a href="#" {{action column.clickableAction row.rowValue}}>{{cell}}</a>
+                {{else}}
+                    {{cell}}
+                {{/if}}
+
+            {{/row.cell}}
+        {{/body.row}}
+    {{/table.body}}
+
+    {{#if footerComponent}}
+        {{component footerComponent
+            table=table
+            additionalRows=additionalRows
+        }}
+    {{/if}}
+
+    {{#table.foot rows=additionalRows as |f|}}
+        {{#f.row as |row|}}
+            {{#row.cell as |cell column rowValue|}}
+                {{#if column.buttons}}
+                    {{#each column.buttons as |button|}}
+                        {{#if (eq button.preset "edit")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle"
+                                icon="flaticon-edit"
+                                action=(action onEdit row.rowValue)
+                            }}
+                        {{else if (eq button.preset "delete")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-danger"
+                                icon="flaticon-delete"
+                                action=(action onDelete row.rowValue)
+                            }}
+                        {{else if (eq button.preset "show")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle btn-warning"
+                                icon="flaticon2-magnifier-tool"
+                                action=(action onShow row.rowValue)
+                            }}
+                        {{else if (eq button.preset "add")}}
+                            {{metronic/m-button
+                                class="btn-icon btn-circle"
+                                icon="flaticon2-plus-1"
+                                action=(action onAdd row.rowValue)
+                            }}
+                        {{else if (eq button.preset "buttonAction")}}
+                            {{metronic/m-button
+                                class=button.class
+                                icon=button.icon
+                                action=(action button.onAction row.rowValue)
+                            }}
+                        {{/if}}
+                    {{/each}}
+                {{else if column.component}}
+                    {{#if (eq column.component "metronic/datatable-inputs/m-checkbox")}}
+                        {{component
+                            column.component
+                            record=row.rowValue
+                            checkedRows=checkedRows
+                        }}
+                    {{else}}
+                        {{component
+                            column.component
+                            record=row.rowValue
+                        }}
+                    {{/if}}
+                {{else if column.routeLink}}
+                    {{#if column.useRowModelAsParam}}
+                        {{#link-to (r column.routeLink) row.rowValue}}{{cell}}{{/link-to}}
+                    {{else}}
+                        {{#link-to (r column.routeLink) }}{{cell}}{{/link-to}}
+                    {{/if}}
+                {{else if column.useRouteLinkAction}}
+                    <a href="#" {{action routeLinkAction row.rowValue}}>{{cell}}</a>
+                {{else if (eq column.valuePath "_actionsColumn")}}
+                    {{metronic/m-button
+                        class="btn-icon btn-circle btn-danger"
+                        icon="flaticon-delete"
+                        action=(action "deleteFooterRow" rowValue)
+                    }}
+                {{else if cell}}
+                    {{cell}}
+                {{else}}
+                    {{get rowValue column.valuePath}}
+                {{/if}}
+
+            {{/row.cell}}
+        {{/f.row}}
+    {{/table.foot}}
+
+{{/ember-table}}
+
+{{!--begin: Pagination--}}
+<div class="kt-pagination kt-pagination--info kt-pagination--circle">
+    <ul class="kt-pagination__links">
+        {{#if (not-eq currentPageNumber firstPageNumber)}}
+            <li class="kt-pagination__link--first">
+                <a href="#" {{action "goToFirstPage"}}><i class="fa fa-angle-double-left kt-font-brand"></i></a>
+            </li>
+
+            <li class="kt-pagination__link--next">
+                <a href="#" {{action "goToPreviousPage"}}><i class="fa fa-angle-left kt-font-brand"></i></a>
+            </li>
+        {{/if}}
+
+        {{!--
+            {{#if (gt currentPageNumber firstPageNumber)}}
+                <li>
+                    <a href="javascript:void(0)">...</a>
+                </li>
+            {{/if}}
+        --}}
+
+        {{#each visiblePageNumbers as |pageNumber|}}
+            <li class={{if (eq pageNumber currentPageNumber) "kt-pagination__link--active"}}>
+                <a href="#" {{action "goToPage" pageNumber}}>{{pageNumber}}</a>
+            </li>
+        {{/each}}
+
+        {{!--
+            {{#if (lt currentPageNumber lastPageNumber)}}
+                <li>
+                    <a href="javascript:void(0)">...</a>
+                </li>
+            {{/if}}
+        --}}
+
+        {{#if (not-eq currentPageNumber lastPageNumber)}}
+            <li class="kt-pagination__link--prev">
+                <a href="#" {{action "goToNextPage"}}><i class="fa fa-angle-right kt-font-brand"></i></a>
+            </li>
+
+            <li class="kt-pagination__link--last">
+                <a href="#" {{action "goToLastPage"}}><i class="fa fa-angle-double-right kt-font-brand"></i></a>
+            </li>
+        {{/if}}
+    </ul>
+
+    <div class="kt-pagination__toolbar">
+        {{!--
+        <select class="form-control kt-font-brand" style="width: 60px">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+        --}}
+        <span class="pagination__desc">
+            {{recordsFrom}} - {{recordsTo}} / {{recordsTotal}}
+        </span>
+    </div>
+</div>
+
+{{!--end: Pagination--}}
+
+{{yield}}

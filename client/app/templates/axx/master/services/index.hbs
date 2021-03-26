@@ -1,0 +1,32 @@
+<Metronic::SubHeader @title={{t "service.heading.index"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.services.add"
+                    @label={{t "service.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName="service"
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @includeParameters={{this.includeParameters}}
+                @refreshData={{this.refreshDt}}
+                @onEdit={{this.editRecord}}
+                @onDelete={{this.deleteRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

@@ -1,0 +1,22 @@
+{{metronic/pages/crud-page
+    formRecord=formRecord
+    modelName=formRecordModel
+    pageTitle=(t 'service_category.identifier')
+    modalFormTitle=(t (if
+        formRecord.isNew
+        "service_category.heading.create"
+        "service_category.heading.edit")
+    )
+    formComponent=(component
+        "metronic/forms/m-service-category"
+        serviceCategory=formRecord
+    )
+    datatableComponent=(component
+        "m-datatable"
+        modelName=formRecordModel
+        columns=columns
+        filterParameters=filterParameters
+        refreshData=refreshData
+    )
+    onSaveRecord=(action "onSaveRecord")
+}}

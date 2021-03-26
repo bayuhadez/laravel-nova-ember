@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <Metronic::Inputs::MSelect
+            @label={{t "address.attr.address"}}
+            @searchField="address"
+            @disabled={{this.disabled}}
+            @selected={{@intermediateAddress.address}}
+            @onchange={{@setAddress}}
+            @addItem={{@addAddress}}
+            @options={{this.addressOptions}} as |option|
+            >
+            {{option.address}}
+        </Metronic::Inputs::MSelect>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <Metronic::Inputs::MText
+            @label={{t "address.attr.pobox"}}
+            @value={{@address.pobox}}
+            @placeholder={{t "address.attr.pobox"}}
+            @showErrors={{@showErrors}}
+            @errorMessages={{v-get address "pobox" "messages"}}
+            />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <Metronic::Inputs::MSelect
+            @label={{t "address.rel.province"}}
+            @searchField="name"
+            @disabled={{this.disabled}}
+            @selected={{@address.province}}
+            @onchange={{this.setProvince}}
+            @options={{this.provinceOptions}} as |option|
+            >
+            {{option.name}}
+        </Metronic::Inputs::MSelect>
+    </div>
+    <div class="col-md-6">
+        <Metronic::Inputs::MSelect
+            @label={{t "address.rel.regency"}}
+            @searchField="name"
+            @disabled={{this.disabled}}
+            @selected={{@address.regency}}
+            @onchange={{this.setRegency}}
+            @options={{this.regencyOptions}} as |option|
+            >
+            {{option.name}}
+        </Metronic::Inputs::MSelect>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-lg-12">
+        <Metronic::MButton @action={{@saveAddress}}>
+            {{#if (and @intermediateAddress.isNew (not @intermediateAddress.isInTable))}}
+                {{t "button.add"}}
+            {{else}}
+                {{t "button.update"}}
+            {{/if}}
+        </Metronic::MButton>
+        <Metronic::MButton @label={{t "button.cancel"}} @type="button" @action={{@cancelAddress}}/>
+    </div>
+</div>

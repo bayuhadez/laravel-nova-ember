@@ -1,0 +1,33 @@
+<Metronic::SubHeader @title={{t "company.heading.index"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.companies.add"
+                    @label={{t "company.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName="company"
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @includeParameters={{this.includeParameters}}
+                @refreshData={{this.refreshDt}}
+                @onEdit={{this.editCompanyRecord}}
+                @onDelete={{this.deleteCompanyRecord}}
+                @routeLinkAction={{this.redirectToListWarehouse}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

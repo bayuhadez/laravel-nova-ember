@@ -1,0 +1,37 @@
+{{#if (has-block)}}
+    {{yield}}
+{{else}}
+    <div class="form-group">
+        <label for="text-input">{{label}}{{if isRequired ' *' ''}}</label>
+        <div class="input-group">
+            {{#if iconClasses}}
+                <div class="kt-input-icon">
+                    {{input
+                        type="text"
+                        class="form-control"
+                        disabled=disabled
+                        placeholder=placeholder
+                        value=value}}
+                    <span class="kt-input-icon__icon kt-input-icon__icon--right"><span><i class="{{iconClasses}}"></i></span></span>
+                </div>
+            {{else}}
+                {{#if prefix}}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{prefix}}</span>
+                    </div>
+                {{/if}}
+                {{input
+                    type="text"
+                    class="form-control"
+                    disabled=disabled
+                    placeholder=placeholder
+                    value=value}}
+            {{/if}}
+            {{#each err as |error|}}
+                <div class="kt-font-danger">
+                    {{error.message}}
+                </div>
+            {{/each}}      
+        </div>
+    </div>
+{{/if}}

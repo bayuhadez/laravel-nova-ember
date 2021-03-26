@@ -1,0 +1,17 @@
+{{metronic/inputs/m-text
+    value=productCategory.name
+    label=(t "product_category.attr.name")}}
+
+{{#metronic/inputs/m-select
+    label=(t "product_category.rel.children")
+    searchField="name"
+    selectType="multiple"
+    selected=productCategory.children
+    onchange=(action (mut productCategory.children))
+    renderInPlace=true
+    addItem=(action "addProductCategory")
+    options=childProductCategories as |option|}}
+
+    {{option.name}}
+
+{{/metronic/inputs/m-select}}

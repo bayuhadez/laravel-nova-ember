@@ -1,0 +1,49 @@
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+    <button class="kt-aside-close" id="kt_aside_close_btn"><i class="la la-close"></i></button>
+
+    {{metronic/m-sidebar}}
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt-wrapper">
+        <div id="kt_header" class="kt-header kt-grid kt-grid--ver  kt-header--fixed ">
+
+            {{!-- begin::Logo --}}
+            <div class="kt-header__brand kt-grid__item  " id="kt_header_brand" kt-hidden-height="80">
+                <div class="kt-header__brand-logo">
+                    <a href="index.html">
+                        <img alt={{t "logo"}} src="/assets/metronic/media/logos/logo-6.png">
+                    </a>
+                </div>
+            </div>
+            {{!-- end::Logo --}}
+
+            {{!-- begin::Title --}}
+            <h3 class="kt-header__title kt-grid__item">
+                {{t "quatro"}}
+            </h3>
+            {{!-- end::Title --}}
+
+            <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+
+            <div class="kt-header__topbar">
+                {{metronic/user-bar}}
+            </div>
+        </div>
+
+        {{!-- begin:: Content --}}
+        <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+            {{yield}}
+        </div>
+        {{!-- end::Content --}}
+
+        {{!-- begin::Footer --}}
+        <div class="kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
+            <div class="kt-container  kt-container--fluid ">
+                <div class="kt-footer__copyright">
+                    {{t "_copyright"}}
+                </div>
+            </div>
+        </div>
+        {{!-- end::Footer --}}
+
+    </div>
+</div>

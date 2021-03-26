@@ -1,0 +1,118 @@
+<Metronic::SubHeader @title={{t "prepare_or_return_product.heading.index"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.body>
+            <div class="row">
+                <div class="col d-flex">
+                    <div class="flex-fill">
+                        {{#metronic/inputs/m-select
+                            label=(t "pre_order.attr.division_name")
+                            searchField="name"
+                            selected=(find-by "value" selectedFilterDivision divisionOptions)
+                            onchange=(action (mut selectedFilterDivision) value="value")
+                            renderInPlace=true
+                            options=divisionOptions as |option|
+                        }}
+                            {{option.label}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+                    {{#if selectedFilterDivision}}
+                        <div class="align-self-center">
+                            <button
+                                class="btn btn-icon"
+                                {{action (mut selectedFilterDivision) null}}>
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="col d-flex">
+                    <div class="flex-fill">
+                        {{#metronic/inputs/m-select
+                            label=(t "sales_order.attr.requiresDelivery")
+                            searchField="name"
+                            selected=(find-by "value" selectedFilterRequiresDelivery deliveryOptions)
+                            onchange=(action (mut selectedFilterRequiresDelivery) value="value")
+                            renderInPlace=true
+                            options=deliveryOptions as |option|
+                        }}
+                            {{option.label}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+                    {{#if selectedFilterRequiresDelivery}}
+                        <div class="align-self-center">
+                            <button
+                                class="btn btn-icon"
+                                {{action (mut selectedFilterRequiresDelivery) null}}>
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="col d-flex">
+                    <div class="flex-fill">
+                        {{#metronic/inputs/m-select
+                            label=(t "pre_order.attr.status")
+                            searchField="name"
+                            selected=(find-by "value" selectedFilterStatus statusOptions)
+                            onchange=(action (mut selectedFilterStatus) value="value")
+                            renderInPlace=true
+                            options=statusOptions as |option|
+                        }}
+                            {{option.label}}
+                        {{/metronic/inputs/m-select}}
+                    </div>
+                    {{#if selectedFilterStatus}}
+                        <div class="align-self-center">
+                            <button
+                                class="btn btn-icon"
+                                {{action (mut selectedFilterStatus) null}}>
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+            <MDatatable
+                @modelName="product-sales-order"
+                @columns={{this.columns}}
+                @includeParameters={{this.includeParameters}}
+                @filterParameters={{this.filterParameters}}
+                @refreshData={{this.refreshData}}
+                />
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>
+
+{{#if isPreparingProduct}}
+    {{#modal-dialog
+        onClose=(action "closePrepareModal")
+        clickOutsideToClose=true
+        translucentOverlay=true
+        overlayClass="custom-modal-overlay"
+        containerClass="custom-modal-container"}}
+            <Metronic::Forms::MPrepareProduct
+                @productSalesOrder={{this.psoSource}}
+                @submitAction={{this.savePrepareProductForm}}
+                />
+    {{/modal-dialog}}
+{{/if}}
+
+{{#if isReturningProduct}}
+    {{#modal-dialog
+        onClose=(action "closeReturnModal")
+        clickOutsideToClose=true
+        translucentOverlay=true
+        overlayClass="custom-modal-overlay"
+        containerClass="custom-modal-container"}}
+            <Metronic::Forms::MReturnProduct
+                @productSalesOrder={{this.psoSource}}
+                @submitAction={{this.saveReturnProductForm}}
+                />
+    {{/modal-dialog}}
+{{/if}}

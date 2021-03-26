@@ -1,0 +1,118 @@
+<h2 class="form-title">{{titleize (t "Update Profile")}}</h2>
+
+<form {{action 'updateProfile' on='submit'}}
+	autocomplete="off"
+	class="reset-password-form"
+	id="reset-password-form"
+	>
+
+	{{#unless isEmailInputHidden}}
+		<div class="form-group">
+
+			<label class="alt-label" for="email"><i class="fas fa-envelope"></i></label>
+
+			{{input
+				value=email
+				placeholder=(t "attr.email")
+				type="email"
+				key-up=(action (mut showEmailError) true)
+				class="alt-input"
+			}}
+
+			{{#if showEmailError}}
+				{{#if (v-get this 'email' 'isInvalid')}}
+					<small class="form-text text-danger">
+						{{v-get this 'email' 'message'}}
+					</small>
+				{{/if}}
+			{{/if}}
+
+		</div>
+		<span>Email hanya bisa diubah jika akun belum terverifikasi</span>
+	{{/unless}}
+
+	<div class="form-group">
+		<label class="alt-label" for="first_name"><i class="fas fa-signature"></i></label>
+		{{input
+			value=first_name
+			placeholder=(t "attr.first_name")
+			type="text"
+			focus-out=(action (mut showFirstNameError) true)
+			class="alt-input"
+		}}
+
+		{{#if showFirstNameError}}
+			{{#if (v-get this 'first_name' 'isInvalid')}}
+				<small class="form-text text-danger">
+					{{v-get this 'first_name' 'message'}}
+				</small>
+			{{/if}}
+		{{/if}}
+	</div>
+	<div class="form-group">
+		<label class="alt-label" for="last_name"><i class="fas fa-signature"></i></label>
+		{{input
+			value=last_name
+			placeholder=(t "attr.last_name")
+			type="text"
+			focus-out=(action (mut showLastNameError) true)
+			class="alt-input"
+		}}
+
+		{{#if showLastNameError}}
+		{{#if (v-get this 'last_name' 'isInvalid')}}
+		<small class="form-text text-danger">
+			{{v-get this 'last_name' 'message'}}
+		</small>
+		{{/if}}
+		{{/if}}
+	</div>
+	<div class="form-group">
+		<label class="alt-label" for="address"><i class="fas fa-map-marker-alt"></i></label>
+		{{input
+			value=address
+			placeholder=(t "attr.address")
+			type="text"
+			focus-out=(action (mut showAddressError) true)
+			class="alt-input"
+		}}
+
+		{{#if showAddressError}}
+		{{#if (v-get this 'address' 'isInvalid')}}
+		<small class="form-text text-danger">
+			{{v-get this 'address' 'message'}}
+		</small>
+		{{/if}}
+		{{/if}}
+	</div>
+	<div class="form-group">
+		<label class="alt-label" for="phone"><i class="fas fa-mobile-alt"></i></label>
+		{{input
+			value=phone
+			placeholder=(t "attr.phone")
+			type="text"
+			focus-out=(action (mut showPhoneError) true)
+			class="alt-input"
+		}}
+
+		{{#if showPhoneError}}
+		{{#if (v-get this 'phone' 'isInvalid')}}
+		<small class="form-text text-danger">
+			{{v-get this 'phone' 'message'}}
+		</small>
+		{{/if}}
+		{{/if}}
+	</div>
+	
+	{{input
+		type="submit"
+		name="updateProfileSubmit"
+		id="updateProfileSubmit"
+		value=(t "Update Profile")
+		class="btn btn-login"
+		disabled=isProcessing
+	}}
+
+</form>
+
+{{yield}}

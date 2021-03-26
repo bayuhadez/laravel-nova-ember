@@ -1,0 +1,128 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction staff)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <!-- Section 1 Customer Detail -->
+            {{metronic/inputs/m-text
+                value=staff.code
+                label=(t "staff.attr.code")
+                row=5}}
+
+            <div class="form-group">
+                <div class="kt-checkbox-list">
+                    <label class="kt-checkbox">
+                        {{input
+                            type="checkbox"
+                            change=(action "togglePersonForm")}}
+                        {{t "switch person form"}}
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+
+            {{#if showPersonForm}}
+                {{metronic/inputs/m-text
+                    value=staff.person.firstName
+                    label=(t "person.attr.first_name")}}
+                {{metronic/inputs/m-text
+                    value=staff.person.lastName
+                    label=(t "person.attr.last_name")}}
+                {{metronic/inputs/m-text
+                    value=staff.person.telephoneNumber
+                    label=(t "person.attr.phone")}}
+                {{metronic/inputs/m-textarea
+                    value=staff.person.address
+                    label=(t "person.attr.address")
+                    row=5}}
+
+                {{#metronic/inputs/m-select
+                    label=(t "person.rel.regency")
+                    searchField="name"
+                    selected=staff.person.regency
+                    onchange=(action (mut staff.person.regency))
+                    renderInPlace=true
+                    options=regencies as |option|}}
+
+                    {{option.name}}
+                {{/metronic/inputs/m-select}}
+            {{else}}
+
+                {{#metronic/inputs/m-select
+                    label=(t "person.attr.name")
+                    searchField="fullname"
+                    selected=staff.person
+                    onchange=(action (mut staff.person))
+                    renderInPlace=true
+                    options=people
+                as |option|
+                }}
+
+                    {{option.fullname}}
+
+                {{/metronic/inputs/m-select}}
+            {{/if}}
+
+            {{#metronic/inputs/m-select
+                label=(t "staff.rel.company")
+                searchField="name"
+                selected=staff.company
+                onchange=(action (mut staff.company))
+                renderInPlace=true
+                errors=staff.errors.company
+                options=companies
+                as |option|}}
+
+                {{option.name}}
+
+            {{/metronic/inputs/m-select}}
+
+            {{#metronic/inputs/m-select
+                label=(t "staff.rel.staffPositions")
+                selectType="multiple"
+                searchField="name"
+                selected=staff.staffPositions
+                onchange=(action (mut staff.staffPositions))
+                renderInPlace=true
+                addItem=(action "addStaffPosition")
+                options=staffPositions as |option|}}
+
+                {{option.name}}
+
+            {{/metronic/inputs/m-select}}
+
+            {{#metronic/inputs/m-select
+                label=(t "staff.rel.staffCategories")
+                selectType="multiple"
+                searchField="name"
+                selected=staff.staffCategories
+                onchange=(action (mut staff.staffCategories))
+                renderInPlace=true
+                addItem=(action "addStaffCategory")
+                options=staffCategories as |option|}}
+
+                {{option.name}}
+
+            {{/metronic/inputs/m-select}}
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+
+</Metronic::MPortlet>
+

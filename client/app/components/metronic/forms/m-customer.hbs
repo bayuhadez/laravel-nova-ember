@@ -1,0 +1,143 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction (array this.args.customer this.args.phone))}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t (if @customer.isNew "customer.heading.add" "customer.heading.edit")}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <!-- Section 1 Customer Detail -->
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "customer.attr.code"}}
+                                @value={{this.args.customer.code}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.customer.error.code.validation}}
+                            />
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "customer.attr.email"}}
+                                @value={{this.args.customer.email}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.customer.error.email.validation}}
+                            />
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MSelect
+                                @label={{concat (t "customer.rel.parentCustomer") " (Pilih Untuk Menjadi Sub Customer)"}}
+                                @searchField="name"
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.customer.error.parentCustomer.validation}}
+                                @allowClear=true
+                                @onchange={{this.setParentCustomer}}
+                                @selected={{this.args.customer.parentCustomer}}
+                                @options={{@customerOptions}}
+                                as |option|
+                                >
+                                {{option.displayName}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "customer.rel.company"}}
+                                @searchField="name"
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.customer.error.company.validation}}
+                                @onchange={{this.setCompany}}
+                                @addItem={{this.addCompany}}
+                                @selected={{this.args.customer.company}}
+                                @options={{@companyOptions}} as |option|
+                                >
+                                {{option.name}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "customer.rel.person"}}
+                                @searchField="fullname"
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.customer.error.person.validation}}
+                                @onchange={{this.setPerson}}
+                                @addItem={{fn this.addPerson "person"}}
+                                @selected={{this.args.customer.person}}
+                                @options={{@personOptions}}
+                                as |option|
+                                >
+                                {{option.fullname}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "customer.rel.pic"}}
+                                @searchField="fullname"
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.customer.error.pic.validation}}
+                                @onchange={{fn (mut this.args.customer.pic)}}
+                                @addItem={{fn this.addPerson "pic"}}
+                                @selected={{this.args.customer.pic}}
+                                @options={{@personOptions}}
+                                as |option|
+                                >
+                                {{option.fullname}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "customer.attr.telephone_number"}}
+                                @value={{this.args.phone.telephoneNumber}}
+                                @disabled={{this.disabledPhoneField}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.phone.error.telephoneNumber.validation}}
+                            />
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "customer.attr.mobile_number"}}
+                                @value={{this.args.phone.mobileNumber}}
+                                @disabled={{this.disabledPhoneField}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.phone.error.mobileNumber.validation}}
+                            />
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "customer.attr.fax_number"}}
+                                @value={{this.args.phone.faxNumber}}
+                                @disabled={{this.disabledPhoneField}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.phone.error.faxNumber.validation}}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+
+</Metronic::MPortlet>

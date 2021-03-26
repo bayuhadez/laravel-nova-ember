@@ -1,0 +1,68 @@
+<div class="container">
+	{{email}}
+
+	<div class="row justify-content-center">
+		<div class="col">
+			<div class="info text-center">
+				<div class="icon icon-success">
+					<i class="material-icons" style="font-size: 6rem">verified_user</i>
+				</div>
+				<h2 class="title text-center">Verifikasi Email</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center mb-3">
+		<div class="col-sm-7">
+			Sebagai pengguna baru, Anda diwajibkan untuk melakukan verifikasi email untuk dapat masuk ke dalam Xxx.
+		</div>
+	</div>
+
+	<div class="row justify-content-center mt-2">
+		<div class="col-sm-7 col-xs-10">
+			<ol class="">
+				<li>Kami telah mengirimkan email ke inbox pada alamat email yang telah terdaftar</li>
+				<li>Periksa inbox Anda <i class="material-icons text-danger">info</i></li>
+				<li>Klik "Verifikasi Email"</li>
+				<li>Email akan di-verifikasi</li>
+				<li>Silahkan login menggunakan email Anda</li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="row justify-content-center mt-2">
+		<div class="col-sm-7">
+			<div class="text-muted text-danger pt-2">
+				<i class="tiny material-icons">info</i>Note: Periksa <i>"Spam"</i> pada email Anda jika tika mendapatkan notifikasi email dari kami.
+			</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col col-md-3">
+			{{#link-to (r 'dashboard') class=""}}
+			<div class="info text-center card">
+				<div class="icon icon-info">
+					<i class="material-icons">dashboard</i>
+				</div>
+				<h4 class="info-title">
+					Dashboard
+				</h4>
+			</div>
+			{{/link-to}}
+		</div>
+		<div class="col col-md-3">
+			{{#link-to (r 'login') class=""}}
+			<div class="info text-center card">
+				<div class="icon icon-info">
+					<i class="material-icons">face</i>
+				</div>
+				<h4 class="info-title">
+					Login
+				</h4>
+			</div>
+			{{/link-to}}
+		</div>
+	</div>
+
+</div>

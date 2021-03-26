@@ -1,0 +1,131 @@
+<Metronic::MPortlet as |portlet| >
+
+    <form {{on "submit" (fn @submitAction @company)}}>
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{formTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.code"}}
+                        @value={{@company.code}}
+                        @placeholder={{t "company.attr.code"}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.code @company.error.code.validation ""}}
+                        />
+                </div>
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.name"}}
+                        @value={{@company.name}}
+                        @placeholder={{t "company.attr.name"}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.name @company.error.name.validation ""}}
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "company.rel.parentCompany"}}
+                        @searchField="name"
+                        @selected={{@company.parentCompany}}
+                        @disabled={{@disabledParentInput}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.parentCompany @company.error.parentCompany.validation ""}}
+                        @onchange={{fn (mut @company.parentCompany)}}
+                        @options={{this.companyOptions}} as |option|>
+
+                        {{option.name}}
+
+                    </Metronic::Inputs::MSelect>
+                </div>
+                <div class="col-md-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "company.attr.division"}}
+                        @searchField="label"
+                        @selected={{find-by "value" @company.division this.divisionOptions}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.division @company.error.division.validation ""}}
+                        @onchange={{action (mut @company.division) value="value"}}
+                        @options={{this.divisionOptions}} as |option|
+                        >
+
+                        {{option.label}}
+
+                    </Metronic::Inputs::MSelect>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.valueAddedTaxNumber"}}
+                        @value={{@company.valueAddedTaxNumber}}
+                        @placeholder={{t "company.attr.valueAddedTaxNumber"}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.valueAddedTaxNumber @company.error.valueAddedTaxNumber.validation ""}}
+                        />
+                </div>
+                <div class="col-md-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "company.attr.valueAddedTaxType"}}
+                        @searchField="label"
+                        @selected={{find-by "value" @company.valueAddedTaxType this.valueAddedTaxTypeOptions}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.valueAddedTaxType @company.error.valueAddedTaxType.validation ""}}
+                        @onchange={{action (mut @company.valueAddedTaxType) value="value"}}
+                        @options={{this.valueAddedTaxTypeOptions}} as |option|
+                        >
+
+                        {{option.label}}
+
+                    </Metronic::Inputs::MSelect>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.telephone_number"}}
+                        @value={{@company.telephoneNumber}}
+                        @placeholder={{t "company.attr.telephone_number"}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.telephoneNumber @company.error.telephoneNumber.validation ""}}
+                        />
+                </div>
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.mobile_number"}}
+                        @value={{@company.mobileNumber}}
+                        @placeholder={{t "company.attr.mobile_number"}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.mobileNumber @company.error.mobileNumber.validation ""}}
+                        />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "company.attr.fax_number"}}
+                        @value={{@company.faxNumber}}
+                        @placeholder={{t "company.attr.fax_number"}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{if @company.error.faxNumber @company.error.faxNumber.validation ""}}
+                        />
+                </div>
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit" />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+
+</Metronic::MPortlet>

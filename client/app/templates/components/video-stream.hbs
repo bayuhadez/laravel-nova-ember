@@ -1,0 +1,11 @@
+<h1>local</h1>
+<video class="col-12" id="local-video" autoplay playsinline></video>
+<h1>remote</h1>
+<video class="col-12" id="remote-video" autoplay playsinline></video>
+
+<div>
+	<button id="start" {{action "start"}}>{{t "start"}}</button>
+	<button id="start-streaming" {{action "startStreaming"}}>{{t "start streaming"}}</button>
+</div>
+
+{{yield}}

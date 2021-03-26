@@ -1,0 +1,139 @@
+<div class="row">
+    <div class="col-lg-12">
+
+        <form class="kt-form kt-form--label-right">
+            <!-- Section 1 Warehouse Detail -->
+            <div class="row">
+                <div class="col-lg-6">
+                    {{metronic/inputs/m-text
+                        label=(t "warehouse.attr.code")
+                        value=warehouse.code
+                        placeholder=(t "warehouse.attr.code")
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "code" "messages")
+                    }}
+                </div>
+                <div class="col-lg-6">
+                    {{metronic/inputs/m-text
+                        label=(t "warehouse.attr.name")
+                        value=warehouse.name
+                        placeholder=(t "warehouse.attr.name")
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "name" "messages")
+                    }}
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-lg-6">
+                    {{metronic/inputs/m-text
+                        label=(t "warehouse.attr.phone")
+                        value=warehouse.phone
+                        placeholder=(t "warehouse.attr.phone")
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "phone" "messages")
+                    }}
+                </div>
+                <div class="col-lg-6">
+                    {{metronic/inputs/m-text
+                        label=(t "warehouse.attr.person_in_charge")
+                        value=warehouse.person_in_charge
+                        placeholder=(t "warehouse.attr.person_in_charge")
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "person_in_charge" "messages")
+                    }}
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-lg-6">
+                    {{#metronic/inputs/m-select
+                        selectType="multiple"
+                        label=(t "warehouse.rel.companies")
+                        searchField="name"
+                        selected=warehouse.companies
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "companies" "messages")
+                        onchange=(action (mut warehouse.companies))
+                        renderInPlace=true
+                        options=companyOptions as |option|}}
+
+                        {{option.name}}
+
+                    {{/metronic/inputs/m-select}}
+                </div>
+                <div class="col-lg-6">
+                    {{#metronic/inputs/m-select
+                        selectType="multiple"
+                        label=(t "warehouse.rel.warehouseCategories")
+                        searchField="name"
+                        selected=warehouse.warehouseCategories
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "warehouseCategories" "messages")
+                        onchange=(action (mut warehouse.warehouseCategories))
+                        addItem=(action "addWarehouseCategory")
+                        renderInPlace=true
+                        options=warehouseCategoryOptions as |option|}}
+
+                        {{option.name}}
+
+                    {{/metronic/inputs/m-select}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    {{metronic/inputs/m-textarea
+                        label=(t "warehouse.attr.address")
+                        value=warehouse.address
+                        placeholder=(t "warehouse.attr.address")
+                        rows=3
+                        showErrors=warehouseShowErrors
+                        errorMessages=(v-get warehouse "address" "messages")
+                    }}
+                </div>
+            </div>
+
+            <!-- Section 2 Racks Detail -->
+            {{#unless warehouse.isNew}}
+                <div class="kt-separator kt-separator--space-md"></div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{#metronic/m-portlet as |portlet|}}
+                            {{#portlet.head}}
+                                <h3 class="kt-portlet__head-title">{{t "rack.identifier"}}</h3>
+                                {{#unless isEditingRack}}
+                                    <div class="kt_portlet_head-actions ml-3">
+                                        {{metronic/m-button
+                                            action=(action "addRack")
+                                            label=(t "rack.heading.create")
+                                            class="btn-pill btn-sm"
+                                        }}
+                                    </div>
+                                {{/unless}}
+                            {{/portlet.head}}
+                            {{#portlet.body}}
+                                {{#if isEditingRack}}
+                                    <Metronic::Forms::Rack
+                                        @rack={{changeset formRackRecord RackValidation skipValidate=true}}
+                                        @showErrors={{this.rackShowErrors}}
+                                        @submitAction={{action "saveRack"}}
+                                        @cancelAction={{action "cancelRack"}}
+                                        />
+                                {{/if}}
+                                {{m-datatable
+                                    modelName="rack"
+                                    columns=rackColumns
+                                    refreshData=refreshDt
+                                    includeParameters=rackIncludeParameters
+                                    filterParameters=rackFilterParameters
+                                    onEdit=(action "editRack")
+                                    onDelete=(action "deleteRack")
+                                }}
+                            {{/portlet.body}}
+                        {{/metronic/m-portlet}}
+                    </div>
+                </div>
+            {{/unless}}
+        </form>
+
+    </div>
+</div>

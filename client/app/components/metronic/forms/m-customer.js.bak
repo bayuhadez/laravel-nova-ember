@@ -1,0 +1,116 @@
+import Component from '@ember/component';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { isBlank } from '@ember/utils'
+
+export default Component.extend({
+    store: service(),
+    currentUser: service(),
+
+    init()
+    {
+        this._super(...arguments);
+
+        this.setProperties({
+            billType: this.get('customer.billTypes')[this.get('customer.billType')],
+            countries: this.store.findAll('country'),
+            customers: this.store.findAll('customer'),
+        });
+    },
+
+    didReceiveAttrs()
+    {
+        this._super(...arguments);
+
+        let customer = this.get('customer');
+
+        // set customer.company
+        customer.set('company', this.get('currentUser.currentCompany'));
+    },
+
+    // computed property
+    customerOptions: computed('customers.[]', function () {
+        if (isBlank(this.get('customer.id'))) {
+            return this.get('customers');
+        } else {
+            const self = this;
+            return self.get('customers').filter(function (customer) {
+                return customer.get('id') !== self.get('customer.id');
+            });
+        }
+    }),
+
+    actions: {
+        chooseBillType(billType)
+        {
+            this.set('customer.billType', billType.id);
+            this.set('billType', billType);
+        },
+
+        addCompanyCustomerRecord()
+        {
+            this.set('companyCustomer', this.store.createRecord('company-customer'));
+            this.set('companyCustomer.customer', this.get('customer'));
+        },
+
+        editCompanyCustomerRecord(companyCustomer)
+        {
+            this.setProperties({
+                companyCustomer: companyCustomer,
+            });
+        },
+
+        deleteCompanyCustomerRecord(companyCustomer)
+        {
+            this
+                .qswal
+                .confirmDelete(() => {
+                    KTApp.blockPage();
+                    companyCustomer
+                        .destroyRecord()
+                        .then(() => {
+                            KTApp.unblockPage();
+                            this.qswal.delete().s();
+                        })
+                        .catch(() => {
+                            KTApp.unblockPage();
+                            this.qswal.delete().e();
+                        });
+                });
+        },
+
+        saveCompanyCustomer()
+        {
+            let self = this;
+
+            let qswal = (
+                self.get('companyCustomer.isNew')
+                ? this.qswal.create()
+                : this.qswal.edit()
+            );
+
+            KTApp.blockPage();
+
+            self.get('companyCustomer')
+                .save()
+                .then((companyCustomer) => {
+                    self.get('customer.companyCustomers').pushObject(companyCustomer);
+                    self.set('companyCustomer', null);
+                    qswal.s();
+                })
+                .catch((error) => {
+                    qswal.e();
+                })
+                .finally(() => {
+                    KTApp.unblockPage();
+                });
+        },
+
+        cancelEditingCustomerCompany()
+        {
+            this.get('companyCustomer').rollbackAttributes();
+            this.set('companyCustomer', null);
+        },
+    },
+
+});

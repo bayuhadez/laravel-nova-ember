@@ -1,0 +1,14 @@
+{{metronic/pages/index-page
+    modelName=formRecordModel
+    pageTitle=(t "purchase_receipt.identifier")
+    baseRoute="axx.purchases.purchase-receipts"
+    addRoute="axx.purchases.purchase-receipts.add"
+    datatableComponent=(component
+        "m-datatable"
+        modelName=formRecordModel
+        includeParameters=includeParameters
+        columns=columns
+        filterParameters=filterParameters
+        refreshData=refreshData
+    )
+}}

@@ -1,0 +1,132 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction this.args.preOrderProduct)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t (if @preOrderProduct.data.isNew "pre_order_product.heading.add" "pre_order_product.heading.edit")}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "pre_order_product.rel.product"}}
+                                @searchField="displayName"
+                                @renderInPlace={{true}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.product.validation}}
+                                @onchange={{this.setProduct}}
+                                @selected={{this.args.preOrderProduct.product}}
+                                @options={{this.productOptions}}
+                                as |option|
+                                >
+                                {{option.displayName}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @type="number"
+                                @label={{t "pre_order_product.attr.purchase_price"}}
+                                @value={{this.args.preOrderProduct.purchasePrice}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.purchasePrice.validation}}
+                                {{on "change" this.setPurchasePriceForeign}}
+                                />
+                        </div>
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @type="number"
+                                @label={{t "pre_order_product.attr.purchase_price_foreign"}}
+                                @value={{this.args.preOrderProduct.purchasePriceForeign}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.purchasePriceForeign.validation}}
+                                {{on "change" this.recalculatePurchasePrice}}
+                                />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @type="number"
+                                @label={{t "pre_order_product.attr.quantity"}}
+                                @value={{this.args.preOrderProduct.quantity}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.quantity.validation}}
+                                />
+                        </div>
+
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "pre_order_product.rel.unit"}}
+                                @searchField="unit.name"
+                                @renderInPlace={{true}}
+                                @selected={{this.args.preOrderProduct.productUnit}}
+                                @onchange={{fn (mut this.args.preOrderProduct.productUnit)}}
+                                @disabled={{this.isUnitFieldDisabled}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.productUnit.validation}}
+                                @options={{this.args.preOrderProduct.product.productUnits}}
+                                as |productUnit|>
+                                {{productUnit.unit.name}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @type="number"
+                                @label={{t "pre_order_product.attr.discount"}}
+                                @value={{this.args.preOrderProduct.discounts}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.discounts.validation}}
+                                />
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @type="number"
+                                @label={{t "pre_order_product.attr.cost"}}
+                                @value={{this.args.preOrderProduct.cost}}
+                                @showErrors={{@showErrors}}
+                                @errorMessages={{this.args.preOrderProduct.error.cost.validation}}
+                                />
+                        </div>
+
+                        <div class="col-lg-4">
+                            <!--Metronic::Inputs::MText
+                                @label={{t "pre_order_product.attr.sub_total"}}
+                                @value={{this.args.preOrderProduct.formattedSubTotal}}
+                                @disabled={{true}}
+                                /-->
+        
+                        </div>
+                        <div class="col-lg-4">
+                            <!--Metronic::Inputs::MText
+                                @label={{t "pre_order_product.attr.total"}}
+                                @value={{this.args.preOrderProduct.formattedTotal}}
+                                @disabled={{true}}
+                                /-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </portlet.body>
+        
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit" />
+                        <button class="btn btn-info" type="button" {{on "click" (fn @cancelAction this.args.preOrderProduct)}}>{{t "cancel"}}</button>
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+
+</Metronic::MPortlet>

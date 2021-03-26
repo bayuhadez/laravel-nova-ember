@@ -1,0 +1,65 @@
+<div class="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v2 kt-login--signin" id="kt_login">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url(/assets/metronic/media/bg/bg-1.jpg);">
+        <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+            <div class="kt-login__container">
+                <div class="kt-login__logo">
+                    <a href="#">
+                        <img src="/assets/metronic/media/logos/logo-mini-2-md.png">
+                    </a>
+                </div>
+                <div class="kt-login__signin">
+                    <div class="kt-login__head">
+                        <h3 class="kt-login__title">Sign In To Admin</h3>
+                    </div>
+                    <form class="kt-form" {{action "signIn" on="submit"}}>
+                        <div class="input-group">
+                            {{input
+                                value=username
+                                placeholder=(t "user.attr.username")
+                                type="text"
+                                focus-out=(action (mut showUsernameError) true)
+                                class="form-control is-invalid"}}
+
+                            {{#if showUsernameError}}
+                                {{#if (v-get this 'username' 'isInvalid')}}
+                                    <div class="error invalid-feedback">
+                                        {{v-get this 'username' 'message'}}
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="input-group">
+                            {{input
+                                value=password
+                                placeholder=(t "user.attr.password")
+                                type="password"
+                                focus-out=(action (mut showPasswordError) true)
+                                class="form-control is-invalid"}}
+
+                            {{#if showPasswordError}}
+                                {{#if (v-get this 'password' 'isInvalid')}}
+                                    <div class="error invalid-feedback">
+                                        {{v-get this 'password' 'message'}}
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="row kt-login__extra">
+                            <div class="col">
+                                <label class="kt-checkbox">
+                                    {{input checked=rememberMe name='rememberMe' type='checkbox' id='rememberMe'}} Remember me
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col kt-align-right">
+                            </div>
+                        </div>
+                        <div class="kt-login__actions">
+                            <button id="kt_login_signin_submit" type="submit" class="btn btn-pill kt-login__btn-primary">Sign In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

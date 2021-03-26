@@ -1,0 +1,103 @@
+<div class="row mt-4">
+    <div class="col-lg-4">
+        <Metronic::Inputs::MSelect
+            @label={{t "product_transaction_receipt.rel.product"}}
+            @searchField="displayName"
+            @renderInPlace={{true}}
+            @showErrors={{@showErrors}}
+            @errorMessages={{v-get @productTransactionReceipt 'product' 'messages'}}
+            @onchange={{action "onProductChanged"}}
+            @selected={{@productTransactionReceipt.product}}
+            @options={{this.productOptions}}
+            as |option|
+            >
+            {{option.displayName}}
+        </Metronic::Inputs::MSelect>
+        <Metronic::Inputs::MText
+            @value={{@productTransactionReceipt.quantity}}
+            @showErrors={{@showErrors}}
+            @label={{t "pre_order_product.attr.quantity"}}
+            @errorMessages={{v-get @productTransactionReceipt 'quantity' 'messages'}}
+        />
+        <Metronic::Inputs::MSelect
+            @label={{t 'pre_order_product.rel.unit'}}
+            @searchField="unit.name"
+            @options={{@productTransactionReceipt.product.productUnits}}
+            @renderInPlace={{true}}
+            @selected={{@productTransactionReceipt.productUnit}}
+            @showErrors={{@showErrors}}
+            @onchange={{action (mut @productTransactionReceipt.productUnit)}}
+            @disabled={{is-empty @productTransactionReceipt.product.id}}
+            @errorMessages={{v-get @productTransactionReceipt 'productUnit' 'messages'}}
+            as |productUnit| >
+            {{productUnit.unit.name}}
+        </Metronic::Inputs::MSelect>
+    </div>
+    <div class="col-lg-4">
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.purchase_price_foreign"}}
+            @value={{@productTransactionReceipt.foreignPrice}}
+            @showErrors={{@showErrors}}
+            @errorMessages={{v-get @productTransactionReceipt 'foreignPrice' 'messages'}}
+            {{on "change" this.recalculatePrice}}
+        />
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.purchase_price"}}
+            @value={{@productTransactionReceipt.price}}
+            @showErrors={{@showErrors}}
+            @errorMessages={{v-get @productTransactionReceipt 'price' 'messages'}}
+            {{on "change" this.setForeignPrice}}
+        />
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.discount"}}
+            @value={{@productTransactionReceipt.discounts}}
+            @showErrors={{@showErrors}}
+            @errorMessages={{v-get @productTransactionReceipt 'discounts' 'messages'}}
+        />
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.cost"}}
+            @value={{@productTransactionReceipt.cost}}
+            @showErrors={{@showErrors}}
+            @errorMessages={{v-get @productTransactionReceipt 'cost' 'messages'}}
+        />
+    </div>
+    <div class="col-lg-4">
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.sub_total"}}
+            @value={{this.calculatedFormattedSubTotal}}
+            @disabled={{true}}
+        />
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.total"}}
+            @value={{this.calculatedFormattedTotal}}
+            @disabled={{true}}
+        />
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.purchase_price_foreign_per_pcs"}}
+            @value={{this.calculatedFormattedForeignPricePerPcs}}
+            @disabled={{true}}
+        />
+        <Metronic::Inputs::MText
+            @label={{t "pre_order_product.attr.purchase_price_per_pcs"}}
+            @value={{this.calculatedFormattedPricePerPcs}}
+            @disabled={{true}}
+        />
+
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-lg-12">
+        <Metronic::MButton @action={{@addProductTransactionReceipt}}>
+            {{#if (and @productTransactionReceipt.isNew (not @productTransactionReceipt.isInTable))}}
+                {{t "button.add"}}
+            {{else}}
+                {{t "button.update"}}
+            {{/if}}
+        </Metronic::MButton>
+
+        <Metronic::MButton @action={{@cancelProductTransactionReceipt}}>
+            {{t "button.cancel"}}
+        </Metronic::MButton>
+    </div>
+</div>

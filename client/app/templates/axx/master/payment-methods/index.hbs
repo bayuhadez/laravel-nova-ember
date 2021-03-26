@@ -1,0 +1,38 @@
+<Metronic::SubHeader @title={{t "payment_method.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        {{#unless this.isEditingPaymentMethod}}
+            <portlet.head>
+                <div class="kt_portlet__head-actions">
+                    <Metronic::MButton
+                        @action={{this.addPaymentMethod}}
+                        @label={{t "button.add"}}
+                        />
+                </div>
+            </portlet.head>
+        {{/unless}}
+
+        <portlet.body>
+            {{#if this.isEditingPaymentMethod}}
+                <Metronic::Forms::MPaymentMethod
+                    @paymentMethod={{this.paymentMethodSource}}
+                    @submitAction={{this.savePaymentMethodForm}}
+                />
+            {{/if}}
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editPaymentMethodRecord}}
+                @onDelete={{this.deletePaymentMethodRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

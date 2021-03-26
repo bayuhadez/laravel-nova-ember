@@ -1,0 +1,224 @@
+<div class="row">
+    <div class="col-md-6">
+        {{metronic/inputs/m-text
+            label=(t "sales_order.attr.number")
+            value=salesOrder.number
+            disabled=salesOrder.cannotEdit
+            placeholder=(t "sales_order.attr.number")
+            showErrors=showErrors
+            errorMessages=(v-get salesOrder 'number' 'messages')
+        }}
+    </div>
+    <div class="col-md-6">
+        {{metronic/inputs/m-datepicker
+            label=(t "sales_order.attr.orderedAt")
+            value=salesOrder.orderedAt
+            onSelection=(action (mut salesOrder.orderedAt))
+            disabled=salesOrder.cannotEdit
+            placeholder=(t "sales_order.attr.orderedAt")
+            showErrors=showErrors
+            errorMessages=(v-get salesOrder 'orderedAt' 'messages')
+        }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {{#metronic/inputs/m-select
+            label=(t "sales_order.rel.company")
+            searchField="name"
+            selected=salesOrder.company
+            disabled=salesOrder.cannotEdit
+            showErrors=showErrors
+            errorMessages=(v-get salesOrder "company" "messages")
+            onchange=(action (mut salesOrder.company))
+            renderInPlace=true
+            options=companyOptions as |option|}}
+
+            {{option.name}}
+
+        {{/metronic/inputs/m-select}}
+    </div>
+    <div class="col-md-6">
+        {{metronic/inputs/m-text
+            label=(t "company.attr.division")
+            value=salesOrder.company.divisionName
+            placeholder=(t "company.attr.division")
+            disabled=true
+        }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        {{#metronic/inputs/m-select
+            label=(t "sales_order.rel.customer")
+            searchField="displayName"
+            selected=salesOrder.customer
+            disabled=salesOrder.cannotEdit
+            showErrors=showErrors
+            errorMessages=(v-get salesOrder "customer" "messages")
+            onchange=(action (mut salesOrder.customer))
+            renderInPlace=true
+            options=customerOptions as |option|}}
+
+            {{option.displayName}}
+
+        {{/metronic/inputs/m-select}}
+    </div>
+
+    <div class="col-md-6">
+        {{#metronic/inputs/m-select
+            label=(t "sales_order.rel.sales")
+            searchField="name"
+            selected=salesOrder.sales
+            disabled=salesOrder.cannotEdit
+            showErrors=showErrors
+            onchange=(action (mut salesOrder.sales))
+            renderInPlace=true
+            options=salesOptions as |option|}}
+
+            {{option.name}}
+
+        {{/metronic/inputs/m-select}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        {{#metronic/inputs/m-select
+            label=(t "sales_order.rel.warehouseStaff")
+            searchField="name"
+            selected=salesOrder.warehouseStaff
+            disabled=salesOrder.cannotEdit
+            showErrors=showErrors
+            onchange=(action (mut salesOrder.warehouseStaff))
+            renderInPlace=true
+            options=warehouseStaffOptions as |option|}}
+
+            {{option.name}}
+
+        {{/metronic/inputs/m-select}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+       {{metronic/inputs/m-checkbox-boolean
+            label=(t "sales_order.attr.requiresDelivery")
+            value=salesOrder.requiresDelivery
+        }} 
+    </div>
+
+    {{#if salesOrder.requiresDelivery}}
+        <div class="col-md-4">
+            {{#metronic/inputs/m-select
+                label=(t "sales_order.rel.deliveryRecipientCustomer")
+                searchField="displayName"
+                selected=salesOrder.deliveryRecipientCustomer
+                disabled=salesOrder.cannotEdit
+                onchange=(action (mut salesOrder.deliveryRecipientCustomer))
+                renderInPlace=true
+                options=deliveryRecipientCustomerOptions as |option|}}
+
+                {{option.displayName}}
+
+            {{/metronic/inputs/m-select}}
+        </div>
+
+        <div class="col-md-6">
+           {{#metronic/inputs/m-select
+                label=(t "sales_order.rel.deliveryAddress")
+                searchField="address"
+                selected=salesOrder.deliveryAddress
+                disabled=salesOrder.cannotEdit
+                onchange=(action (mut salesOrder.deliveryAddress))
+                renderInPlace=true
+                options=salesOrder.customer.addresses as |option|}}
+
+                {{option.address}}
+
+            {{/metronic/inputs/m-select}}
+        </div>
+    {{/if}}
+</div>
+
+<hr>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active"
+            data-toggle="tab"
+            href="#"
+            data-target="#sales-order-product"
+            {{on "click" (fn (mut this.activeTab) "tab_product")}}>
+            {{t "sales_order.heading.tab_product"}}
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+            data-toggle="tab"
+            href="#"
+            data-target="#sales-order-service"
+            {{on "click" (fn (mut this.activeTab) "tab_service")}}>
+            {{t "sales_order.heading.tab_service"}}
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    {{#if (eq activeTab "tab_product")}}
+        <Metronic::TabsPane @id="sales-order-product" @class="active">
+            <Metronic::Tabs::SalesOrder::Product
+                @salesOrder={{this.salesOrder}}
+            />
+        </Metronic::TabsPane>
+    {{/if}}
+
+    {{#if (eq activeTab "tab_service")}}
+        <Metronic::TabsPane @id="sales-order-service">
+            <Metronic::Tabs::SalesOrder::Service
+                @salesOrder={{this.salesOrder}}
+            />
+        </Metronic::TabsPane>
+    {{/if}}
+   
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-12">
+        {{metronic/inputs/m-textarea
+            label=(t "sales_order.attr.description")
+            value=salesOrder.description
+            disabled=salesOrder.cannotEdit
+            placeholder=(t "sales_order.attr.description")
+            errorMessages=(v-get salesOrder "description" "messages")
+            showErrors=showErrors 
+            rows=3
+        }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {{metronic/inputs/m-text
+            label=(t "sales_order.attr.discount")
+            value=salesOrder.discount
+            disabled=salesOrder.cannotEdit
+            placeholder=(t "sales_order.attr.discount")
+            showErrors=showErrors
+            errorMessages=(v-get salesOrder "discount" "messages")
+        }}
+    </div>
+    <div class="col-md-6">
+        {{metronic/inputs/m-text
+            label=(t "sales_order.attr.grand_total")
+            disabled=true
+            value=salesOrder.calculatedGrandTotal
+            placeholder=(t "sales_order.attr.grand_total")
+            showErrors=showErrors
+            errorMessages=(v-get salesOrder "grand_total" "messages")
+        }}
+    </div>
+</div>

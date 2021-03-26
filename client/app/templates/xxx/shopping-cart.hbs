@@ -1,0 +1,155 @@
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			{{#link-to (r 'dashboard')}}Dashboard{{/link-to}}
+		</li>
+		<li class="breadcrumb-item">
+			{{#link-to (r 'shopping-cart')}}{{titleize (t "shopping cart")}}{{/link-to}}
+		</li>
+	</ol>
+</nav>
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col col-cm-8">
+			{{#each shoppingCart.products as |product|}}
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-3">
+								<img
+									src={{product.imageUrl}}
+									class="w-100"
+									alt={{product.name}}
+								>
+							</div>
+							<div class="col-sm-9">
+								<div class="row">
+									<div class="product-detail col-sm-8 text-truncate">
+										<h5 class="card-title">{{product.name}}</h5>
+										{{t "Speaker :"}} {{product.speakerName}}
+									</div>
+									<div class="col-sm-4">
+										<div class="row">
+											<div class="product-price col-sm-12 text-right">
+												<h3 class="card-title">{{product.formattedPrice}}</h3>
+											</div>
+											<div class="product-actions col-sm-12 text-right">
+												<button
+													class="btn btn-danger btn-sm"
+													{{action "removeProduct" product.id}}
+												>
+													{{t "button.remove"}}
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+
+		<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm">
+					<div class="card card-nav-tabs">
+						<div class="card-body">
+
+							<div class="text-center">
+								<h4 class="card-title">Voucher</h4>
+								<h6 class="card-subtitle mb-2 text-muted">{{t "voucher.help"}}</h6>
+							</div>
+
+							<div class="text-center mt-2 mb-2">
+
+								<div class="form-group">
+
+									{{input
+										value=voucher_code
+										placeholder=(t "attr.voucher")
+										type="text"
+										key-up=(action (mut showVoucherCodeError) true)
+										class="alt-input"
+										id="voucher-input"
+									}}
+									{{#if showVoucherCodeError}}
+										{{#if (v-get this 'voucher_code' 'isValidating')}}
+											<small class="form-text text-primary">
+												<br>
+											</small>
+										{{else}}
+											{{#if (v-get this 'voucher_code' 'isValid')}}
+											<small class="form-text text-success">
+												Voucher tersedia
+											</small>
+											{{else}}
+											<small class="form-text text-danger">
+												{{v-get this 'voucher_code' 'message'}}
+											</small>
+											{{/if}}
+										{{/if}}
+									{{else}}
+										<small class="form-text text-success">
+											<br>
+										</small>
+									{{/if}}
+
+								</div>
+							</div>
+
+							<div class="text-center">
+								<button 
+									class="btn btn-warning" 
+									disabled={{v-get this 'voucher_code' 'isInvalid'}} 
+									{{action "redeemVoucher"}}>{{t "button.redeem_voucher"}}</button>
+							</div>
+						</div>
+					</div>
+					<div class="card card-nav-tabs">
+						<div class="card-body">
+
+							<div class="text-center">
+								<h4 class="card-title"></h4>
+								<h6 class="card-subtitle mb-2 text-muted">{{t "total price"}}</h6>
+							</div>
+
+							{{#if isVoucherUsed}}
+								<div class="row">
+									<label class="col-sm-6 col-form-label">Voucher Used</label>
+									<label class="col-sm-6 col-form-label">{{voucher.name}}</label>
+								</div>
+								<div class="row">
+									<label class="col-sm-6 col-form-label">Harga </label>
+									<label class="col-sm-6 col-form-label">{{voucher.amountFormatted}}</label>
+								</div>
+
+								<div class="row">
+									<label class="col-sm-6 col-form-label">Discount</label>
+									<label class="col-sm-6 col-form-label">{{voucher.amountFormatted}}</label>
+								</div>
+							{{/if}}
+
+							<div class="text-center mt-2 mb-2">
+								<h3 class="card-title">{{totalPrice}}</h3>
+							</div>
+
+							<div class="text-center">
+								{{#if shoppingCart.totalProduct}}
+									<button class="btn btn-danger" {{action "clearProduct"}}>{{t "button.clear"}}</button>
+									<button class="btn btn-success" {{action "checkout"}}>{{t "button.checkout"}}</button>
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>

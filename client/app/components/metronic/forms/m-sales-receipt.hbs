@@ -1,0 +1,226 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction @salesReceipt @transactionReceipt)}}>
+        
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t 'sales_receipt.attr.number'}}
+                                @value={{@salesReceipt.number}}
+                                @errors={{@salesReceipt.errors.number}}
+                            />
+                        </div>
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MDatepicker
+                                @label={{t "sales_receipt.attr.receiptedAt"}}
+                                @value={{@salesReceipt.receiptedAt}}
+                                @autocomplete="off"
+                                @errors={{@salesReceipt.errors.receiptedAt}}
+                                @onSelection={{action (mut @salesReceipt.receiptedAt)}}
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MSelect
+                                @label={{t 'sales_receipt.rel.company'}}
+                                @selected={{@salesReceipt.company}}
+                                @onchange={{this.setCompany}}
+                                @renderInPlace={{true}}
+                                @errors={{@salesReceipt.errors.company}}
+                                @options={{@companyOptions}} as |option|>
+
+                                {{option.name}}
+
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t 'sales_receipt.attr.division'}}
+                                @value={{@salesReceipt.company.divisionName}}
+                                @disabled={{true}}
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MSelect
+                                @label={{t 'sales_receipt.rel.customer'}}
+                                @disabled={{this.disabledUntilCompanySelected}}
+                                @selected={{@transactionReceipt.customer}}
+                                @onchange={{this.setCustomer}}
+                                @renderInPlace={{true}}
+                                @errors={{@transactionReceipt.errors.customer}}
+                                @options={{this.customerOptions}} as |option|>
+
+                                {{option.displayName}}
+
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MSelect
+                                @label={{t 'sales_receipt.rel.address'}}
+                                @disabled={{this.disabledUntilCompanySelected}}
+                                @selected={{@salesReceipt.address}}
+                                @onchange={{action (mut @salesReceipt.address)}}
+                                @renderInPlace={{true}}
+                                @errors={{@salesReceipt.errors.address}}
+                                @options={{@transactionReceipt.customer.addresses}} as |option|>
+
+                                {{option.address}}
+
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MDatepicker
+                                @label={{t "sales_receipt.attr.dueAt"}}
+                                @disabled={{this.disabledUntilCompanySelected}}
+                                @value={{@salesReceipt.dueAt}}
+                                @autocomplete="off"
+                                @errors={{@salesReceipt.errors.dueAt}}
+                                @onSelection={{action (mut @salesReceipt.dueAt)}}
+                            />
+                        </div>
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label="Sisa Plafon"
+                                @value="0"
+                                @disabled={{true}}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+            
+                <div class="kt-section__content">
+
+                    <div class="row">
+                        <Metronic::MButton
+                            @label="Pilih SO"
+                            @type="button"
+                            @disabled={{this.disabledShowSalesOrderButton}}
+                            @action={{this.toggleShowSalesOrder}}
+                            />
+                    </div>
+
+                    {{#if this.showSalesOrder}}
+                        <Metronic::MPortlet as |portlet|>
+                            <portlet.head>
+                                <div class="kt-portlet__head-toolbar">
+                                    <ul class="nav nav-pills" role="tablist">
+                                        <li class="nav-item">
+                                            <a
+                                                href="#sales-order-product"
+                                                class="nav-link active"
+                                                data-toggle="tab"
+                                                {{on "click" (fn (mut this.activeTab) "tab_product")}}>
+                                                <i class="la la-building"/> {{t "sales_receipt.heading.tab_product"}}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a 
+                                                href="#sales-order-service"
+                                                class="nav-link"
+                                                data-toggle="tab"
+                                                {{on "click" (fn (mut this.activeTab) "tab_service")}}>
+                                                <i class="la la-building"/> {{t "sales_receipt.heading.tab_service"}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </portlet.head>
+
+                            <portlet.body>
+                                <div class="tab-content">
+                                    {{#if (eq activeTab "tab_product")}}
+                                        <Metronic::TabsPane @id="sales-order-product" @class="active">
+                                            <MDatatable
+                                                @modelName="product-sales-order"
+                                                @columns={{this.psoColumns}}
+                                                @filterParameters={{this.psoFilterParameters}}
+                                                @includeParameters={{this.psoIncludeParameters}}
+                                                @refreshData={{@refreshData}}
+                                                />
+                                        </Metronic::TabsPane>
+                                    {{/if}}
+                                    {{#if (eq activeTab "tab_service")}}
+                                        <Metronic::TabsPane @id="sales-order-service">
+                                            <MDatatable
+                                                @modelName="sales-order-service"
+                                                @columns={{this.sosColumns}}
+                                                @filterParameters={{this.sosFilterParameters}}
+                                                @includeParameters={{this.sosIncludeParameters}}
+                                                @refreshData={{@refreshData}}
+                                                />
+                                        </Metronic::TabsPane>
+                                    {{/if}}
+                                </div>
+                            </portlet.body>
+                        </Metronic::MPortlet>
+                    {{/if}}
+                </div>
+
+                <br>
+                    
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col">
+                            <Metronic::Inputs::MCurrency
+                                @label={{t 'sales_receipt.attr.total'}}
+                                @value={{@salesReceipt.calculatedTotal}}
+                                @prefix="Rp."
+                                @disabled={{true}}
+                            />
+                        </div>
+                        <div class="col">
+                            <Metronic::Inputs::MSelect
+                                @isRequired={{true}}
+                                @label={{t "sales_receipt.attr.is_ppn"}}
+                                @onchange={{action "choosePpnType"}}
+                                @options={{@salesReceipt.ppnTypes}}
+                                @renderInPlace={{true}}
+                                @searchEnabled={{false}}
+                                @searchField="name"
+                                @selectType="default"
+                                @selected={{@salesReceipt.selectedPpnType}}
+                                as |option|
+                                >
+                                {{option.name}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                        <div class="col">
+                            <Metronic::Inputs::MCurrency
+                                @label={{t 'sales_receipt.attr.subTotal'}}
+                                @value={{@salesReceipt.calculatedSubTotal}}
+                                @prefix="Rp."
+                                @disabled={{true}}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit" />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+
+</Metronic::MPortlet>

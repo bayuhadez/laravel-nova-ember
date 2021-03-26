@@ -1,0 +1,38 @@
+<div class="main-wrapper">
+
+    {{main-header}}
+
+    {{verification-email-dashboard-notification user=currentUser.user}}
+
+    <div class="main-content flex-grow-1">
+        {{outlet}}
+    </div>
+
+    <div class="spinner-loader-overlay">
+        <div class="spinner-loader" role="status"></div>
+    </div>
+
+    <footer class="no-padding-footer fixed-footer">
+        <div class="footer-bottom">
+            <div class="bg-transparent container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="copyright-txt text-left">
+                            {{t "copyright text"}}
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <div class="footer-nav">
+                            <div class="row justify-content-center">
+                                {{#link-to (r "dashboard") class="col-4"}}{{t "home"}}{{/link-to}}
+                                {{#link-to (r "products") class="col-4"}}{{t "seminar"}}{{/link-to}}
+                                {{#link-to (r "faq") class="col-4"}}{{t "faq"}}{{/link-to}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>

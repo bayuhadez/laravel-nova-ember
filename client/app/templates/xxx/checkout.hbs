@@ -1,0 +1,95 @@
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			{{#link-to (r 'dashboard')}}Dashboard{{/link-to}}
+		</li>
+		<li class="breadcrumb-item">
+			{{#link-to (r 'checkout')}}{{titleize (t "checkout")}}{{/link-to}}
+		</li>
+	</ol>
+</nav>
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm">
+					<div class="card card-nav-tabs">
+						<div class="card-body">
+
+							<div class="text-center">
+								<h4 class="card-title">{{order.paymentId}}</h4>
+								<h6 class="card-subtitle mb-2 text-muted">Detail Order</h6>
+							</div>
+
+							<table class="table table-borderless">
+								<tbody>
+									{{#if order.voucher}}
+									<tr>
+										<th scope="row">{{t "attr.voucher"}}</th>
+										<td>{{order.voucher.name}}</td>
+									</tr>
+									<tr>
+										<th scope="row">{{t "voucher.discount"}}</th>
+										<td>{{order.voucher.amountFormatted}}</td>
+									</tr>
+									{{/if}}
+									<tr>
+										<th scope="row">{{t "total price"}}</th>
+										<td>{{order.formattedGrossAmount}}</td>
+									</tr>
+									<tr>
+										<th scope="row">{{titleize (t "status")}}</th>
+										<td>{{titleize order.statusText}}</td>
+									</tr>
+									<tr>
+										<td colspan=2 class="text-center">
+											<button class="btn btn-success btn-lg" disabled={{isProcessing}} {{action "pay"}}>
+												{{t "button.pay"}}
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-8">
+			{{#if order.orderDetails}}
+				{{#each order.orderDetails as |orderDetail|}}
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-3">
+									<img
+										src={{orderDetail.product.imageUrl}}
+										class="w-100"
+										alt={{orderDetail.name}}
+									>
+								</div>
+								<div class="product-detail col-sm-6 text-truncate">
+									<h5 class="card-title">{{orderDetail.name}}</h5>
+									{{t "Speaker :"}} {{orderDetail.product.speakerName}}
+								</div>
+								<div class="product-price col-sm-3">
+									<div class="row">
+										<div class="col-sm text-right">
+											<h3 class="card-title">{{orderDetail.formattedPrice}}</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{/each}}
+			{{else}}
+				{{t "nothing in this list"}}
+			{{/if}}
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<Metronic::SubHeader @title={{t "user.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.users.add"
+                    @label={{t "user.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editUserRecord}}
+                @onDelete={{this.deleteUserRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

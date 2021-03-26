@@ -1,0 +1,930 @@
+message:
+  success:
+    message: 'Sukses'
+    delete: 'Data berhasil dihapus'
+    create: 'Data berhasil dibuat'
+    edit: 'Data berhasil diedit'
+  error:
+    message: 'Gagal'
+    delete: 'Data gagal dihapus'
+    create: 'Data gagal dibuat'
+    edit: 'Data gagal diedit'
+    unauthorized: 'Operasi tidak diperbolehkan'
+  confirm: "Apakah anda yakin?"
+  cant_revert: "Data yang sudah dihapus tidak dapat dikembalikan"
+  loading: "Memuat..."
+brand:
+  name: 'Xxx'
+toggle navigation: 'Ubah Navigasi'
+home: 'Beranda'
+dashboard: 'Beranda'
+seminar: 'Seminar'
+checkout: 'Checkout'
+faq: 'FAQ'
+banner:
+  title: 'Seminar Online yang berkualitas dengan pembicara terbaik dan profesional'
+  subtitle: 'Ikuti seminar bersertifikat resmi hanya disini dan dapatkan penawaran terbaik dari kami.'
+  button: 'Lihat Kelas'
+previous: 'Sebelum'
+next: 'Berikut'
+add to cart: 'Tambahkan ke Keranjang'
+go to cart: 'Lihat Keranjang Belanja'
+shopping cart: 'Keranjang Belanja'
+Items : 'Barang'
+total: 'Total'
+stream: 'Stream'
+start: 'Mulai'
+hangup: 'Selesai'
+finish: 'Selesai'
+call: 'Panggil'
+start socket: 'Mulai Socket'
+start streaming: 'Mulai Streaming'
+start broadcasting: 'Mulai Broadcasting'
+logo: 'Logo'
+auth:
+  register: 'Daftar Baru'
+  register_form_header: 'Daftar Akun Baru'
+  register_form_help: 'Silakan isi form berikut'
+  login: 'Login'
+  login failed: "Login gagal"
+  login success: "Login berhasil"
+  success: "Berhasil"
+  unauthorized: "Email/Password salah"
+  the given data was invalid.: "Username/Password yang diberikan tidak valid"
+attr:
+  first_name: 'Nama Depan'
+  last_name: 'Nama Belakang'
+  address: 'Alamat'
+  phone: 'Nomor Telephone'
+  email: 'Email'
+  password: 'Password'
+  password_confirmation: 'Konfirmasi Password'
+  full_name_on_license: 'Nama Lengkap Sesuai STR'
+  license_number: 'No STR'
+  license_expiry_date: 'Tanggal Kadaluarsa STR'
+  photo_identity: 'Photo Kartu STR'
+  date_format: 'dd/mm/yyyy'
+  registration_certificate_number: 'No. Surat Tanda Registrasi (STR)'
+  voucher: 'Kode Voucher'
+button:
+  add: 'Tambah'
+  redeem_voucher: 'Redeem Voucher'
+  cancel: 'Batal'
+  buy_now: 'Beli sekarang'
+  add_to_cart: 'Tambah ke keranjang'
+  remove: 'Hapus'
+  clear: 'Hapus Semua'
+  checkout: 'Checkout'
+  pay: 'Bayar'
+  submit: 'Submit'
+  download: 'unduh'
+  resend verification email: 'Kirim ulang email verifikasi'
+  update: "Perbarui"
+voucher:
+  help: 'Punya kode voucher ? redeem kode voucher mu disini'
+  success: 'Selamat anda mendapat potongan sejumlah '
+  failed: 'Voucher tidak tersedia '
+  discount: 'Potongan Diskon'
+Upgrade To Mentor: 'Menjadi Mentor'
+Upgrade To Mentor Form: 'Pengajuan Mentor Formulir'
+Reset Password: 'Ubah Password'
+Update Profile: 'Ubah Profile'
+Logout: 'Logout'
+Profile Menu: 'Menu Profil'
+Speaker :: 'Pembicara :'
+Rp. : 'Rp.'
+by : 'oleh'
+say something : 'Say Something'
+my seminar : 'Seminarku'
+manage seminar: 'manage seminar'
+upcoming seminars: 'Upcoming Seminars'
+past seminars: 'Past Seminars'
+nothing in this list: 'Daftar Ini Kosong'
+order: 'pesanan'
+order history: 'riwayat pesanan'
+status: 'status'
+status_label:
+  order:
+    pending: 'menunggu pembayaran'
+    failed: 'gagal'
+    processing: 'dalam proses'
+    completed: 'berhasil'
+    onhold: 'dalam proses'
+    cancelled: 'dibatalkan'
+    refunded: 'pengembalian dana'
+  payment:
+    pending: 'menunggu pembayaran'
+    failed: 'gagal'
+    settlement: 'settlement'
+    denied: 'dibatalkan'
+    challenged: 'challenged'
+    success: 'success'
+    expired: 'kadaluarsa'
+You've logged in from another device: 'Anda telah login di perangkat lain'
+You just resend verification email, please wait 10 minutes. Please check your inbox or spam on your email: 'Anda baru saja mengirim ulang verification email, Anda dapat melakukan lagi setelah 10 menit. Silahkan periksa inbox atau spam pada email Anda'
+The verification email has been resend, please check you inbox or spam: 'Verification email berhasil dikirim, silahkan periksa inbox atau spam email Anda'
+You have not verified email yet.: 'Anda belum melakukan verifikasi email.'
+Please check your Inbox or Spam.: 'Silahkan Periksa Kotak Masuk (Inbox) atau Spam email Anda.'
+We sent a verification email to {email}.: 'Kami telah mengirim email verifikasi ke <strong>{email}</strong>.'
+You cannot checkout before email is verified.: 'Anda tidak dapat melakukan Checkout sebelum melakukan Verifikasi Email.'
+copyright text: '© 2019 xxx. All Rights Reserved.'
+about us: 'Tentang Kami'
+blog: 'Blog'
+contact us: 'Hubungi Kami'
+total price: 'Total Harga'
+# cp-validators
+errors:
+  description: "This field"
+  inclusion: "{description} is not included in the list"
+  exclusion: "{description} is reserved"
+  invalid: "{description} tidak valid"
+  confirmation: "{description} doesn't match {on}"
+  accepted: "{description} must be accepted"
+  empty: "{description} tidak boleh kosong"
+  blank: "{description} tidak boleh kosong"
+  present: "{description} harus blank"
+  collection: "{description} must be a collection"
+  singular: "{description} can't be a collection"
+  tooLong: '{description} terlalu panjang (maksimal {max} karakter)'
+  tooShort: '{description} terlalu pendek (minimal {min} karakter)'
+  before: "{description} must be before {before}"
+  after: "{description} must be after {after}"
+  wrongDateFormat: "{description} must be in the format of {format}"
+  wrongLength: "{description} is the wrong length (should be {is} characters)"
+  notANumber: "{description} harus numeric"
+  notAnInteger: "{description} must be an integer"
+  greaterThan: "{description} must be greater than {gt}"
+  greaterThanOrEqualTo: "{description} must be greater than or equal to {gte}"
+  equalTo: "{description} must be equal to {is}"
+  lessThan: "{description} must be less than {lt}"
+  lessThanOrEqualTo: "{description} must be less than or equal to {lte}"
+  otherThan: "{description} must be other than {value}"
+  odd: "{description} must be odd"
+  even: "{description} must be even"
+  positive: "{description} must be positive"
+  date: "{description} must be a valid date"
+  email: "{description} must be a valid email address"
+  phone: "{description} must be a valid phone number"
+  url: "{description} must be a valid url"
+yes: "Ya"
+no: "Tidak"
+user:
+  identifier: "User"
+  attr:
+    email: Email
+    username: Username
+    password: Password
+    password_confirmation: "Konfirmasi Password"
+  heading:
+    add: "Tambah User"
+    edit: "Edit User"
+  rel:
+    person: "Person"
+    companies: "Cabang"
+    roles: "Role"
+    stockDivisions: "Divisi Stok"
+departments: "Departemen"
+supplier:
+  identifier: "Supplier"
+  description:
+    index: "List Supplier"
+    create: "Create Supplier"
+    edit: "Edit Supplier"
+  attr:
+    id: "ID"
+    code: "Kode"
+    name: "Nama"
+    pic: "PIC"
+    top: "TOP"
+    plafon: "Plafon"
+    accounting_number: "No Accounting"
+    information: "Keterangan"
+    createdAt: "Tanggal Pembuatan"
+    updated_at: "Tanggal Terakhir Edit"
+  rel:
+    addresses: "Alamat"
+    currency: "Mata Uang"
+    supplierCategory: "Kategori Supplier"
+  heading:
+    add: "Tambah Supplier"
+    edit: "Edit Supplier"
+    index: "List Supplier"
+supplier_category:
+  identifier: "Kategori Supplier"
+  description:
+    index: "List Kategori Supplier"
+    create: "Tambah Kategori Supplier"
+    edit: "Edit Kategori Supplier"
+  attr:
+    id: "ID"
+    name: "Nama"
+  heading:
+    create: "Tambah Kategori Supplier"
+    edit: "Edit Data Kategori Supplier"
+    email: "Email"
+    username: "Username"
+    password: "Password"
+company:
+  heading:
+    index: "List Cabang"
+    add: "Tambah Cabang"
+    createSub: "Tambah Sub Cabang"
+    edit: "Edit Cabang"
+    editSub: "Edit Sub Cabang"
+    formcompany: "Form Data Cabang"
+    show: "Detail Cabang"
+  division:
+    none: "Tidak Ada Divisi"
+    wholesale: "Wholesale"
+    retail: "Retail"
+  valueAddedTaxType:
+    manual: "Manual"
+    yes: "Ya"
+    no: "Tidak"
+  attr:
+    name: "Nama Cabang"
+    code: "Kode"
+    division: "Divisi"
+    telephone_number: "No. Telephone"
+    mobile_number: "No. Hp"
+    fax_number: "No. Fax"
+    valueAddedTaxNumber: "Set Nomor PPN"
+    valueAddedTaxType: "Tipe PPN"
+    total_child_companies: "Total Sub Cabang"
+    total_warehouses: "Total Gudang"
+    total_racks: "Total Rak Barang"
+    createdAt: "Tanggal Dibuat"
+    updatedAt: "Tanggal Terakhir Edit"
+    defaultAddress: "Alamat"
+  rel:
+    products: "Produk"
+    productCategories: "Kategori Produk"
+    parentCompany: "Parent Cabang"
+    childrenCompany: "Anak Cabang"
+    warehouses: "Gudang"
+    racks: "Rak Barang"
+    createdBy: "Dibuat Oleh"
+    updatedBy: "Terakhir Diedit Oleh"
+  address:
+    attr:
+      address: "Alamat"
+      pobox: "PO BOX"
+      isDefault: "Default"
+    rel:
+      country: "Negara"
+      regency: "Kota/Kabupaten"
+      province: "Provinsi"
+    heading:
+      create: "Tambah Alamat"
+      edit: "Edit Alamat"
+    identifier: "Alamat"
+  identifier: "Cabang"
+  button:
+    backToIndex: "Kembali Ke List Cabang"
+person:
+  identifier: "Profile"
+  heading:
+    create: "Tambah Profile"
+    edit: "Edit Profile"
+  attr:
+    name: "nama person"
+    first_name: "Nama Depan"
+    last_name: "Nama Belakang"
+    address: "Alamat"
+    phone: "Nomor Telephone"
+  rel:
+    regency: "Kota"
+staff:
+  identifier: "Karyawan"
+  heading:
+    add: "Tambah Karyawan"
+    edit: "Edit Karyawan"
+  rel:
+    person: "Profile"
+    company: "Cabang"
+    staffCategories: "Kategori Karyawan"
+    staffPositions: "Posisi Karyawan"
+  attr:
+    code: "Kode"
+staff-category:
+  identifier: "Kategori Karyawan"
+  heading:
+    create: "Tambah Kategori Karyawan"
+    edit: "Edit Kategori Karyawan"
+  attr:
+    name: "Nama"
+  rel:
+    staffs: "Karyawan"
+staff-position:
+  identifier: "Jabatan Karyawan"
+  heading:
+    create: "Tambah Jabatan Karyawan"
+    edit: "Edit Jabatan Karyawan"
+  attr:
+    name: "Nama"
+  rel:
+    staffs: "Karyawan"
+service:
+  identifier: "Jasa"
+  heading:
+    index: "List Jasa"
+    add: "Tambah Jasa"
+    edit: "Edit Jasa"
+    tab_price: "Harga"
+    tab_point: "Poin"
+  attr:
+    id: "ID"
+    code: "Kode"
+    name: "Nama"
+    description: "Keterangan"
+    price: "Harga Jual Global"
+    point: "Point Global"
+  rel:
+    serviceCategory: "Kategori Jasa"
+    companies: "Cabang"
+  form:
+    select: "Pilih Kategori"
+    create_category: "Tambah Kategori Baru"
+service_category:
+  identifier: "Kategori Jasa"
+  heading:
+    create: "Buat Kategori Baru"
+    edit: "Edit Kategori"
+  attr:
+    id: "ID"
+    name: "Nama"
+create: "Tambah"
+edit: "Ubah"
+delete: "Hapus"
+master: "Master"
+sell: "Penjualan"
+purchase: "Pembelian"
+_copyright: "Hak Cipta CV. Karisma Setya Adi Prakasa"
+quatro: "Quatro"
+list: "List"
+sales_order:
+  identifier: "Sales Order"
+  heading:
+    add: "Tambah Sales Order"
+    edit: "Edit Sales Order"
+    index: "List Sales Order"
+    show: "Detail Sales Order"
+    tab_product: "Barang"
+    tab_service: "Jasa"
+  alert:
+    set_status_success_title: "Sukses Set Status Sales Order"
+    set_status_fail_title: "Gagal Set Status Sales Order"
+    set_orderchecker_success_message: "Status Sales Order berhasil diubah menjadi IN PROCESS"
+    set_approved_success_message: "Status Sales Order berhasil diubah menjadi APPROVED"
+    set_onhold_success_message: "Status Sales Order berhasil diubah menjadi ON HOLD"
+    set_orderchecker_fail_message: "Status Sales Order harus Approved sebelum dapat di set Order Checker"
+    set_approved_fail_message: "Status Sales Order harus Ready sebelum dapat di set APPROVED"
+    set_onhold_fail_message: "Status Sales Order harus Ready sebelum dapat di set ON HOLD"
+  attr:
+    number: "Nomor SO"
+    divisi: "Divisi"
+    description: "Keterangan"
+    discount: "Diskon"
+    total: "Total"
+    grand_total: "Grand Total"
+    status: "Status"
+    totalNominalNota: "Grand Total"
+    customerName: "Nama Customer"
+    createdAt: "Tanggal"
+    orderedAt: "Tanggal"
+    updatedAt: "Tanggal Terakhir Update"
+    requiresDelivery: "Dikirim"
+  rel:
+    customer: "Customer"
+    company: "Cabang"
+    createdBy: "Sales"
+    warehouseStaff: "Staff Gudang"
+    sales: "Sales"
+    deliveryAddress: "Alamat Kirim"
+    deliveryRecipientCustomer: "Penerima"
+    productSalesOrders: "Barang"
+sales_receipt:
+  identifier: "Nota Jual"
+  heading:
+    add: "Tambah Nota Jual"
+    edit: "Edit Nota Jual"
+    index: "List Nota Jual"
+    tab_product: "Barang"
+    tab_service: "Jasa"
+  attr:
+    number: "Nomor Nota"
+    createdAt: "Tanggal"
+    total: "Total"
+    subTotal: "Sub Total"
+    division: "Divisi"
+    is_ppn: "PPn"
+    dueAt: "Jatuh Tempo"
+    receiptedAt: "Tanggal"
+  rel:
+    customer: "Customer"
+    company: "Cabang"
+    sales: "Sales"
+    sales_order: "Sales Order"
+    createdBy: "Dibuat Oleh"
+    address: "Alamat"
+product_sales_order:
+  identifier: "Product Sales Order"
+  heading:
+    create: "Tambah Barang"
+    prepare: "Ambil"
+    return: "Kembalikan"
+  status:
+    onhold: "On Hold"
+    approved: "Approved"
+    confirm_returned: "Konfirmasi Barang Kembali"
+    ready: "Barang sudah siap"
+    unauthorized: "Belum Otorisasi"
+    partially_unauthorized: "Otorisasi Sebagian"
+    authorized: "Sudah Otorisasi"
+    prepared: "Sudah Siap"
+    on_delivery: "Mengirim"
+    delivered: "Terkirim"
+    bill: "Siap Buat Nota"
+  attr:
+    amount: "Jumlah"
+    discount: "Diskon"
+    order_quantity: "Jumlah Pesanan"
+    sell_price: "Harga Jual"
+    status: "Status"
+    sub_total: "Sub Total"
+    temporaryQty: "Qty Sementara"
+    temporaryStock: "Stok Sementara"
+    amount_approved: "Jumlah Disetujui"
+    amount_rejected: "Jumlah Ditolak"
+    amount_prepared: "Jumlah Diambil"
+    amount_left: "Jumlah Sisa"
+    amount_returned: "Jumlah Dikembalikan"
+  rel:
+    product: "Barang"
+    stockDivision: "Divisi Stok"
+product_stock:
+  identifier: "Product Stock"
+  attr:
+    datetime: "Tanggal Barang Masuk"
+    quantity: "Jumlah"
+    temp_quantity: "Jumlah Sementara"
+    rackAndWarehouseName: "Gudang dan Rak"
+    tempTakenAmount: "Barang Diambil"
+    tempReturnedAmount: "Barang Dikembalikan"
+    formattedDisplayCompanyAndDivision: "Cabang - Divisi"
+    stockCard: "Kartu Stok"
+  rel:
+    stock_division: "Divisi Stok"
+sales_order_service:
+  identifier: "Sales Order Service"
+  heading:
+    create: "Tambah Jasa"
+  attr:
+    discount: "Diskon"
+    order_quantity: "Jumlah Pesanan"
+    sell_price: "Harga Jual"
+    total: "Sub Total"
+  rel:
+    service: "Jasa"
+product:
+  attr:
+    name: "Nama"
+    code: "Kode"
+    barcode: "Barcode"
+    image: "Gambar"
+    minimum_stock: "Stok Min"
+    maximum_stock: "Stok Max"
+    stock: "Qty"
+    price: "Harga Jual Global"
+    base_price: "Harga Modal Global"
+    sku: "SKU"
+  rel:
+    productBrand: "Merk"
+    productCategories: "Kategori"
+    productSize: "Ukuran"
+    productRing: "Ring"
+    productPattern: "Pattern"
+    productPCD: "Pattern"
+    productUnit: "Satuan"
+    companyProduct: "Point Perusahaan"
+    productExpedition: "Perkiraan Muatan"
+    companies: "Cabang"
+  heading:
+    add: "Tambah Data Barang"
+    edit: "Ubah Data Barang"
+    tab_variant: "Varian"
+    tab_unit: "Satuan"
+    tab_price: "Harga"
+    tab_point: "Poin"
+    tab_expedition: "Ekspedisi"
+    tab_stock: "Stok"
+  widget:
+    low_stock: "Stok Sedikit"
+    empty_stock: "Stok Habis"
+  identifier: "Barang"
+expedition_product:
+  attr:
+    amount: "qty"
+  rel:
+    product: "Produk"
+    expedition: "Nama Ekspedisi"
+company_product:
+  attr:
+    point: "Poin"
+    price: "Harga Jual"
+    receipt_price: "Harga Modal"
+company_service:
+  attr:
+    point: "Poin"
+    price: "Harga Jual"
+unit:
+  attr:
+    name: "Satuan"
+    primary: "Satuan Terkecil"
+    secondary: "Satuan Lain"
+expedition:
+  identifier: "Ekspedisi"
+  attr:
+    code: "Kode"
+    name: "Nama"
+    address: "Alamat"
+    fax_number: "Fax"
+    mobile_number: "No Hp"
+    telephone_number: "Telepon"
+    regency: "Kota"
+    pic: "PIC"
+    created_at: "Tanggal Pembuatan"
+  rel:
+    country: "Negara"
+    currency: "Mata Uang"
+    expeditionCategory: "Kategori"
+    province: "Provinsi"
+    regency: "Kota"
+  heading:
+    add: "Tambah Data Ekspedisi"
+    edit: "Edit Data Ekspedisi"
+customer:
+  attr:
+    code: "Kode"
+    name: "Nama"
+    email: "Email"
+    isSubCustomer: "Sub Pelanggan"
+    fax_number: "Fax"
+    mobile_number: "No Hp"
+    telephone_number: "Telepon"
+  heading:
+    index: "List Pelanggan"
+    add: "Tambah Pelanggan"
+    edit: "Edit Pelanggan"
+  rel:
+    addresses: "Alamat"
+    company: "Perusahaan"
+    parentCustomer: "Pelanggan Induk"
+    childrenCustomer: "Sub Pelanggan"
+    person: "Nama Pelanggan"
+    pic: "PIC"
+  identifier: "Pelanggan"
+address:
+  attr:
+    address: "Alamat"
+    pobox: "PO BOX"
+    isDefault: "Default"
+  rel:
+    country: "Negara"
+    regency: "Kota/Kabupaten"
+    province: "Provinsi"
+  heading:
+    create: "Tambah Alamat"
+    edit: "Edit Alamat"
+  identifier: "Alamat"
+product_meta_field:
+  attr:
+    label: "Label"
+  heading:
+    add: "Tambah Meta Data Barang"
+    edit: "Ubah Meta Data Barang"
+  rel:
+    productMetaFieldGroup: "Grup Meta Data"
+  identifier: "Meta Data Barang"
+warehouse:
+  attr:
+    name: "Nama Gudang"
+    code: "Kode"
+    address: "Alamat"
+    phone: "Nomor Telephone"
+    person_in_charge: "Person In Charge"
+    totalRack: "Jumlah Rak"
+    totalQuantity: "Total Quantity"
+    created_at: "Tanggal Dibuat"
+    updated_at: "Tanggal Terakhir Edit"
+  heading:
+    add: "Tambah Gudang"
+    edit: "Edit Gudang"
+    index: "List Gudang"
+    show: "Detail Gudang"
+    form: "Form Gudang"
+  rel:
+    companies: "Cabang"
+    warehouseCategories: "Kategori Gudang"
+    racks: "Rak"
+  identifier: "Gudang"
+rack:
+  attr:
+    code: "Kode"
+    name: "Name"
+    description: "Keterangan"
+    division: "Divisi"
+    capacity: "Kapasitas"
+    quantity: "Max Qty"
+    total_quantity_in_stock_division: "Qty"
+  rel:
+    company: "Cabang"
+    warehouse: "Gudang"
+  heading:
+    create: "Tambah Rak"
+    edit: "Ubah Rak"
+    index: "List Rak"
+  division:
+    none: "Tidak Ada Divisi"
+    wholesale: "Wholesale"
+    retail: "Retail"
+  identifier: "Rak"
+stock_division:
+  heading:
+    create: "Tambah Divisi Stok"
+    edit: "Ubah Divisi Stok"
+    index: "List Divisi Stok"
+    show: "Detail Divisi Stok"
+  attr:
+    name: "Nama"
+    description: "Keterangan"
+    division: "Divisi"
+    totalStockDivisionNames: "Jumlah Divisi"
+  rel:
+    company: "Cabang"
+    stockDivisionNames: "Nama Divisi Stok"
+  identifier: "Divisi Stok"
+stock_division_name:
+  heading:
+    create: "Tambah Nama Divisi Stok"
+    index: "List Nama Divisi Stok"
+  attr:
+    name: "Nama Divisi Stok"
+expedition_category:
+  identifier: "Kategori Ekspedisi "
+  heading:
+    create: "Tambah Kategory Ekspedisi"
+    edit: "Edit Kategory Ekspedisi"
+  attr:
+    id: "ID"
+    name: "Nama"
+product_unit:
+  attr:
+    conversion_rate: "Jumlah"
+company_customer:
+  heading:
+    create: "Tambah Customer Additional Data"
+    edit: "Edit Customer Additional Data"
+  attr:
+    credit_limit: "Kredit Limit"
+    discount: "Diskon"
+    term_of_payment: "TOP"
+    ppn: "PPN"
+  rel:
+    company: "Cabang"
+    customer: "Customer"
+    staffs: "Sales"
+name: "Nama"
+sku: "SKU"
+buy price: "Harga Modal"
+sell price: "Harga Jual"
+qty: "Qty"
+actions: "Aksi"
+save: "Simpan"
+cancel: "Batal"
+draft: "Draft"
+approve: "Approve"
+continue: "Lanjutkan"
+province: "Provinsi"
+regency: "Kota/Kabupaten"
+product_category:
+  identifier: "Kategori Barang"
+  heading:
+    create: "Tambah Data Kategori Barang"
+    edit: "Ubah Data Kategori Barang"
+  attr:
+    name: "Nama"
+  rel:
+    children: "Sub Kategori"
+request_order:
+  identifier: "Request Order"
+  heading:
+    add: "Tambah Request Order"
+    edit: "Edit Request Order"
+  attr:
+    created_at: "Waktu Dibuat"
+    updated_at: "Waktu Diperbarui"
+    division_name: "Divisi"
+    memo: "Memo"
+    number: "Nomor"
+    staff_position: "Jabatan"
+    user_name: "Name"
+    status: "Status"
+  rel:
+    company: "Cabang"
+    createdBy: "Dibuat Oleh"
+request_order_product:
+  identifier: "Request Order Produk"
+  heading:
+    create: "Tambah Request Order Produk"
+    edit: "Edit Request Order Produk"
+  attr:
+    created_at: "Tanggal Dibuat"
+    information: "Keterangan"
+    product_code: "Kode Barang"
+    product_name: "Nama Barang"
+    quantity: "Qty"
+  rel:
+    product: "Barang"
+pre_order:
+  identifier: "Pre Order"
+  heading:
+    add: "Tambah Pre Order"
+    create: "Tambah Pre Order"
+    edit: "Edit Pre Order"
+  attr:
+    ordered_at: "Tanggal"
+    created_at: "Tanggal Dibuat"
+    po_ordered_at: "Tanggal PO"
+    division_name: "Divisi"
+    memo: "Memo"
+    number: "No. PO"
+    staff_position: "Dari"
+    status: "Status"
+    son_number: "No. Son"
+    currency_rate: "Kurs"
+    rounding_value: "Nilai Pembulatan"
+    rounding_type: "Tipe Pembulatan"
+    is_ppn: "Tipe PPN"
+    due_at: "Jatuh Tempo"
+    sub_total: "Total"
+    discounts: "Diskon"
+    total: "Grand Total"
+    ppn: "PPN"
+  rel:
+    company: "Cabang"
+    supplier: "Supplier"
+    currency: "Mata Uang"
+    createdBy: "Dibuat Oleh"
+  ppn_type:
+    yes: "Ya"
+    no: "Tidak"
+  rounding_type:
+    up: "UP"
+    down: "DOWN"
+    normal: "NORMAL"
+  status:
+    draft: "Draft"
+    done: "Complete"
+    pending: "Pending"
+  form:
+    call_ro: "Pilih Request Order"
+    add_product: "Tambah Produk"
+pre_order_product:
+  identifier: "Pre Order Produk"
+  heading:
+    add: "Tambah Pre Order Produk"
+    edit: "Edit Pre Order Produk"
+  attr:
+    cost: "Biaya"
+    created_at: "Tanggal Dibuat"
+    discount: "Diskon"
+    information: "Keterangan"
+    product_code: "Kode Barang"
+    product_name: "Nama Barang"
+    purchase_price: "Harga Modal Rupiah"
+    purchase_price_foreign: "Harga Modal Asing"
+    purchase_price_foreign_per_pcs: "Harga Asing /pcs"
+    purchase_price_per_pcs: "Harga Rupiah /pcs"
+    quantity: "Qty"
+    sub_total: "Sub Total"
+    total: "Total"
+  rel:
+    product: "Barang"
+    unit: "Satuan"
+purchase_receipt:
+  identifier: "Nota Pembelian"
+  heading:
+    create: "Tambah Nota Pembelian"
+    edit: "Edit Nota Pembelian"
+  attr:
+    created_at: "Tanggal Dibuat"
+    currency_rate: "Kurs"
+    discounts: "Diskon"
+    division_name: "Divisi"
+    due_at: "Jatuh Tempo"
+    is_ppn: "Tipe PPN"
+    memo: "Memo"
+    number: "No. Nota"
+    receipted_at: "Tanggal"
+    rounding_type: "Tipe Pembulatan"
+    rounding_value: "Nilai Pembulatan"
+    son_number: "No. Son"
+    status: "Status"
+    sub_total: "SUM Total"
+    total: "Total Nominal Nota"
+    delivery_order_number: "Nomor Surat Jalan"
+    tax_invoice_number: "Nomor Faktur Pajak"
+    delivery_order_at: "Tanggal Surat Jalan"
+    receipt_letter_at: "Tanggal Surat Terima"
+  rel:
+    company: "Cabang"
+    supplier: "Supplier"
+    currency: "Mata Uang"
+    createdBy: "Dibuat Oleh"
+  form:
+    grand_total: "Grand Total"
+    ppn: "PPn"
+    total: "Total"
+product_transaction_receipt:
+  identifier: "Product"
+  heading:
+    create: "Tambah Product"
+  attr:
+    price: "Harga Modal Rupiah"
+    price_per_pcs: "Harga Rupiah /pcs"
+    foreign_price: "Harga Modal Asing"
+    foreign_price_per_pcs: "Harga Asing /pcs"
+    quantity: "Qty"
+    sub_total: "Sub Total"
+    total: "Total"
+  rel:
+    product: "Barang"
+product_stock_movement:
+  identifier: "Pergerakan Stok"
+  attr:
+    quantity: "Qty"
+    datetime: "Tanggal"
+    in_or_out: "Masuk/Keluar"
+    rack_quantity: "Rak Qty"
+    stock: "Stok"
+    receipt_number: "No. Nota"
+    price: "Harga"
+    from: "Dari"
+    to: "Kepada"
+  rel:
+    product: "Barang"
+    product_stock: "Stok"
+    rack: "Rak"
+    stockDivision: "Divisi Stok"
+    user: "Pengguna"
+switch person form: "Daftar Baru"
+role:
+  identifier: "Role"
+  heading:
+    index: "List Role"
+    create: "Tambah Role"
+    edit: "Edit Role"
+  attr:
+    name: "Nama"
+options:
+  yes: "Ya"
+  no: "Tidak"
+roundable:
+  rounding_type:
+    up: "Up"
+    down: "Down"
+    normal: "Normal"
+prepare_or_return_product:
+  identifier: "Pengambilan/Pengembalian Barang"
+  heading:
+    index: "Pengambilan/Pengembalian Barang"
+    prepare: "Pengambilan Barang"
+    return: "Pengembalian Barang"
+payment_method:
+  identifier: "Metode Pembayaran"
+  attr:
+    code: "Kode"
+    name: "Nama Metode"
+wallet:
+  identifier: "Rekening"
+  attr:
+    code: "Kode"
+    name: "Nama Rekening"
+    payment_type: "Tipe Pembayaran"
+  rel:
+    payment_methods: "Metode Pembayaran"
+    companies: "Rekening Cabang"
+  type_option:
+    in: "Masuk"
+    out: "Keluar"
+    all: "Semua"
+preOrder:
+  table:
+    ro:
+      createdAt: "Tanggal Pembuatan RO"
+      createdBy: "Dibuat Oleh"
+      number: "No. RO"
+    roModal:
+      createdAt: "Tanggal RO"
+

@@ -1,0 +1,80 @@
+<div class="container">
+
+	<div class="signin-content row justify-content-center">
+
+		<div class="col-12 col-md-6 order-md-12 align-self-center">
+			<div class="signin-form">
+				<h2 class="form-title">Login</h2>
+
+				<form {{action 'authenticate' on='submit'}} class="register-form" id="login-form">
+
+					<div class="form-group">
+
+						<label for="your_name" class="alt-label"><i class="fas fa-user"></i></label>
+
+						{{input
+							value=username
+							placeholder=(t "attr.email")
+							type="email"
+							focus-out=(action (mut showUsernameError) true)
+							class="alt-input"
+							id="login_username"
+						}}
+
+						{{#if showUsernameError}}
+							{{#if (v-get this 'username' 'isInvalid')}}
+								<small class="form-text text-danger">
+									{{v-get this 'username' 'message'}}
+								</small>
+							{{/if}}
+						{{/if}}
+
+					</div>
+
+					<div class="form-group">
+						<label for="your_pass" class=" alt-label"><i class="fas fa-lock"></i></label>
+
+						{{input
+							value=password
+							placeholder=(t "attr.password")
+							type="password"
+							focus-out=(action (mut showPasswordError) true)
+							class="alt-input"
+							id="login_password"
+						}}
+
+						{{#if showPasswordError}}
+							{{#if (v-get this 'password' 'isInvalid')}}
+								<small class="form-text text-danger">
+									{{v-get this 'password' 'message'}}
+								</small>
+							{{/if}}
+						{{/if}}
+
+					</div>
+
+					<div class="mr-2">
+						{{#link-to (r "forgot-password") class="signup-image-link text-right"}}Lupa password?{{/link-to}}
+					</div>
+
+					<input type="submit" name="signin" id="signin" class="btn btn-login" value="Log in"/>
+
+				</form>
+
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 order-md-1 align-self-center">
+			<div class="signin-image text-center">
+				<figure>
+					<img src="assets/img/login-image.png" class="img-fluid mx-auto" alt="sing up image">
+				</figure>
+				{{#link-to (r "register") class="btn btn-login"}}{{t 'auth.register_form_header'}}{{/link-to}}
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+{{yield}}

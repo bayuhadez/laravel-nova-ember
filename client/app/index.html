@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quatro</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="gfEK3Wni2CRfphqPV63Kr97fCRdL9nqgahiNhyx0lks" />
+
+    {{content-for "head"}}
+
+    <!-- CSS Files -->
+
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/rcf.css">
+
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/rcf.js"></script>
+	<script>
+		var KTAppOptions = {
+			"colors": {
+				"state": {
+					"brand": "#22b9ff",
+					"light": "#ffffff",
+					"dark": "#282a3c",
+					"primary": "#5867dd",
+					"success": "#34bfa3",
+					"info": "#36a3f7",
+					"warning": "#ffb822",
+					"danger": "#fd3995"
+				},
+				"base": {
+					"label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+					"shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+				}
+			}
+		};
+	</script>
+
+	<script type="text/javascript"
+		src="{{content-for 'config.midtransUrl'}}"
+		data-client-key="{{content-for 'config.midtransClietKey'}}"></script>
+
+    {{content-for "body-footer"}}
+
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" @saveAsDraft}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{@title}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <Metronic::Forms::MSalesOrder
+                @salesOrder={{@salesOrder}}
+                @companyOptions={{@companyOptions}}
+                @customerOptions={{@customerOptions}}
+                @salesOptions={{@salesOptions}}
+                @warehouseStaffOptions={{@warehouseStaffOptions}}
+            />
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                        <Metronic::MButton
+                            @label={{t "finish"}}
+                            @action={{@saveAsFinished}}
+                            @type="button"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+
+</Metronic::MPortlet>

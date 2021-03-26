@@ -1,0 +1,18 @@
+<div class="card" id="faq-{{faq.id}}">
+
+	<div onclick={{action "toggleAnswer"}} class="card-body" style="cursor: pointer;">
+		<h4 class="card-title">{{faq.question}}</h4>
+		{{#if isProcessing}}
+			<span>Loading ...</span>
+		{{/if}}
+	</div>
+
+	<div id="faq-body-{{faq.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#faq-{{faq.id}}">
+		<div class="col" class="faq-answer card-body">
+			{{markdown-to-html faq.answer}}
+		</div>
+	</div>
+
+</div>
+
+{{yield}}

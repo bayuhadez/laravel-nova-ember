@@ -1,0 +1,19 @@
+{{#if (eq this.currentStepId 0)}}
+
+    <div>OUT</div>
+
+{{else if (eq this.currentStepId 1)}}
+
+    <Metronic::Forms::MProductPlacementIn
+        @company={{@company}}
+        @productMovementReferences={{@productMovementReferences}}
+        @addProductStockMovement={{@addInProductStockMovement}}
+        @editProductStockMovement={{@editInProductStockMovement}}
+        @deleteProductStockMovement={{@deleteInProductStockMovement}}
+        @refreshData={{@refreshData}}
+        @filterParameters={{@inProductStockMovementFilterParameters}}
+        @newProductStockMovements={{@newInProductStockMovements}}
+        @purchaseReceiptIsNew={{@purchaseReceiptIsNew}}
+    />
+
+{{/if}}

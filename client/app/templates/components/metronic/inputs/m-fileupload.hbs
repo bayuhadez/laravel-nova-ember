@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label>{{label}}{{if isRequired ' *' ''}}</label>
+    <div></div>
+    <div class="custom-file">
+        <input class="custom-file-input" type="file" {{action "onFileChanged" on="change"}}>
+        <label class="custom-file-label">Choose file</label>
+    </div>
+    {{#if showError}}
+        <div class="kt-font-danger">
+            File size must be less than 2MB
+        </div>
+    {{/if}}
+</div>

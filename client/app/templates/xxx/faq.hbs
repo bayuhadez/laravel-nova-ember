@@ -1,0 +1,21 @@
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			{{#link-to (r 'dashboard')}}Dashboard{{/link-to}}
+		</li>
+		<li class="breadcrumb-item">
+			{{#link-to (r 'faq')}}{{t "faq"}}{{/link-to}}
+		</li>
+	</ol>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col col-cm-8">
+			{{#each faqs as |faq|}}
+				{{faq-content faq=faq}}
+			{{/each}}
+		</div>
+	</div>
+</div>
+{{outlet}}

@@ -1,0 +1,33 @@
+{{#metronic/inputs/m-select
+    allowClear=allowClear
+    label=provinceLabel
+    onchange=(action "chooseProvince")
+    options=provinces
+    renderInPlace=true
+    searchField="name"
+    selected=province
+    selectType="default"
+    disabled=isDisabled
+    as |option|
+    }}
+    {{option.name}}
+{{/metronic/inputs/m-select}}
+
+{{#if isRegencyDisplayed }}
+    {{#metronic/inputs/m-select
+        allowClear=allowClear
+        label=regencyLabel
+        disabled=isDisabled
+        onchange=(action (mut regency))
+        options=regencies
+        renderInPlace=true
+        searchField="name"
+        selected=regency
+        selectType="default"
+        as |option|
+        }}
+        {{option.name}}
+    {{/metronic/inputs/m-select}}
+{{/if}}
+
+{{yield}}

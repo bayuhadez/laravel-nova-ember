@@ -1,0 +1,11 @@
+{{#if sessionStarted}}
+	{{#if productIsMine}}
+		{{#link-to (r "mentor-stream") streamKey}}
+			{{t 'start broadcasting'}}
+		{{/link-to}}
+	{{else}}
+		{{#link-to (r "stream") streamKey}}
+			{{t 'start streaming'}}
+		{{/link-to}}
+	{{/if}}
+{{/if}}

@@ -1,0 +1,40 @@
+{{#if session.isAuthenticated}}
+
+		<a class="nav-link"
+			href="#" id="profileMenuDropdown"
+			data-toggle="dropdown"
+			aria-haspopup="true"
+			aria-expanded="false"
+		>
+			<i class="material-icons">account_circle</i> Profile
+			<div class="ripple-container"></div>
+		</a>
+
+		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileMenuDropdown">
+			<a href="#" class="nav-link">
+				{{ currentUser.user.name }} ({{ currentUser.user.primaryRoleName }})
+			</a>
+			<h6 class="dropdown-header">{{t "Profile Menu"}}</h6>
+
+			{{#each navs as |nav|}}
+				{{#if nav.param}}
+					{{#link-to nav.route nav.param class="dropdown-item"}}
+						{{titleize (t nav.label)}}
+					{{/link-to}}
+				{{else}}
+					{{#link-to nav.route class="dropdown-item"}}
+						{{titleize (t nav.label)}}
+					{{/link-to}}
+				{{/if}}
+			{{/each}}
+		</div>
+{{else}}
+	{{#link-to
+		(r "login")
+		tagName="button"
+		class="btn btn-login col-md-12"
+	}}
+		{{t "auth.login"}}
+	{{/link-to}}
+{{/if}}
+{{yield}}

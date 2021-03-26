@@ -1,0 +1,183 @@
+<div class="kt-subheader-search ">
+    <div class="kt-container  kt-container--fluid ">
+        <h3 class="kt-subheader-search__title">
+            {{ this.company.code }} - {{ this.company.name }}
+        </h3>
+        <div class="mt-4">
+            {{#link-to (r "master.companies") class="ml-1 btn btn-info btn-bold btn-font-sm" tagName="button"}}
+                {{t "company.button.backToIndex"}}
+            {{/link-to}}
+            {{#link-to (r "master.warehouses") class="ml-1 btn btn-info btn-bold btn-font-sm" tagName="button"}}
+                {{t "warehouse.heading.index"}}
+            {{/link-to}}
+        </div>
+    </div>
+</div>
+
+<Metronic::MContainer>
+    
+    <Metronic::Forms::MCompany
+        @company={{this.companyChangeset}}
+        @companies={{this.companies}}
+        @showErrors={{this.showErrors}}
+        @submitAction={{this.saveCompany}}
+        @disabledParentInput={{this.disabledParentCompanyInput}}
+        />
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt-portlet__head-toolbar">
+                <ul class="nav nav-pills" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#content_1" role="tab" {{on "click" this.activateTabContent1}}>
+                            <i class="la la-comment-o"/> {{t "company.rel.childrenCompany"}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#content_2" role="tab">
+                            <i class="la la-info"/> Additional Detail
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#content_3" role="tab" {{on "click" this.activateTabContent3}}>
+                            <i class="la la-building"/> {{t "company.address.identifier"}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="tab-content">
+                <!-- content 1 -->
+                <div class="tab-pane active" id="content_1">
+
+                    {{#if this.showTabContent1}}
+
+                        <Metronic::MButton
+                            @action={{this.createChildCompany}}
+                            @label={{t "company.heading.createSub"}}
+                            @class="btn-pill btn-sm"
+                        />
+                        <hr/>
+                        <MDatatable
+                            @modelName="company"
+                            @columns={{this.childCompanyColumn}}
+                            @refreshData={{this.refreshDtChildCompany}}
+                            @filterParameters={{this.childCompanyFilterParameters}}
+                            @includeParameters={{this.childCompanyIncludeParameters}}
+                            @onEdit={{this.editChildCompany}}
+                            @onDelete={{this.deleteRecord}}
+                            />
+                    {{/if}}
+                </div>
+                <!-- content 2 -->
+                <div class="tab-pane" id="content_2">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "company.attr.total_warehouses"}}
+                                @value={{this.company.warehouses.length}}
+                                @disabled=true
+                                />
+                        </div>
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "company.attr.total_racks"}}
+                                @value={{this.company.racks.length}}
+                                @disabled=true
+                                />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "company.attr.total_child_companies"}}
+                                @value={{this.company.childrenCompany.length}}
+                                @disabled=true
+                                />
+                        </div>
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "company.attr.updatedAt"}}
+                                @value={{this.company.updatedAt}}
+                                @disabled=true
+                                />
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "company.rel.updatedBy"}}
+                                @value={{this.company.updatedBy.fullname}}
+                                @disabled=true
+                                />
+                        </div>
+                    </div>
+                </div>
+                <!-- content 3 -->
+                <div class="tab-pane" id="content_3">
+
+                    {{#if this.showTabContent3}}
+
+                        {{#unless isEditingAddress}}
+                            <Metronic::MButton
+                                @action={{action this.addCompanyAddress}}
+                                @label={{t "address.heading.create"}}
+                                @class="btn-pill btn-sm"
+                                />
+                        {{/unless}}
+
+                        <hr/>
+
+                        {{#if isEditingAddress}}
+                            <Metronic::Forms::MAddress
+                                @intermediateAddress={{this.formCompanyAddressChangeset}}
+                                @address={{this.formAddressModel}}
+                                @addAddress={{this.addAddress}}
+                                @setAddress={{this.setAddress}}
+                                @createAddress={{this.createAddress}}
+                                @saveAddress={{this.saveAddress}}
+                                @cancelAddress={{this.cancelAddress}}
+                                @showErrors={{this.addressShowErrors}}
+                            />
+                        {{/if}}
+
+                        <MDatatable
+                            @modelName="company-address"
+                            @columns={{this.addressColumn}}
+                            @refreshData={{this.refreshDtAddress}}
+                            @includeParameters={{this.companyAddressIncludeParameters}}
+                            @filterParameters={{this.companyAddressFilterParameters}}
+                            @rows={{this.company.companyAddresses}}
+                            @onEdit={{fn this.editCompanyAddress}}
+                            @onDelete={{fn this.deleteCompanyAddress}}
+                        />
+                    {{/if}}
+                </div>
+            </div>
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>
+
+{{#if this.isEditingChildCompanyForm}}
+    {{#modal-dialog
+        onClose=(action "closeChildCompanyModal")
+        clickOutsideToClose=true
+        translucentOverlay=true
+        overlayClass="custom-modal-overlay"
+        containerClass="custom-modal-container"
+    }}
+        <Metronic::Forms::MCompany
+            @formTitle="Tambah Sub Cabang"
+            @company={{this.formChildCompanyChangeset}}
+            @companies={{this.companies}}
+            @showErrors={{this.showErrors}}
+            @submitAction={{this.saveChildCompany}}
+            @disabledParentInput=true
+            />
+    {{/modal-dialog}}
+{{/if}}

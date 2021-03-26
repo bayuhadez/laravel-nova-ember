@@ -1,0 +1,20 @@
+{{#component
+    componentName
+    label=params.label
+    searchField=params.searchField
+    selected=(get model params.relationName)
+    showErrors=showErrors
+    errorMessages=(v-get model params.relationName "messages")
+    onchange=(action "onChange")
+    renderInPlace=true
+    dropdownClass="in-datatable-dropdown"
+    search=(perform searchTask)
+    as |option|}}
+
+    {{#if (eq params.searchField "code")}}
+        {{option.code}}
+    {{else}}
+        {{option.name}}
+    {{/if}}
+
+{{/component}}

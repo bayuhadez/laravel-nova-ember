@@ -1,0 +1,23 @@
+{{#if user}}
+	{{#if verificationEmailAlert.isShown}}
+		<div id="alert-verification-email" class="alert alert-info">
+			<div class="container">
+				<div class="alert-icon">
+					<i class="material-icons">info_outline</i>
+				</div>
+				<button type="button" class="close" aria-label="Close" {{action "hideAlert"}}>
+					<span aria-hidden="true"><i class="material-icons">clear</i></span>
+				</button>
+				<div>
+					{{t 'We sent a verification email to {email}.' email=user.email htmlSafe=true}}
+					{{t 'Please check your Inbox or Spam.'}}
+					<button {{action "resendVerificationEmail"}} class="btn btn-sm">
+						<b>{{t 'button.resend verification email'}}</b>
+					</button>
+				</div>
+			</div>
+		</div>
+	{{/if}}
+{{/if}}
+
+{{yield}}

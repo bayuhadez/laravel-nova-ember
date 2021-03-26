@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col">
+        <Metronic::Inputs::MSelect
+            @useInputWrapper=false
+            @searchField="displayName"
+            @selected={{@sso.service}}
+            @onchange={{action setService}}
+            @renderInPlace=true
+            @label={{t "sales_order_service.rel.service"}}
+            @options={{this.serviceOptions}} as |option|>
+
+            {{option.displayName}}
+        </Metronic::Inputs::MSelect>
+    </div>
+
+    <div class="col">
+        <Metronic::Inputs::MText
+            @value={{@sso.orderQuantity}}
+            @label={{t "sales_order_service.attr.order_quantity"}}
+            @useInputWrapper=false
+        />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <Metronic::Inputs::MText
+            @value={{@sso.sellPrice}}
+            @label={{t "sales_order_service.attr.sell_price"}}
+            @useInputWrapper=false
+         />
+    </div>
+
+    <div class="col">
+        <Metronic::Inputs::MText
+            @value={{@sso.discount}}
+            @label={{t "sales_order_service.attr.discount"}}
+            @useInputWrapper=false
+        />
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-lg-12">
+        <Metronic::MButton
+            @label={{t "save"}}
+            @type="button"
+            @action={{@save}}
+        />
+    </div>
+</div>

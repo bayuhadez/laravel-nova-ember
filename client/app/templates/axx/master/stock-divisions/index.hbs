@@ -1,0 +1,22 @@
+<Metronic::SubHeader @title={{t "stock_division.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editStockDivisionRecord}}
+                @onDelete={{this.deleteStockDivisionRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

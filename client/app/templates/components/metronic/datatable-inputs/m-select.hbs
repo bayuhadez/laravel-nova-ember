@@ -1,0 +1,38 @@
+{{#if params.searchRepo}}
+
+    {{#component
+        componentName
+        label=params.label
+        searchField=params.searchField
+        selected=(get model params.relationName)
+        showErrors=showErrors
+        errorMessages=(v-get model params.relationName "messages")
+        onchange=(action "onChange")
+        renderInPlace=true
+        dropdownClass="in-datatable-dropdown"
+        options=options
+        search=(perform searchTask)
+        as |option|
+    }}
+        {{option.name}}
+    {{/component}}
+
+{{else if params.optionsFromRelationName}}
+
+    {{#component
+        componentName
+        label=params.label
+        searchField=params.searchField
+        selected=(get model params.relationName)
+        showErrors=showErrors
+        errorMessages=(v-get model params.relationName "messages")
+        onchange=(action "onChange")
+        renderInPlace=true
+        dropdownClass="in-datatable-dropdown"
+        options=(get model params.optionsFromRelationName)
+        as |option|
+    }}
+        {{option.name}}
+    {{/component}}
+
+{{/if}}

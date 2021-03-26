@@ -1,0 +1,17 @@
+<div class="form-group">
+    <label for="text-input">{{label}}{{if isRequired ' *' ''}}</label>
+    {{pikaday-input
+        class=class
+        value=value
+        format=format
+        readonly=readonly
+        disabled=disabled
+        placeholder=placeholder
+        onSelection=onSelection
+    }}
+    {{#if showErrors}}
+        <div class="kt-font-danger">
+            {{errorMessages}}
+        </div>
+    {{/if}}
+</div>

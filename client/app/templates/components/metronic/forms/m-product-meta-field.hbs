@@ -1,0 +1,42 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction productMetaField)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+        </portlet.head>
+        
+        <portlet.body>
+            {{metronic/inputs/m-text
+                value=productMetaField.label
+                label=(t "product_meta_field.attr.label")}}
+
+            {{#metronic/inputs/m-select
+                label=(t "product_meta_field.rel.productMetaFieldGroup")
+                searchField="name"
+                selected=productMetaField.productMetaFieldGroup
+                onchange=(action (mut productMetaField.productMetaFieldGroup))
+                renderInPlace=true
+                addItem=(action "addProductMetaFieldGroup")
+                options=productMetaFieldGroups as |option|}}
+
+                {{option.name}}
+
+            {{/metronic/inputs/m-select}}
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+</Metronic::MPortlet>

@@ -1,0 +1,9 @@
+<div class="modal-dialog modal-{{if size size 'lg'}}" role="document">
+    <div class="modal-content">
+        {{yield (hash
+            head=(component 'metronic/modal-head')
+            body=(component 'metronic/modal-body')
+            foot=(component 'metronic/modal-foot')
+        )}}
+    </div>
+</div>

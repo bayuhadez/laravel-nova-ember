@@ -1,0 +1,49 @@
+<form {{on "submit" (fn @submitAction @rack)}}>
+
+    <div class="row">
+        <div class="col-md-6">
+            <Metronic::Inputs::MText
+                @label={{t "rack.attr.code"}}
+                @value={{@rack.code}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{@rack.error.code.validation}}/>
+        </div>
+        <div class="col-md-6">
+            <Metronic::Inputs::MText
+                @label={{t "rack.attr.name"}}
+                @value={{@rack.name}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{@rack.error.name.validation}}/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <Metronic::Inputs::MText
+                @label={{t "rack.attr.description"}}
+                @value={{@rack.description}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{@rack.error.description.validation}}/>
+        </div>
+        <div class="col-md-6">
+            <Metronic::Inputs::MText
+                @label={{t "rack.attr.quantity"}}
+                @value={{@rack.quantity}}
+                @showErrors={{@showErrors}}
+                @errorMessages={{@rack.error.quantity.validation}}/>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <button class="btn btn-primary" type="submit">
+                {{#if @rack.data.isNew }}
+                    {{t "button.add"}}
+                {{else}}
+                    {{t "button.update"}}
+                {{/if}}
+            </button>
+            <button class="btn btn-primary" type="button" {{on "click" (fn @cancelAction @rack)}}>{{t "button.cancel"}}</button>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,37 @@
+{{metronic/sub-header title=pageTitle}}
+
+{{#metronic/m-container}}
+    {{#if (has-block)}}
+        {{yield}}
+    {{/if}}
+
+    {{!-- list table --}}
+    {{#metronic/m-portlet as |portlet|}}
+
+        {{#unless noAddButton}}
+            {{#portlet.head}}
+                {{metronic/m-button
+                    action=(action 'addRecord')
+                    label=(t "create")}}
+            {{/portlet.head}}
+        {{/unless}}
+
+        {{#portlet.body}}
+            {{component datatableComponent
+                onEdit=(action "editRecord")
+                onDelete=(action "deleteRecord")}}
+        {{/portlet.body}}
+
+    {{/metronic/m-portlet}}
+
+    {{outlet}}
+
+{{/metronic/m-container}}
+
+{{#if isEditingRecord}}
+    {{metronic/modal-form
+        onSubmit=(action 'saveRecord')
+        title=modalFormTitle
+        onHide=(action 'onModalHidden')
+        formComponent=formComponent}}
+{{/if}}

@@ -1,0 +1,50 @@
+<div class="album py-5 bg-light">
+	<div class="container">
+
+		<h3>{{titleize (t "order") }}</h3>
+
+		{{#if sortedOrders}}
+			<div class="row">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">ORDER</th>
+								<th scope="col">DATE</th>
+								<th scope="col">STATUS</th>
+								<th scope="col">TOTAL</th>
+								<th scope="col">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each orders as |order|}}
+								<tr>
+									<th scope="row">{{order.paymentId}}</th>
+									<td>{{order.formattedCreatedAt}}</td>
+									<td>{{titleize order.statusText}}</td>
+									<td>{{order.formattedGrossAmount}}</td>
+									<td>
+										{{#link-to
+											(r 'orders.show')
+											order.id
+											class="btn btn-sm btn-outline-secondary"
+										}}
+											Detail
+										{{/link-to}}
+									</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{{else}}
+			<div class="row">
+				{{t "nothing in this list"}}
+			</div>
+		{{/if}}
+
+	</div>
+</div>
+
+{{outlet}}

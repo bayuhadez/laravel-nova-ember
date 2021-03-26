@@ -1,0 +1,31 @@
+{{metronic/sub-header title=(t 'supplier.heading.index')}}
+
+{{#metronic/m-container}}
+
+    {{#metronic/m-portlet as |portlet|}}
+
+        {{#portlet.head}}
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.suppliers.add"
+                    @label={{t "supplier.heading.add"}}
+                />
+            </div>
+        {{/portlet.head}}
+
+        {{#portlet.body}}
+            <MDatatable
+                @modelName="supplier"
+                @refreshData={{this.refreshDt}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @includeParameters={{this.includeParameters}}
+                @onEdit={{fn this.editSupplier}}
+                @onDelete={{fn this.deleteSupplier}}
+            />
+
+        {{/portlet.body}}
+
+    {{/metronic/m-portlet}}
+
+{{/metronic/m-container}}

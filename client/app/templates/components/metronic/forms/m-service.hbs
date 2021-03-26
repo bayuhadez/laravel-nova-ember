@@ -1,0 +1,129 @@
+<Metronic::MPortlet as |portlet| >
+
+    <form {{on "submit" (fn @submitAction service)}}>
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{this.formTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <Metronic::Inputs::MText
+                @value={{this.service.code}}
+                @label={{t 'service.attr.code'}}
+                @errors={{this.service.errors.code}}
+                />
+
+            <Metronic::Inputs::MText
+                @value={{this.service.name}}
+                @label={{t 'service.attr.name'}}
+                @errors={{this.service.errors.name}}
+                />
+
+            <Metronic::Inputs::MSelect
+                @label={{t 'service.rel.serviceCategory'}}
+                @searchField='name'
+                @selected={{this.service.serviceCategory}}
+                @onchange={{action (mut this.service.serviceCategory)}}
+                @renderInPlace=true
+                @addItem={{action "addCategory"}}
+                @options={{this.serviceCategories}} as |category|
+                >
+                {{category.name}}
+            </Metronic::Inputs::MSelect>
+
+            <Metronic::Inputs::MTextarea
+                @value={{this.service.description}}
+                @label={{t 'service.attr.description'}}
+                />
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                        data-toggle="tab"
+                        href="#"
+                        data-target="#price">
+                        {{t "service.heading.tab_price"}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"
+                        class="nav-link"
+                        data-toggle="tab"
+                        data-target="#point">
+                        {{t 'service.heading.tab_point'}}
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <Metronic::TabsPane @id="price" @isActive=true>
+                    <div class="row">
+                        <div class="col">
+                            <Metronic::Inputs::MCurrency
+                                @label={{t 'service.attr.price'}}
+                                @value={{this.service.price}}
+                                @prefix="Rp."
+                                />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <Metronic::MButton
+                                    @action={{action this.addCompanyService}}
+                                    @label={{t "button.add"}}
+                                    />
+                            </div>
+                        </div>
+                    </div>
+
+                    {{#each this.service.companyServices as |companyService|}}
+                        <div class="row">
+                            <div class="col">
+                                <Metronic::Inputs::MSelect
+                                    @label={{t 'service.rel.companies'}}
+                                    @searchField="name"
+                                    @selected={{companyService.company}}
+                                    @onchange={{action "onSelectCompanyService" companyService}}
+                                    @renderInPlace=true
+                                    @options={{this.companyOptions}} as |company|
+                                    >
+                                    {{company.name}}
+                                </Metronic::Inputs::MSelect>
+                            </div>
+                            <div class="col d-flex">
+                                <div class="flex-fill">
+                                    <Metronic::Inputs::MCurrency
+                                        @label={{t 'company_service.attr.price'}}
+                                        @value={{companyService.price}}
+                                        @prefix="Rp."
+                                        />
+                                </div>
+                                {{#if companyService.company}}
+                                    <div class="align-self-center ml-2">
+                                        <button
+                                            class="btn btn-icon btn-circle btn-danger"
+                                            {{action "deleteCompanyService" companyService}}>
+                                            <i class="flaticon-delete"></i>
+                                        </button>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </Metronic::TabsPane>
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit" />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+    </form>
+
+</Metronic::MPortlet>

@@ -1,0 +1,26 @@
+{{#metronic/inputs/m-select
+    allowClear=allowClear
+    label=countryLabel
+    onchange=(action "chooseCountry")
+    options=countries
+    renderInPlace=true
+    searchField="name"
+    selected=country
+    selectType="default"
+    disabled=isLoading
+    as |option|
+    }}
+    {{option.name}}
+{{/metronic/inputs/m-select}}
+
+{{#if isIndonesiaRegionDisplayed }}
+    {{metronic/inputs/m-select-indonesia-region
+        allowClear=allowClear
+        province=province
+        regency=regency
+        allowClear=true
+        provinceLabel=provinceLabel
+        regencyLabel=regencyLabel
+        disabled=isLoading
+    }}
+{{/if}}

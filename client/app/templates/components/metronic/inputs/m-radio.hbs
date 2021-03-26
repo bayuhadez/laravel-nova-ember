@@ -1,0 +1,14 @@
+<div class="form-group">
+    <div class="kt-radio-list">
+        <label>{{label}}</label>
+        {{#each lists as |list|}}
+            {{#radio-button
+                value=list
+                groupValue=model
+                changed=(action "setData" list)
+            }}
+                <span>{{list.name}}</span>
+            {{/radio-button}}
+        {{/each}}
+    </div>
+</div>

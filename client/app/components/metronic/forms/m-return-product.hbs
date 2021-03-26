@@ -1,0 +1,100 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction this.productStocks @productSalesOrder)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t "prepare_or_return_product.heading.return" }}</h3>
+        </portlet.head>
+        
+        <portlet.body>
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "product_sales_order.rel.product"}}
+                                @value={{@productSalesOrder.product.displayName}}
+                                @disabled=true
+                            />
+                        </div>
+
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MText
+                                @label={{t "product_sales_order.attr.amount_returned"}}
+                                @value={{@productSalesOrder.amountReturned}}
+                                @disabled=true
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="kt-section__content">
+                <div class="row">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.datetime"}}</th>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.rackAndWarehouseName"}}</th>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.quantity"}}</th>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.tempReturnedAmount"}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each this.productStocks as |ps index|}}
+                                <tr>
+                                    <td>{{ ps.formattedDatetime }}</td>
+                                    <td>{{ ps.rackAndWarehouseName }}</td>
+                                    <td>{{ ps.quantity }}</td>
+                                    <td><Input
+                                        @type="number"
+                                        @value={{ps._tempReturnedAmount}}
+                                        class="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr/>
+            
+            <div class="kt-section__content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <Metronic::Inputs::MText
+                            @label="Total Kembali Sementara"
+                            @disabled=true
+                            @value={{this.returnTotal}}
+                        />
+                    </div>
+                    <div class="col-lg-6">
+                        {{#if this.submitInvalid}}
+                            <div class="alert alert-danger" role="alert">
+                                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                                <div class="alert-text">Barang kembali harus sesuai dengan Jumlah Kembali</div>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit" @disabled={{this.submitInvalid}}/>
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+
+</Metronic::MPortlet>

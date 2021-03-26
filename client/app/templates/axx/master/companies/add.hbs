@@ -1,0 +1,10 @@
+<Metronic::Pages::FormPage @pageTitle={{t "company.heading.add"}}>
+    
+    <Metronic::Forms::MCompany
+        @company={{this.companyChangeset}}
+        @companies={{this.companies}}
+        @showErrors={{this.showErrors}}
+        @submitAction={{this.saveCompany}}
+        />
+
+</Metronic::Pages::FormPage>

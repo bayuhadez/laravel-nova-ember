@@ -1,0 +1,16 @@
+<Metronic::Breadcrumbs 
+    @breadcrumbs={{this.breadcrumbs}}/>
+
+<Metronic::MContainer>
+
+    <Metronic::Forms::PreOrder
+        @preOrder={{changeset this.preOrder this.PreOrderValidator}}
+        @companyOptions={{this.companyOptions}}
+        @currencyOptions={{this.currencyOptions}}
+        @supplierOptions={{this.supplierOptions}}
+        @showErrors={{this.showPreOrderErrors}}
+        @submitAction={{this.savePreOrderForm}}
+        @saveAsDraftAction={{this.savePreOrderAsDraft}}
+    />
+
+</Metronic::MContainer>

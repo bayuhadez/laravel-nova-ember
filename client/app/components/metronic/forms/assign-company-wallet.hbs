@@ -1,0 +1,36 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction @wallet)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">
+                {{t "wallet.rel.companies" }}
+                - {{@wallet.name}}
+            </h3>
+        </portlet.head>
+        
+        <portlet.body>
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <MDatatable
+                        @modelName="company"
+                        @columns={{this.companyColumns}}
+                        @filterParameters={{this.companyFilterParameters}}
+                    />
+                </div>
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit"/>
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+
+</Metronic::MPortlet>

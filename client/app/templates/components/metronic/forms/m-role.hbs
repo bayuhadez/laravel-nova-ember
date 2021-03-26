@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md">
+        {{metronic/inputs/m-text
+            value=formRecord.name
+            label=(t "role.attr.name")
+            err=role.errors.name
+        }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="v-pills-tab">
+            {{#each modules as |module index|}}
+                <a class="nav-link {{if (eq index 0) 'active'}}"
+                    href="#"
+                    data-toggle="pill"
+                    data-target="#{{module.name}}">
+                    {{module.name}}
+                </a>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            {{#each modules as |module index|}}
+                <div
+                    class="tab-pane fade {{if (eq index 0) 'show active'}}"
+                    role="tabpanel"
+                    id={{module.name}}>
+                    <div class="row">
+                        {{#each module.abilities as |ability|}}
+                            {{metronic/inputs/m-checkbox-boolean
+                                label=ability.name
+                                value=ability.checked
+                                class="col-md-3"
+                            }}
+                        {{/each}}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

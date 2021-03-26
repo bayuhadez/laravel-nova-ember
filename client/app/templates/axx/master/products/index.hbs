@@ -1,0 +1,101 @@
+<Metronic::SubHeader @title={{t "product.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.master.products.add"
+                    @label={{t "product.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="row">
+
+                <div class="col border-right kt-align-right">
+                    <div class="row">
+                        <div class="col-9">
+                            <h3 class="kt-font-warning">{{lowStockCount}}</h3>
+                            <span class="kt-font-transform-u">
+                                {{t 'product.widget.low_stock'}}
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button
+                                class="
+                                    btn
+                                    kt-align-right
+                                    btn-warning
+                                    btn-circle
+                                    btn-icon
+                                    btn-lg
+                                "
+                                {{action 'filterLowStock'}}>
+                                <i class="flaticon2-box"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="col kt-align-left">
+                    <div class="row">
+                        <div class="col">
+                            <button
+                                class="
+                                    btn
+                                    btn-danger
+                                    btn-circle
+                                    btn-icon
+                                    btn-lg
+                                "
+                                {{action 'filterEmptyStock'}}>
+                                <i class="flaticon2-box"></i>
+                            </button>
+                        </div>
+                        <div class="col-9">
+                            <h3 class="kt-font-danger">{{outOfStockCount}}</h3>
+                            <span class="kt-font-transform-u">
+                                {{t 'product.widget.empty_stock'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{#metronic/inputs/m-select
+                        label=(t "product.rel.companies")
+                        searchField="name"
+                        selected=selectedFilterCompany
+                        onchange=(action (mut selectedFilterCompany))
+                        options=companies
+                        allowClear=true
+                    as |option|
+                    }}
+                        {{option.name}}
+                    {{/metronic/inputs/m-select}}
+                </div>
+            </div>
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editProductRecord}}
+                @onDelete={{this.deleteProductRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

@@ -1,0 +1,31 @@
+<Metronic::SubHeader @title={{t "request_order.identifier"}} />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.head>
+            <div class="kt_portlet__head-actions">
+                <Metronic::MButton
+                    @route="axx.purchases.request-orders.add"
+                    @label={{t "request_order.heading.add"}}
+                    />
+            </div>
+        </portlet.head>
+
+        <portlet.body>
+
+            <MDatatable
+                @modelName={{this.formRecordModel}}
+                @columns={{this.columns}}
+                @filterParameters={{this.filterParameters}}
+                @refreshData={{this.refreshData}}
+                @onEdit={{this.editRequestOrderRecord}}
+                @onDelete={{this.deleteRequestOrderRecord}}
+                />
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

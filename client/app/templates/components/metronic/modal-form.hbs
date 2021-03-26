@@ -1,0 +1,21 @@
+{{#metronic/m-modal id=modalId size=size as |modal|}}
+
+    <form {{action 'submit' on="submit"}}>
+        {{#if (has-block)}}
+            {{yield (hash
+                head=(component "metronic/modal-head" title=title)
+                body=(component "metronic/modal-body")
+                foot=(component "metronic/modal-foot")
+                )}}
+        {{else}}
+            {{modal.head title=title}}
+            {{#modal.body}}
+                {{formComponent}}
+            {{/modal.body}}
+            {{#modal.foot}}
+                {{metronic/m-button label=submitButtonLabel type="submit" disabled=disabledSubmit}}
+            {{/modal.foot}}
+        {{/if}}
+    </form>
+
+{{/metronic/m-modal}}

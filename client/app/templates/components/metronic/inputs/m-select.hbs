@@ -1,0 +1,81 @@
+{{#if useInputWrapper }}
+    
+    <div class="form-group">
+        <label for="select-input">{{label}}{{if isRequired ' *' ''}}</label>
+        <div class="row">
+            <div class="col">
+                {{#component
+                    componentName
+                    allowClear=allowClear
+                    disabled=disabled
+                    onchange=onchange
+                    onkeydown=(action "onkeydown")
+                    placeholder=placeholder
+                    renderInPlace=renderInPlace
+                    searchEnabled=searchEnabled
+                    searchField=searchField
+                    selected=selected
+                    triggerClass=triggerClass
+                    options=options
+                    dropdownClass=dropdownClass
+                    search=search
+                    as |option|
+                    }}
+                    {{yield option}}
+                {{/component}}
+            </div>
+            {{#if addon}}
+                <div class="col-{{addon.width}}">
+                    {{addon.component}}
+                </div>
+            {{/if}}
+        </div>
+
+        {{#if showErrors}}
+            {{#if isErrorMessagesArray}}
+                {{#each errorMessages as |error|}}
+                    <div class="kt-font-danger">
+                        {{error}}
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="kt-font-danger">
+                    {{errorMessages}}
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
+
+{{else}}
+
+    {{#component
+        componentName
+        allowClear=allowClear
+        disabled=disabled
+        onchange=onchange
+        onkeydown=(action "onkeydown")
+        placeholder=placeholder
+        renderInPlace=renderInPlace
+        searchEnabled=searchEnabled
+        searchField=searchField
+        selected=selected
+        triggerClass=triggerClass
+        options=options as |option|}}
+        {{yield option}}
+    {{/component}}
+
+    {{#if showErrors}}
+        {{#if isErrorMessagesArray}}
+            {{#each errorMessages as |error|}}
+                <div class="kt-font-danger">
+                    {{error}}
+                </div>
+            {{/each}}
+        {{else}}
+            <div class="kt-font-danger">
+                {{errorMessages}}
+            </div>
+        {{/if}}
+    {{/if}}
+
+{{/if}}

@@ -1,0 +1,17 @@
+<Metronic::Breadcrumbs 
+    @breadcrumbs={{this.breadcrumbs}}/>
+
+<Metronic::MContainer>
+
+    <Metronic::Forms::MCustomer
+        @customer={{changeset this.customer this.CustomerValidator}}
+        @phone={{changeset this.phone this.PhoneValidator}}
+        @showErrors={{this.showErrors}}
+        @companyOptions={{this.companyOptions}}
+        @customerOptions={{this.customerOptions}}
+        @personOptions={{this.personOptions}}
+        @submitAction={{this.saveCustomerForm}}
+        @updatePersonOptionsAction={{this.updatePersonOptions}}
+    />
+
+</Metronic::MContainer>

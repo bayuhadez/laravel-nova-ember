@@ -1,0 +1,18 @@
+{{#metronic/pages/crud-page
+    formRecord=formRecord
+    modelName='product-category'
+    pageTitle=(t "product_category.identifier")
+    modalFormTitle=(t (if
+        formRecord.isNew
+        "product_category.heading.create"
+        "product_category.heading.edit"))
+    formComponent=(component
+        "metronic/forms/m-product-category"
+        productCategory=formRecord)
+    datatableComponent=(component
+        "m-datatable"
+        modelName="product-category"
+        columns=columns)
+    onSaveRecord=(action "onSaveRecord")
+}}
+{{/metronic/pages/crud-page}}

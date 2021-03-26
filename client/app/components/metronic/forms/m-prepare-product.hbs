@@ -1,0 +1,140 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction this.productStocks @productSalesOrder this.transitRack)}}>
+
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t "prepare_or_return_product.heading.prepare" }}</h3>
+        </portlet.head>
+        
+        <portlet.body>
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "product_sales_order.rel.product"}}
+                                @value={{@productSalesOrder.product.displayName}}
+                                @disabled=true
+                            />
+                        </div>
+
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "product_sales_order.attr.amount"}}
+                                @value={{@productSalesOrder.amountApproved}}
+                                @disabled=true
+                            />
+                        </div>
+
+                        <div class="col-lg-4">
+                            <Metronic::Inputs::MText
+                                @label={{t "product_sales_order.attr.amount_prepared"}}
+                                @value={{@productSalesOrder.amountPrepared}}
+                                {{on "change" this.updateProductSalesOrder}}
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "warehouse.identifier"}}
+                                @options={{this.warehouseOptions}}
+                                @onchange={{action "chooseWarehouse"}}
+                                @renderInPlace={{true}}
+                                @searchField='name'
+                                @selectType='default'
+                                @selected={{this.transitWarehouse}}
+                                as |option|
+                            >
+                                {{option.name}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <Metronic::Inputs::MSelect
+                                @label={{t "product_stock_movement.rel.rack"}}
+                                @onchange={{action (mut this.transitRack)}}
+                                @options={{this.rackOptions}}
+                                @renderInPlace={{true}}
+                                @searchField='name'
+                                @selectType='default'
+                                @selected={{this.transitRack}}
+                                @disabled={{if this.transitWarehouse false true}}
+                                as |option|
+                            >
+                                {{option.name}}
+                            </Metronic::Inputs::MSelect>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="kt-section__content">
+                <div class="row">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.datetime"}}</th>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.rackAndWarehouseName"}}</th>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.quantity"}}</th>
+                                <th style="width:100px; min-width: 100px; max-width: 100px;">{{t "product_stock.attr.tempTakenAmount"}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each this.productStocks as |ps index|}}
+                                <tr>
+                                    <td>{{ ps.formattedDatetime }}</td>
+                                    <td>{{ ps.rackAndWarehouseName }}</td>
+                                    <td>{{ ps.quantity }}</td>
+                                    <td><Input
+                                        @type="number"
+                                        @value={{ps._tempTakenAmount}}
+                                        class="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr/>
+            
+            <div class="kt-section__content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <Metronic::Inputs::MText
+                            @label="Total Ambil Sementara"
+                            @disabled=true
+                            @value={{this.prepareTotal}}
+                        />
+                    </div>
+                    <div class="col-lg-6">
+                        {{#if this.submitInvalid}}
+                            <div class="alert alert-danger" role="alert">
+                                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                                <div class="alert-text">Jumlah ambil tidak boleh lebih dari jumlah disetujui</div>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton @label={{t "save"}} @type="submit" @disabled={{this.submitInvalid}}/>
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+
+</Metronic::MPortlet>

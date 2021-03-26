@@ -1,0 +1,36 @@
+{{#metronic/pages/form-page pageTitle=(t "supplier.heading.add")}}
+
+    {{#metronic/m-portlet as |portlet|}}
+
+        <form {{on "submit" this.saveSupplierForm}}>
+            {{#portlet.head}}
+                <h3 class="kt-portlet__head-title">{{t "supplier.heading.add"}}</h3>
+            {{/portlet.head}}
+
+            {{#portlet.body}}
+                <Metronic::Forms::MSupplier
+                    @supplier={{this.supplier}}
+                    @companies={{this.companies}}
+                    @suppliers={{this.suppliers}}
+                    @people={{this.people}}
+                    @showErrors={{this.showErrors}}
+                />
+            {{/portlet.body}}
+
+            {{#portlet.foot}}
+                <div class="kt-form__actions">
+                    <div class="row">
+                        <div class="col-12">
+                            <Metronic::MButton
+                                @label={{t "save"}}
+                                @type="submit"
+                            />
+                        </div>
+                    </div>
+                </div>
+            {{/portlet.foot}}
+        </form>
+
+    {{/metronic/m-portlet}}
+
+{{/metronic/pages/form-page}}

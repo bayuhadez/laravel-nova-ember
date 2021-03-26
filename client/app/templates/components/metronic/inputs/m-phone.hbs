@@ -1,0 +1,47 @@
+<div class="form-group">
+    <label for="select-input">{{label}}{{if isRequired ' *' ''}}</label>
+    <div class="row">
+
+        <div class="col-6">
+            {{#power-select
+                disabled=disabled
+                searchField="name"
+                placeholder=placeholderCountry
+                selected=_phone.country
+                options=countries
+                renderInPlace=true
+                onchange=(action (mut _phone.country))
+                triggerClass=countryClasses
+                as |country|
+            }}
+                {{country.name}}
+            {{/power-select}}
+            {{#each computedCountryErrors as |error|}}
+                <div class="kt-font-danger">
+                    {{error.message}}
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="col-6">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">{{selectedPhonecode}}</div>
+                </div>
+                {{input
+                    type="text"
+                    disabled=disabled
+                    class=numberClasses
+                    value=_phone.number
+                }}
+            </div>
+            {{#each computedNumberErrors as |error|}}
+                <div class="kt-font-danger">
+                    {{error.message}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+</div>
+{{yield}}

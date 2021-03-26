@@ -1,0 +1,31 @@
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            {{#each this.headers as |header|}}
+                <th style="width:100px; min-width: 100px; max-width: 100px;">{{header}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each this.productStocks as |ps|}}
+            <tr>
+                <td>{{ get ps "companyName" }}</td>
+                <td>{{ get ps "stockDivisionName" }}</td>
+                <td>
+                    <LinkTo @route="axx.master.products.edit.stock-in-rack" @models={{array this.productId (get ps "stockDivisionId")}} >
+                        {{ get ps "quantity" }}
+                    </LinkTo>
+                </td>
+                <td>{{ get ps "tempQuantity" }}</td>
+                <td>
+                    <LinkTo @route="axx.master.products.edit.product-stock" @model={{get ps "stockDivisionId"}} >
+                        <Metronic::MButton
+                            @class="btn-icon btn-circle"
+                            @icon="flaticon2-list-2"
+                        />
+                    </LinkTo>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

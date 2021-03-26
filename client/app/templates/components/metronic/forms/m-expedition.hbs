@@ -1,0 +1,113 @@
+<Metronic::MPortlet as |portlet|>
+
+    <form {{on "submit" (fn @submitAction expedition)}}>
+        
+        <portlet.head>
+            <h3 class="kt-portlet__head-title">{{t pageTitle}}</h3>
+        </portlet.head>
+
+        <portlet.body>
+            <div class="row">
+                <div class="col">
+                    {{metronic/inputs/m-text
+                        value=expedition.code
+                        label=(t 'expedition.attr.code')
+                        errors=expedition.errors.code
+                        maxlength=16
+                    }}
+
+                    {{metronic/inputs/m-text
+                        value=expedition.name
+                        label=(t 'expedition.attr.name')
+                        errors=expedition.errors.name
+                        isRequired=true
+                        maxlength=30
+                    }}
+
+                    {{metronic/inputs/m-text
+                        value=expedition.faxNumber
+                        label=(t 'expedition.attr.fax_number')
+                        maxlength=20
+                        errors=expedition.errors.faxNumber
+                    }}
+
+                    {{metronic/inputs/m-text
+                        value=expedition.mobileNumber
+                        label=(t 'expedition.attr.mobile_number')
+                        maxlength=20
+                        errors=expedition.errors.mobileNumber
+                    }}
+
+                    {{metronic/inputs/m-text
+                        value=expedition.telephoneNumber
+                        label=(t 'expedition.attr.telephone_number')
+                        maxlength=20
+                        errors=expedition.errors.telephoneNumber
+                    }}
+
+                    {{metronic/inputs/m-select-country-and-indonesia-region
+                        country=expedition.country
+                        province=expedition.province
+                        regency=expedition.regency
+                        countries=countries
+                        countryLabel=(t 'expedition.rel.country')
+                        provinceLabel=(t 'expedition.rel.province')
+                        regencyLabel=(t 'expedition.rel.regency')
+                    }}
+
+                    {{metronic/inputs/m-text
+                        value=expedition.address
+                        label=(t 'expedition.attr.address')
+                        errors=expedition.errors.address
+                        maxlength=128
+                    }}
+
+                    {{#metronic/inputs/m-select
+                        label=(t 'expedition.rel.currency')
+                        searchField="code"
+                        selected=expedition.currency
+                        onchange=(action (mut expedition.currency))
+                        renderInPlace=true
+                        options=currencies as |currency|
+                    }}
+                        {{currency.code}}
+                    {{/metronic/inputs/m-select}}
+
+                    {{metronic/inputs/m-text
+                        label=(t 'expedition.attr.pic')
+                        value=expedition.pic
+                        errors=expedition.errors.pic
+                        maxlength=30
+                    }}
+
+                    {{#metronic/inputs/m-select
+                        label=(t 'expedition.rel.expeditionCategory')
+                        searchField="name"
+                        selected=expedition.expeditionCategory
+                        onchange=(action (mut expedition.expeditionCategory))
+                        renderInPlace=true
+                        addItem=(action "addExpeditionCategory")
+                        options=categories as |category|
+                    }}
+                        {{category.name}}
+                    {{/metronic/inputs/m-select}}
+                </div>
+            </div>
+        </portlet.body>
+
+        <portlet.foot>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-12">
+                        <Metronic::MButton
+                            @label={{t "save"}}
+                            @type="submit"
+                        />
+                    </div>
+                </div>
+            </div>
+        </portlet.foot>
+
+    </form>
+</Metronic::MPortlet>
+

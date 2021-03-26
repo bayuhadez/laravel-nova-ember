@@ -1,0 +1,24 @@
+<div class="d-flex mobile-flex-column h-100">
+
+	<div class="flex-grow-1 h-100">
+		{{rtmp-stream
+			streamKey=streamKey
+		}}
+	</div>
+
+	<div class="w-385 mobile-auto-width d-flex flex-column">
+
+		<div class="flex-grow-1">
+			{{socket-chat
+				title=product.name
+				subtitle=product.speakerName
+				class="d-flex flex-column live-chat-wrapper h-100"
+				chatRoom=chatRoom
+			}}
+		</div>
+
+	</div>
+
+</div>
+
+{{outlet}}

@@ -1,0 +1,79 @@
+<div class="kt-section">
+
+    <form {{on "submit" (fn @submitAction this.args.address)}}>
+
+        <div class="row">
+            <div class="col-md-12">
+                <Metronic::Inputs::MSelect
+                    @label="Pilih Alamat Yang Sudah Tersedia"
+                    @searchField="address"
+                    @selected={{this.selectedAddress}}
+                    @onchange={{this.updateSelectedAddress}}
+                    @options={{this.addressOptions}} as |option|
+                    >
+                    {{option.address}}
+                </Metronic::Inputs::MSelect>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="kt-section__content">
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "address.attr.address"}}
+                        @value={{this.args.address.address}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{this.args.address.error.address.validation}}
+                        />
+                </div>
+                <div class="col-md-6">
+                    <Metronic::Inputs::MText
+                        @label={{t "address.attr.pobox"}}
+                        @value={{this.args.address.pobox}}
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{this.args.address.error.pobox.validation}}
+                        />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "address.rel.province"}}
+                        @searchField="name"
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{this.args.address.error.province.validation}}
+                        @selected={{this.args.address.province}}
+                        @onchange={{this.setProvince}}
+                        @options={{this.provinceOptions}} as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+                </div>
+                <div class="col-md-6">
+                    <Metronic::Inputs::MSelect
+                        @label={{t "address.rel.regency"}}
+                        @searchField="name"
+                        @showErrors={{@showErrors}}
+                        @errorMessages={{this.args.address.error.regency.validation}}
+                        @selected={{this.args.address.regency}}
+                        @onchange={{fn (mut this.args.address.regency)}}
+                        @options={{this.regencyOptions}} as |option|
+                        >
+                        {{option.name}}
+                    </Metronic::Inputs::MSelect>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <Metronic::MButton @label={{t "save" }} @type="submit"/>
+                    <Metronic::MButton @label={{t "button.cancel"}} @type="button" {{on "click" (fn @cancelAction this.args.address)}}/>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

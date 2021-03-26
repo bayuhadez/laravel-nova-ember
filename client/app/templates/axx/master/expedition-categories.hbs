@@ -1,0 +1,19 @@
+{{metronic/pages/crud-page
+    formRecord=formRecord
+    modelName='expedition-category'
+    pageTitle=(t "expedition_category.identifier")
+    modalFormTitle=(t (if
+        formRecord.isNew
+        "expedition_category.heading.create"
+        "expedition_category.heading.edit"))
+    formComponent=(component
+        "metronic/forms/m-expedition-category"
+        expeditionCategory=formRecord
+        )
+    datatableComponent=(component
+        "m-datatable"
+        modelName=formRecordModel
+        columns=columns
+        )
+    onSaveRecord=(action "onSaveRecord")
+}}

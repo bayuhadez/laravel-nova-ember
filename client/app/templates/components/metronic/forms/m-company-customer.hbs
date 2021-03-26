@@ -1,0 +1,89 @@
+<div class="kt-section">
+
+    <form {{on "submit" (fn @submitAction this.args.companyCustomer)}}>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <Metronic::Inputs::MSelect
+                    @label={{t "company_customer.rel.company"}}
+                    @searchField="name"
+                    @renderInPlace=true
+                    @showErrors={{@showErrors}}
+                    @errorMessages={{this.args.companyCustomer.error.company.validation}}
+                    @onchange={{this.setCompany}}
+                    @selected={{this.args.companyCustomer.company}}
+                    @options={{this.companyOptions}} as |option|
+                    >
+                    {{option.name}}
+                </Metronic::Inputs::MSelect>
+            </div>
+            <div class="col-lg-6">
+                <Metronic::Inputs::MSelect
+                    @label={{t "company_customer.rel.staffs"}}
+                    @allowClear=true
+                    @renderInPlace=true
+                    @searchField="name"
+                    @selectType="multiple"
+                    @disabled={{this.disabled}}
+                    @showErrors={{@showErrors}}
+                    @errorMessages={{this.args.companyCustomer.error.staffs.validation}}
+                    @onchange={{fn (mut this.args.companyCustomer.staffs)}}
+                    @selected={{this.args.companyCustomer.staffs}}
+                    @options={{this.staffOptions}}
+                    as |option|
+                    >
+                    {{option.name}}
+                </Metronic::Inputs::MSelect>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <Metronic::Inputs::MText
+                    @label={{t "company_customer.attr.credit_limit"}}
+                    @value={{this.args.companyCustomer.creditLimit}}
+                    @disabled={{this.disabled}}
+                    @showErrors={{@showErrors}}
+                    @errorMessages={{this.args.companyCustomer.error.creditLimit.validation}}
+                    />
+            </div>
+            <div class="col-lg-6">
+                <Metronic::Inputs::MText
+                    @label={{t "company_customer.attr.term_of_payment"}}
+                    @value={{this.args.companyCustomer.termOfPayment}}
+                    @disabled={{this.disabled}}
+                    @showErrors={{@showErrors}}
+                    @errorMessages={{this.args.companyCustomer.error.termOfPayment.validation}}
+                    />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <Metronic::Inputs::MSelect
+                    @label={{t "company_customer.attr.ppn"}}
+                    @renderInPlace=true
+                    @searchField="name"
+                    @disabled={{this.disabled}}
+                    @showErrors={{@showErrors}}
+                    @errorMessages={{this.args.companyCustomer.error.ppn.validation}}
+                    @onchange={{action (mut this.args.companyCustomer.ppn) value="value"}}
+                    @selected={{find-by "value" this.args.companyCustomer.ppn this.ppnOptions}}
+                    @options={{this.ppnOptions}}
+                    as |option|
+                    >
+                    {{option.name}}
+                </Metronic::Inputs::MSelect>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <Metronic::MButton @disabled={{this.disableSaveButton}} @label={{t "save"}} />
+                <Metronic::MButton @label={{t "button.cancel"}} @type="button" {{on "click" (fn @cancelAction this.args.companyCustomer)}}/>
+            </div>
+        </div>
+
+    </form>
+
+</div>

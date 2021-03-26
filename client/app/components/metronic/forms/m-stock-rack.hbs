@@ -1,0 +1,32 @@
+<Metronic::SubHeader @title="Daftar Stok Berdasarkan Rak di Divisi Stok" />
+
+<Metronic::MContainer>
+
+    <Metronic::MPortlet as |portlet|>
+
+        <portlet.body>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        {{#each this.headers as |header|}}
+                            <th style="width:100px; min-width: 100px; max-width: 100px;">{{header}}</th>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.racks as |rack|}}
+                        <tr>
+                            <td>{{ rack.warehouseName }}</td>
+                            <td>{{ rack.rackName }}</td>
+                            <td>{{ rack.quantity }}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+        </portlet.body>
+
+    </Metronic::MPortlet>
+
+</Metronic::MContainer>

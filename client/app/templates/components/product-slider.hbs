@@ -1,0 +1,66 @@
+<div class="row justify-content-md-center">
+
+	<div class="card card-nav-tabs text-center">
+
+		<div class="card-header card-header-{{ headerColor }}">
+			{{ title }}
+		</div>
+
+		<div class="card-body">
+
+			<div id="productDashboardSlider-{{elementId}}" class="carousel slide" data-ride="carousel">
+
+				<div class="carousel-inner">
+
+					{{#each productChunks as |productChunk|}}
+						<div class="carousel-item">
+							<div class="container-fluid">
+								<div class="row">
+
+									{{#each productChunk as |product|}}
+										<div class="col-sm">
+
+											{{#if product.id}}
+												<div class="card product-slider-card">
+													<div class="card-body">
+														<img class="card-img-top product-slider-image" src="{{ product.imageUrl }}">
+														<h6 class="card-title">{{ product.name }}</h6>
+														<p class="card-text">Rp. {{ product.price }}</p>
+														<div class="d-flex justify-content-between align-item-center">
+															<div class="btn-group">
+																<button class="btn btn-sm btn-outline-danger" {{action "addProduct" product}}>
+																	<i class="fa fa-shopping-cart"></i>
+																</button>
+																{{#link-to (r "products.show") product.id class="btn btn-sm btn-outline-primary"}}
+																	<i class="fa fa-search"></i>
+																{{/link-to}}
+															</div>
+														</div>
+													</div>
+												</div>
+											{{/if}}
+
+										</div>
+									{{/each}}
+
+								</div>
+							</div>
+						</div>
+					{{/each}}
+
+				</div> <!-- end of carousel inner -->
+
+				<a class="carousel-control-prev" href="#productDashboardSlider-{{elementId}}" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#productDashboardSlider-{{elementId}}" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+
+			</div> <!-- end of div slider -->
+
+		</div> <!-- end of div main card-body -->
+	</div> <!-- end of div main card -->
+</div>

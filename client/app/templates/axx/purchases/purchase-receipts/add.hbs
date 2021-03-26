@@ -1,0 +1,89 @@
+<Metronic::Pages::FormPage
+    @pageTitle={{t "purchase_receipt.identifier"}}
+    @formRecord={{this.formRecord}}
+    @formTitle={{t (if
+        this.formRecord.isNew
+        "purchase_receipt.heading.create"
+        "purchase_receipt.heading.edit")}}
+    @formComponent={{component
+        "metronic/forms/m-purchase-receipt"
+        isPoEditing=this.isPoEditing
+        newProductTransactionReceipts=this.newProductTransactionReceipts
+        productTransactionReceiptRows=this.productTransactionReceiptRows
+        preOrderRefreshData=this.preOrderRefreshData
+        preOrders=this.preOrders
+        purchaseReceipt=this.formRecord
+        transactionReceipt=this.transactionReceipt
+        companies=this.companies
+        suppliers=this.suppliers
+        openPreOrderModal=(action "openPreOrderModal")
+        openProductPlacement=(action "openProductPlacement")
+        refreshData=this.refreshData
+        deletePreOrder=(action "deletePreOrder")
+        refreshProductList=(action "refreshProductList")
+        subTotal=this.formattedSubTotal
+        grandTotal=this.formattedGrandTotal
+        ppn=this.formattedPpn
+        showErrors=this.showErrors
+        isPreOrderModalDisabled=this.isPreOrderModalDisabled
+    }}
+    @onSaveRecord={{action "onSaveRecord"}}
+    @afterSaveRecord={{action "goToIndex"}}
+/>
+
+{{#if this.isPoEditing}}
+
+    <Metronic::ModalForm
+        @onSubmit={{action 'onSavePreOrders'}}
+        @onHide={{action 'onPreOrderModalHidden'}}
+        as |modalForm|
+        >
+        {{modalForm.head title=(t "pre_order.identifier") }}
+        {{#modalForm.body}}
+            <Metronic::Forms::MPreOrderPurchaseReceipt
+                @preOrders={{this.preOrders}}
+                @supplier={{this.transactionReceipt.supplier}}
+                @toggleSelectedPreOrders={{action "toggleSelectedPreOrders"}}
+            />
+        {{/modalForm.body}}
+        {{#modalForm.foot}}
+            <Metronic::MButton @label={{t "button.add"}} @type="submit"/>
+        {{/modalForm.foot}}
+    </Metronic::ModalForm>
+
+{{/if}}
+
+{{#if this.isProductPlacement}}
+
+    <Metronic::ModalForm
+        @onSubmit={{action 'saveProductPlacement'}}
+        @onHide={{action 'onProductPlacementModalHidden'}}
+        as |modalForm|
+        >
+        {{modalForm.head title="Alokasi Produk" }}
+        {{#modalForm.body}}
+            <Metronic::Forms::MProductPlacement
+                @company={{this.formRecord.company}}
+                @refreshData={{this.refreshProductStockMovementData}}
+                @skippedSteps={{this.skippedSteps}}
+                @afterFinishStep={{action 'onProductPlacementModalHidden'}}
+                @productMovementReferences={{this.productMovementRefs}}
+
+                @addInProductStockMovement={{action "addProductStockMovement"}}
+                @editInProductStockMovement={{action "editProductStockMovement"}}
+                @deleteInProductStockMovement={{action "deleteProductStockMovement"}}
+                @inProductStockMovementFilterParameters={{this.inProductStockMovementFilterParameters}}
+                @newInProductStockMovements={{this.newInProductStockMovements}}
+                @purchaseReceiptIsNew={{this.formRecord.isNew}}
+            />
+        {{/modalForm.body}}
+        {{#modalForm.foot}}
+            {{!--
+            <Metronic::MButton @label={{t "button.add"}} @type="submit"/>
+            --}}
+        {{/modalForm.foot}}
+    </Metronic::ModalForm>
+
+{{/if}}
+
+{{outlet}}

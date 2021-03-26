@@ -1,0 +1,25 @@
+<div class="form-group">
+    <label for="text-input">{{label}}{{if isRequired ' *' ''}}</label>
+
+    <div class="kt-input-icon pull-right">
+        {{input
+            type=type
+            readonly=readonly
+            disabled=disabled
+            class=inputClass
+            placeholder=placeholder
+            value=value
+            maxlength=maxlength
+        }}
+
+        <span class="kt-input-icon__icon kt-input-icon__icon--right">
+            <span><i class="la la-calendar-check-o"></i></span>
+        </span>
+
+        {{#if showErrors}}
+            <div class="kt-font-danger">
+                {{errorMessages}}
+            </div>
+        {{/if}}
+    </div>
+</div>
